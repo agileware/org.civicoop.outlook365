@@ -18,7 +18,7 @@ The extension is licensed under [AGPL-3.0](LICENSE.txt).
 ## Documentation
 
 * [Getting started](docs/GettingStarted.md): tutorial on how to install this extension and how to add the Add-in to Outlook 365.
-*[How to add the phone number to Outlook 365](docs/HowToAddPhoneNumber.md): Tutorial explaining on how to add the phone number to Outlook 365. Or any other data from CiviCRM.
+* [How to add the phone number to Outlook 365](docs/HowToAddPhoneNumber.md): Tutorial explaining on how to add the phone number to Outlook 365. Or any other data from CiviCRM.
 
 ## How does this extension differs from the other Outlook intgeration?
 
