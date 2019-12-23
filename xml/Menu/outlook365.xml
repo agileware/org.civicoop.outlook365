@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/outlook365/manifest.xml</path>
+    <page_callback>CRM_Outlook365_Page_Manifest</page_callback>
+    <title>Manifest</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/outlook365/taskpane.html</path>
+    <page_callback>CRM_Outlook365_Page_Taskpane</page_callback>
+    <title>Taskpane</title>
+  </item>
+</menu>

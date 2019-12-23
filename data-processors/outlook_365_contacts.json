@@ -1,0 +1,108 @@
+{
+    "name": "outlook_365_contacts",
+    "title": "Outlook 365 Contacts",
+    "type": "default",
+    "is_active": "1",
+    "description": "Use this data processor to override what information is send to outlook 365.",
+    "configuration": [],
+    "storage_configuration": [],
+    "data_sources": [
+        {
+            "weight": "1",
+            "name": "contact",
+            "title": "Contact",
+            "type": "contact",
+            "configuration": {
+                "filter": {
+                    "do_not_email": {
+                        "op": "=",
+                        "value": "0"
+                    },
+                    "do_not_trade": {
+                        "op": "=",
+                        "value": "0"
+                    },
+                    "is_deceased": {
+                        "op": "=",
+                        "value": "0"
+                    },
+                    "is_deleted": {
+                        "op": "=",
+                        "value": "0"
+                    }
+                }
+            },
+            "join_configuration": []
+        },
+        {
+            "weight": "2",
+            "name": "e_mail",
+            "title": "E-mail",
+            "type": "email",
+            "configuration": {
+                "filter": {
+                    "is_primary": {
+                        "op": "=",
+                        "value": "1"
+                    }
+                }
+            },
+            "join_type": "simple_join",
+            "join_configuration": {
+                "left_prefix": "e_mail",
+                "left_field": "contact_id",
+                "right_prefix": "contact",
+                "right_field": "id"
+            }
+        }
+    ],
+    "filters": [
+        {
+            "weight": "1",
+            "name": "display_name",
+            "title": "Display Name",
+            "type": "multiple_field_filter",
+            "is_required": "0",
+            "is_exposed": "1",
+            "configuration": {
+                "fields": [
+                    "contact::contact_sort_name",
+                    "contact::contact_display_name"
+                ]
+            },
+            "filter_value": []
+        }
+    ],
+    "fields": [
+        {
+            "weight": "1",
+            "name": "display_name",
+            "title": "Display name",
+            "type": "raw",
+            "configuration": {
+                "field": "display_name",
+                "datasource": "contact"
+            }
+        },
+        {
+            "weight": "2",
+            "name": "email",
+            "title": "E-mail",
+            "type": "raw",
+            "configuration": {
+                "field": "email",
+                "datasource": "e_mail"
+            }
+        }
+    ],
+    "outputs": [
+        {
+            "type": "api",
+            "configuration": [],
+            "permission": "access CiviCRM",
+            "api_entity": "Outlook365Contact",
+            "api_action": "get",
+            "api_count_action": "getcount"
+        }
+    ]
+}

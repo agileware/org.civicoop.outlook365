@@ -1,0 +1,38 @@
+#search-form {
+  margin-bottom: 10px;
+}
+#contacts {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.ms-Persona-details {
+  padding-left: 0px;
+}
+.ms-Persona-details .ms-Button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#loadingContacts.ms-Spinner {
+  width: 80%;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+#search-form .ms-SearchBox.ms-SearchBox--commandBar {
+  width: 100%;
+}
+
+.ms-landing-page__footer {
+}
+.ms-landing-page__footer--left {
+  padding: 0px;
+  line-height: 15px;
+}
+.ms-landing-page__footer--left .ms-Icon {
+  padding: 15px;
+}
+.ms-landing-page__footer--left:active, .ms-landing-page__footer--left:hover {
+  cursor: pointer;
+}
