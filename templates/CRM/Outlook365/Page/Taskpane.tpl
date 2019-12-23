@@ -9,11 +9,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CiviCRM</title>
+  <script type="text/javascript">
+    var settingsDialogUrl = '{$baseurl}/outlook365/settings/dialog.html';
+  </script>
 
   <!-- Office JavaScript API -->
   <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
   <script type="text/javascript" src="{$baseurl}/assets/jquery-3.4.1.min.js"></script>
-  <script type="text/javascript" src="{$baseurl}/assets/URI.min.js"></script>
 
   <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.min.css" />
   <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.components.min.css" />
@@ -73,6 +75,7 @@
 </footer>
 
 <script>
+  {literal}
   var SpinnerElements = document.querySelectorAll(".ms-Spinner");
   for (var i = 0; i < SpinnerElements.length; i++) {
     new fabric['Spinner'](SpinnerElements[i]);
@@ -81,6 +84,7 @@
   for (var i = 0; i < SearchBoxElements.length; i++) {
     new fabric['SearchBox'](SearchBoxElements[i]);
   }
+  {/literal}
 </script>
 <script src="{$baseurl}/assets/UIStrings.js" type="text/javascript"></script>
 <script type="text/javascript" src="{$baseurl}/assets/taskpane.js"></script>

@@ -15,6 +15,13 @@ function outlook365_civicrm_pageRun(&$page) {
   }
 }
 
+function outlook365_civicrm_permission(&$permissions) {
+  $permissions['access outlook 365 pages'] = [
+      E::ts('Access Outlook 365 pages'),
+      E::ts('Give this permission to anonymous users.')
+    ];
+}
+
 /**
  * Implements hook_civicrm_config().
  *

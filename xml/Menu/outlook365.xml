@@ -10,5 +10,7 @@
     <path>civicrm/outlook365/taskpane.html</path>
     <page_callback>CRM_Outlook365_Page_Taskpane</page_callback>
     <title>Taskpane</title>
+    <is_public>true</is_public>
+    <access_arguments>access outlook 365 pages</access_arguments>
   </item>
 </menu>

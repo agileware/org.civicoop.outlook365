@@ -21,7 +21,6 @@
       $('#settings-icon .label').text(UIText.Settings);
 
       reset();
-      console.log(fields);
       if (config) {
         loadNextContacts();
       } else {
@@ -95,7 +94,6 @@
         }
       }
       $.getJSON(url, {}, function(result) {
-        console.log(result);
         fields = [];
         if (!result.is_error) {
           for (var i in result.values) {
@@ -107,7 +105,6 @@
               });
             }
           }
-          console.log(fields);
         }
       });
     }
@@ -257,7 +254,7 @@
      */
     function openSettingsDialog() {
       // Display settings dialog.
-      var url = new URI('../settings/dialog.html').absoluteTo(window.location).toString();
+      var url = settingsDialogUrl;
       if (config) {
         // If the add-in has already been configured, pass the existing values
         // to the dialog.

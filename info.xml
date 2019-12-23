@@ -24,4 +24,7 @@
   <civix>
     <namespace>CRM/Outlook365</namespace>
   </civix>
+  <requires>
+    <ext>dataprocessor</ext>
+  </requires>
 </extension>

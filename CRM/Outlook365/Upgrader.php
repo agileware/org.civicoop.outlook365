@@ -5,6 +5,16 @@ use CRM_Outlook365_ExtensionUtil as E;
  * Collection of upgrade steps.
  */
 class CRM_Outlook365_Upgrader extends CRM_Outlook365_Upgrader_Base {
+
+  /**
+   * Add the data processor from this extension
+   *
+   * @throws \CiviCRM_API3_Exception
+   */
+  public function postInstall() {
+    CRM_Dataprocessor_Utils_Extensions::updateDataProcessorsFromExtension('outlook365');
+  }
+
   /**
    * Look up extension dependency error messages and display as Core Session Status
    *
