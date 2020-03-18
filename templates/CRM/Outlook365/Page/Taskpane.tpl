@@ -10,18 +10,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CiviCRM</title>
   <script type="text/javascript">
-    var settingsDialogUrl = '{$baseurl}/outlook365/settings/dialog.html';
+    var settingsDialogUrl = '{$baseurl}outlook365/settings/dialog.html';
   </script>
 
   <!-- Office JavaScript API -->
   <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
-  <script type="text/javascript" src="{$baseurl}/assets/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="{$baseurl}assets/jquery-3.4.1.min.js"></script>
 
   <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.min.css" />
   <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.components.min.css" />
   <script type="text/javascript" src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/js/fabric.min.js"></script>
 
-  <link rel="stylesheet" href="{$baseurl}/assets/taskpane.css"/>
+  <link rel="stylesheet" href="{$baseurl}assets/taskpane.css"/>
 </head>
 
 <body class="ms-font-m ms-Fabric ms-landing-page">
@@ -86,8 +86,8 @@
   }
   {/literal}
 </script>
-<script src="{$baseurl}/assets/UIStrings.js" type="text/javascript"></script>
-<script type="text/javascript" src="{$baseurl}/assets/taskpane.js"></script>
+<script src="{$baseurl}assets/UIStrings.js" type="text/javascript"></script>
+<script type="text/javascript" src="{$baseurl}assets/taskpane.js"></script>
 </body>
 
 </html>

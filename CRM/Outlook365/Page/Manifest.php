@@ -8,7 +8,7 @@ class CRM_Outlook365_Page_Manifest extends CRM_Core_Page {
     CRM_Utils_System::setTitle(E::ts('Manifest'));
 
     $this->_print = CRM_Core_Smarty::PRINT_SNIPPET;
-    $baseUrl = rtrim(CRM_Utils_System::baseCMSURL(), '/').E::url('/');
+    $baseUrl = E::url('');
     $this->assign('baseurl', $baseUrl);
 
     self::$_template->assign('mode', $this->_mode);
@@ -26,7 +26,9 @@ class CRM_Outlook365_Page_Manifest extends CRM_Core_Page {
 
     CRM_Utils_System::setHttpHeader('Content-Type', 'application/xml');
     CRM_Utils_System::setHttpHeader('Content-Disposition', 'attachment; filename="manifest.xml"');
+
     echo $content;
+
     CRM_Utils_System::civiExit();
   }
 
