@@ -6,8 +6,8 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="CiviCRM"/>
   <Description DefaultValue="Integrate outlook 365 with CiviRM."/>
-  <IconUrl DefaultValue="{$baseurl}/assets/CiviCRM-icon-2019-F-small.png"/>
-  <HighResolutionIconUrl DefaultValue="{$baseurl}/assets/CiviCRM-icon-2019-F-small.png"/>
+  <IconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
+  <HighResolutionIconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
   <SupportUrl DefaultValue="https://www.contoso.com/help"/>
   <AppDomains>
     <AppDomain>civicrm.org</AppDomain>
@@ -23,7 +23,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="{crmURL p='civicrm/outlook365/taskpane.html' a=1}"/>
+        <SourceLocation DefaultValue="{crmURL p='civicrm/outlook365/taskpane.html' a=1 fe=1}"/>
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -69,12 +69,12 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="{$baseurl}/assets/CiviCRM-icon-2019-F-small.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="{$baseurl}/assets/CiviCRM-icon-2019-F-small.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="{$baseurl}/assets/CiviCRM-icon-2019-F-small.png"/>
+        <bt:Image id="Icon.16x16" DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Taskpane.Url" DefaultValue="{crmURL p='civicrm/outlook365/taskpane.html' a=1}"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="{crmURL p='civicrm/outlook365/taskpane.html' a=1 fe=1}"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="CiviCRM Contacts"/>
