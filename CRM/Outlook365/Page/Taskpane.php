@@ -9,7 +9,7 @@ class CRM_Outlook365_Page_Taskpane extends CRM_Core_Page {
 
     $this->_print = CRM_Core_Smarty::PRINT_SNIPPET;
     $baseUrl = E::url('');
-    $baseUrl = "https://a8aa6a8659da.ngrok.io/sites/default/files/civicrm/ext/outlook365/";
+    $baseUrl = "https://edd8b15fac1c.ngrok.io/sites/default/files/civicrm/ext/outlook365/";
     $this->assign('baseurl', $baseUrl);
     CRM_Core_Error::debug_var("baseUrltaskpane", $baseUrl);
 

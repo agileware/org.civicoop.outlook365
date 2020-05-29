@@ -32,11 +32,11 @@
     </div>
 
     <div class="ms-CommandBar-mainArea">
-      <div class="ms-CommandButton ms-CommandButton--pivot contacts is-active">
-              <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label">Contacts</span>  </a> 
+      <div class="ms-CommandButton ms-CommandButton--pivot is-active">
+              <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label contacts">Contacts</span>  </a> 
       </div>
-      <div class="ms-CommandButton ms-CommandButton--pivot groups">
-          <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label">Groups</span>  </a> 
+      <div class="ms-CommandButton ms-CommandButton--pivot">
+          <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label groups">Groups</span>  </a> 
       </div>
       <div id="search-form">
         <div class="ms-SearchBox ms-SearchBox--commandBar">
@@ -66,9 +66,9 @@
         </div>
       </div>
     </div>
-    <div id="contacts">
+    <div class="dataclass" id="contacts">
     </div>
-    <div id="groups">
+    <div class="dataclass" id="groups">
     </div>
 
     <div class="ms-Spinner" id="loadingContacts">

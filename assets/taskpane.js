@@ -3,7 +3,7 @@
   Office.initialize = function (reason) {
     var item = Office.context.mailbox.item;
     var currentOffset = 0;
-    var currentTab = "group"
+    var currentTab = "contacts"
     var moreAvailable = true;
     var search = false;
     var config = false;
@@ -24,16 +24,12 @@
       reset();
       if (config) {
         loadNextContacts();
-        loadNextGroups();
       } else {
         openSettingsDialog();
       }
 
       $('#settings-icon').on('click', openSettingsDialog);
-      $('.ms-CommandButton--pivot span').on('click', function(event) {
-          console.log(event.target.className)
-          console.log(event)
-      });
+      $('.ms-CommandButton--pivot span').on('click', handleTabChange);
     });
 
     $('#searchField').on("keypress", function(e) {
@@ -48,10 +44,31 @@
     $(window).scroll(function() {
       if($(window).scrollTop() == $(document).height() - $(window).height()) {
         // ajax call get data from server and append to the div
-        if(currentTab=="contact")
+        if(currentTab=="contacts"){
           loadNextContacts();
+        }
+        else if (currentTab=="groups"){
+          loadNextGroups();
+        }
       }
     });
+
+    function handleTabChange(event){
+      let classes = event.target.className.split(" ")
+      currentTab = classes[classes.length - 1]
+      let parentselector = $($(event.target).parent()).parent()
+      $(".ms-CommandButton.ms-CommandButton--pivot").removeClass("is-active")
+      parentselector.addClass("is-active")
+      $(".dataclass").empty()
+      reset()
+      if( currentTab === "contacts"){
+        loadNextContacts()
+      }
+      else if(currentTab === "groups"){
+        loadNextGroups()
+      }
+
+    }
 
     /**
      * Reset the contact list
@@ -67,17 +84,20 @@
       }
       $('#loadingContacts').hide();
       $('#contacts').html('');
+      $('#groups').html('');
       currentOffset = 0;
       moreAvailable = true;
       search = false;
       fields = [];
-      getFields();
+      if(currentTab === "contacts"){
+        getContactFields();
+      }
     }
 
     /**
      * Retrieve next batch of contacts.
      */
-    function getFields() {
+    function getContactFields() {
       if (!config) {
         return;
       }
@@ -120,6 +140,7 @@
      * Retrieve next batch of Groups.
      */
     function loadNextGroups() {
+
       if (!moreAvailable || !config) {
         return;
       }
@@ -157,6 +178,7 @@
      * @param data
      */
     function addGroups(data) {
+      console.log(data)
       if (data.is_error == 0) {
         for(var i in data.values) {
           var group = data.values[i];
@@ -240,7 +262,7 @@
      * Retrieve next batch of groups.
      */
     function loadNextContacts() {
-      if (!config) {
+      if (!moreAvailable || !config) {
         return;
       }
       $('#loadingContacts').show();
@@ -254,7 +276,7 @@
           "sequential": 1,
           "options": {
             "offset": currentOffset,
-            "limit": 5,
+            "limit": 25,
           }
         }
       };
@@ -277,6 +299,7 @@
      * @param data
      */
     function addContacts(data) {
+      console.log(data.count)
       $('#loadingContacts').hide();
       if (data.is_error == 0) {
         for(var i in data.values) {
@@ -294,14 +317,13 @@
           }
 
           var secondaryFields = '';
-          for(var fieldI in fields) {
-            var fieldName = fields[fieldI].name;
-            var value = contact[fieldName];
-            if (value) {
-              secondaryFields = secondaryFields + '<div class="ms-Persona-secondaryText"><strong>' + fields[fieldI].title + ':</strong>&nbsp;' + value + '</div>';
-            }
-          }
-
+          // for(var fieldI in fields) {
+          //   var fieldName = fields[fieldI].name;
+          //   var value = contact[fieldName];
+          //   if (value) {
+          //     secondaryFields = secondaryFields + '<div class="ms-Persona-secondaryText"><strong>' + fields[fieldI].title + ':</strong>&nbsp;' + value + '</div>';
+          //   }
+          // }
           var html = '' +
             '<div class="ms-Persona">'+
             '<div class="ms-Persona-details">' +
