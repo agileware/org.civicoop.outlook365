@@ -3,6 +3,7 @@
   Office.initialize = function (reason) {
     var item = Office.context.mailbox.item;
     var currentOffset = 0;
+    var currentTab = "group"
     var moreAvailable = true;
     var search = false;
     var config = false;
@@ -23,11 +24,16 @@
       reset();
       if (config) {
         loadNextContacts();
+        loadNextGroups();
       } else {
         openSettingsDialog();
       }
 
       $('#settings-icon').on('click', openSettingsDialog);
+      $('.ms-CommandButton--pivot span').on('click', function(event) {
+          console.log(event.target.className)
+          console.log(event)
+      });
     });
 
     $('#searchField').on("keypress", function(e) {
@@ -42,7 +48,8 @@
     $(window).scroll(function() {
       if($(window).scrollTop() == $(document).height() - $(window).height()) {
         // ajax call get data from server and append to the div
-        loadNextContacts();
+        if(currentTab=="contact")
+          loadNextContacts();
       }
     });
 
@@ -110,10 +117,130 @@
     }
 
     /**
-     * Retrieve next batch of contacts.
+     * Retrieve next batch of Groups.
+     */
+    function loadNextGroups() {
+      if (!moreAvailable || !config) {
+        return;
+      }
+      var url = config.url + '?';
+      var data = {
+        "entity": "Group",
+        "action": "get",
+        "api_key": config.apikey,
+        "key": config.sitekey,
+        "json": {
+          "sequential": 1,
+          "return": ["id","name"],
+          "options": {
+            "offset": currentOffset,
+            "limit": 25,
+          }
+        }
+      };
+      // if (search) {
+      //   data.json.display_name = {"LIKE": '%'+search+'%'};
+      // }
+      for(var prop in data) {
+        if (prop == 'json') {
+          url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+        } else {
+          url = url + '&' + prop + '=' + data[prop];
+        }
+      }
+      $.getJSON(url, {}, addGroups);
+    }
+
+    /**
+     * Add the group to the list.
+     *
+     * @param data
+     */
+    function addGroups(data) {
+      if (data.is_error == 0) {
+        for(var i in data.values) {
+          var group = data.values[i];
+          var name = group.name;
+          var id = group.id
+           
+          var buttons = '<button class="ms-Button ms-Button--small to"><span class="ms-Button-label">'+UIText.To+'</span></button>' +
+                        '<button class="ms-Button ms-Button--small cc"><span class="ms-Button-label">'+UIText.Cc+'</span></button>' +
+                        '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">'+UIText.Bcc+'</span></button>';
+          buttons = '<div class="CiviCRM-Group-Email" data-civicrm-id="'+id+'" data-civicrm-name="'+name+'">'+buttons+'</div>';
+
+          var html = '' +
+            '<div class="ms-Persona">'+
+            '<div class="ms-Persona-details">' +
+            '<div class="ms-Persona-primaryText">' + name + '</div>' +
+            '<div class="ms-Persona-secondaryText">' + buttons + '</div>' 
+            '</div>' +
+            '</div>';
+          $('#groups').append(html);
+        }
+
+        $("#groups .ms-Button.to").click(function() {
+          var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
+          var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
+          var recipients = item.to;
+          addGroupContacts(id,recipients);
+        });
+        $("#groups .ms-Button.cc").click(function() {
+          var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
+          var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
+          var recipients = item.cc;
+          addGroupContacts(id,recipients);
+        });
+        $("#groups .ms-Button.bcc").click(function() {
+          var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
+          var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
+          var recipients = item.bcc;
+          addGroupContacts(id,recipients);
+        });
+
+      }
+    }
+    /**
+     * Add group contacts.
+     */
+
+     function addGroupContacts(groupId,recipients) {
+        var url = config.url + '?';
+        var data = {
+          "entity": "Outlook365Group",
+          "action": "get",
+          "api_key": config.apikey,
+          "key": config.sitekey,
+          "json": {
+            "sequential": 1,
+            "options": {
+              "limit": 0,
+            },
+            "group_id":groupId,
+          }
+        };
+        for(var prop in data) {
+          if (prop == 'json') {
+            url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+          } else {
+            url = url + '&' + prop + '=' + data[prop];
+          }
+        }
+        $.getJSON(url, {}, function(data){
+          for(var i in data.values){
+            var contact = data.values[i]
+            addReiever(recipients, contact.email, contact.display_name);
+          }
+        });
+
+     }
+
+
+
+    /**
+     * Retrieve next batch of groups.
      */
     function loadNextContacts() {
-      if (!moreAvailable || !config) {
+      if (!config) {
         return;
       }
       $('#loadingContacts').show();
@@ -127,7 +254,7 @@
           "sequential": 1,
           "options": {
             "offset": currentOffset,
-            "limit": 25,
+            "limit": 5,
           }
         }
       };
@@ -272,6 +399,7 @@
             settingsDialog = null;
             reset();
             loadNextContacts();
+            loadNextGroups();
           });
         });
       });

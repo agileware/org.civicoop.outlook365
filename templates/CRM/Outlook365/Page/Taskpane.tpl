@@ -31,34 +31,44 @@
       <div class="ms-font-l" id="settings-prompt"></div>
     </div>
 
-    <div id="search-form">
-      <div class="ms-SearchBox ms-SearchBox--commandBar">
-        <input class="ms-SearchBox-field" id="searchField" type="text" value="">
-        <label class="ms-SearchBox-label">
-          <i class="ms-SearchBox-icon ms-Icon ms-Icon--Search"></i>
-          <span class="ms-SearchBox-text">Search</span>
-        </label>
-        <div class="ms-CommandButton ms-SearchBox-clear ms-CommandButton--noLabel">
-          <button class="ms-CommandButton-button">
-            <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Clear"></i></span>
-            <span class="ms-CommandButton-label"></span>
-          </button>
-        </div>
-        <div class="ms-CommandButton ms-SearchBox-exit ms-CommandButton--noLabel">
-          <button class="ms-CommandButton-button">
-            <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--ChromeBack"></i></span>
-            <span class="ms-CommandButton-label"></span>
-          </button>
-        </div>
-        <div class="ms-CommandButton ms-SearchBox-filter ms-CommandButton--noLabel">
-          <button class="ms-CommandButton-button">
-            <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Filter"></i></span>
-            <span class="ms-CommandButton-label"></span>
-          </button>
+    <div class="ms-CommandBar-mainArea">
+      <div class="ms-CommandButton ms-CommandButton--pivot contacts is-active">
+              <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label">Contacts</span>  </a> 
+      </div>
+      <div class="ms-CommandButton ms-CommandButton--pivot groups">
+          <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label">Groups</span>  </a> 
+      </div>
+      <div id="search-form">
+        <div class="ms-SearchBox ms-SearchBox--commandBar">
+          <input class="ms-SearchBox-field" id="searchField" type="text" value="">
+          <label class="ms-SearchBox-label">
+            <i class="ms-SearchBox-icon ms-Icon ms-Icon--Search"></i>
+            <span class="ms-SearchBox-text">Search</span>
+          </label>
+          <div class="ms-CommandButton ms-SearchBox-clear ms-CommandButton--noLabel">
+            <button class="ms-CommandButton-button">
+              <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Clear"></i></span>
+              <span class="ms-CommandButton-label"></span>
+            </button>
+          </div>
+          <div class="ms-CommandButton ms-SearchBox-exit ms-CommandButton--noLabel">
+            <button class="ms-CommandButton-button">
+              <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--ChromeBack"></i></span>
+              <span class="ms-CommandButton-label"></span>
+            </button>
+          </div>
+          <div class="ms-CommandButton ms-SearchBox-filter ms-CommandButton--noLabel">
+            <button class="ms-CommandButton-button">
+              <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Filter"></i></span>
+              <span class="ms-CommandButton-label"></span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
     <div id="contacts">
+    </div>
+    <div id="groups">
     </div>
 
     <div class="ms-Spinner" id="loadingContacts">
@@ -66,6 +76,7 @@
         Loading...
       </div>
     </div>
+    
   </section>
 </main>
 <footer class="ms-landing-page__footer ms-bgColor-neutralLighter ms-bgColor-neutralLight--hover">
@@ -86,7 +97,7 @@
   }
   {/literal}
 </script>
-<script src="{$baseurl}assets/UIStrings.js" type="text/javascript"></script>
+<script type="text/javascript" src="{$baseurl}assets/UIStrings.js"></script>
 <script type="text/javascript" src="{$baseurl}assets/taskpane.js"></script>
 </body>
 
