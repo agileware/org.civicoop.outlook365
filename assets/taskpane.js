@@ -29,14 +29,39 @@
       }
 
       $('#settings-icon').on('click', openSettingsDialog);
+      $('#reset').on('click', clearRecipients);
       $('.ms-CommandButton--pivot span').on('click', handleTabChange);
+    });
+
+    $("body").delegate(".ms-ListItem", "click", function(event){
+        if($(event.target).hasClass('is-selected')){
+          $(event.target).removeClass('is-selected');
+        } 
+        else{
+          $(event.target).addClass('is-selected');
+        }
+    });
+
+    $("body").delegate(".selectAll", "click", function(event){
+        let parentElement = $(event.target).closest(".allData").parent()
+        parentElement.children("ul").children(".ms-ListItem").addClass("is-selected")
+    });
+
+    $("body").delegate(".unselectAll", "click", function(event){
+        let parentElement = $(event.target).closest(".allData").parent()
+        parentElement.children("ul").children(".ms-ListItem").removeClass("is-selected")
     });
 
     $('#searchField').on("keypress", function(e) {
       if (e.keyCode == 13) {
         reset();
         search = $(this).val();
-        loadNextContacts();
+        if(currentTab==="contacts"){
+          loadNextContacts();
+        }
+        else if (currentTab==="groups"){
+          loadNextGroups();
+        }
         return false; // prevent the button click from happening
       }
     });
@@ -44,10 +69,10 @@
     $(window).scroll(function() {
       if($(window).scrollTop() == $(document).height() - $(window).height()) {
         // ajax call get data from server and append to the div
-        if(currentTab=="contacts"){
+        if(currentTab==="contacts"){
           loadNextContacts();
         }
-        else if (currentTab=="groups"){
+        else if (currentTab==="groups"){
           loadNextGroups();
         }
       }
@@ -55,18 +80,25 @@
 
     function handleTabChange(event){
       let classes = event.target.className.split(" ")
-      currentTab = classes[classes.length - 1]
+      let targetTab = classes[classes.length - 1]
+      if(targetTab === "settings"){
+        return 
+      }
+      currentTab = targetTab
       let parentselector = $($(event.target).parent()).parent()
       $(".ms-CommandButton.ms-CommandButton--pivot").removeClass("is-active")
       parentselector.addClass("is-active")
       $(".dataclass").empty()
       reset()
-      if( currentTab === "contacts"){
+      if(currentTab === "contacts"){
+        $("#search-form").show()
         loadNextContacts()
       }
       else if(currentTab === "groups"){
+        $("#search-form").show()
         loadNextGroups()
       }
+      
 
     }
 
@@ -80,7 +112,9 @@
         $('#search-form').hide();
       } else {
         $('.not-configured-warning').hide();
-        $('#search-form').show();
+        if(currentTab!=="settings"){
+          $('#search-form').show();
+        }
       }
       $('#loadingContacts').hide();
       $('#contacts').html('');
@@ -159,16 +193,16 @@
           }
         }
       };
-      // if (search) {
-      //   data.json.display_name = {"LIKE": '%'+search+'%'};
-      // }
+      if (search) {
+        data.json.name = {"LIKE": '%'+search+'%'};
+      }
       for(var prop in data) {
         if (prop == 'json') {
-          url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+          url = url + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
         } else {
           url = url + '&' + prop + '=' + data[prop];
         }
-      }
+      } 
       $.getJSON(url, {}, addGroups);
     }
 
@@ -178,16 +212,17 @@
      * @param data
      */
     function addGroups(data) {
-      console.log(data)
+
       if (data.is_error == 0) {
         for(var i in data.values) {
           var group = data.values[i];
           var name = group.name;
+          var idname = name.replace(" ","-").toLowerCase();
           var id = group.id
-           
           var buttons = '<button class="ms-Button ms-Button--small to"><span class="ms-Button-label">'+UIText.To+'</span></button>' +
                         '<button class="ms-Button ms-Button--small cc"><span class="ms-Button-label">'+UIText.Cc+'</span></button>' +
-                        '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">'+UIText.Bcc+'</span></button>';
+                        '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">'+UIText.Bcc+'</span></button>'+
+                         '<i class="ms-Icon ms-Icon--ChevronRight" id="'+idname + '-expand-groups" style="padding: 6px"></i>';
           buttons = '<div class="CiviCRM-Group-Email" data-civicrm-id="'+id+'" data-civicrm-name="'+name+'">'+buttons+'</div>';
 
           var html = '' +
@@ -198,28 +233,110 @@
             '</div>' +
             '</div>';
           $('#groups').append(html);
+
+        $('#'+idname+'-expand-groups').on('click', expandGroups);
         }
 
-        $("#groups .ms-Button.to").click(function() {
-          var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
-          var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
-          var recipients = item.to;
-          addGroupContacts(id,recipients);
-        });
-        $("#groups .ms-Button.cc").click(function() {
-          var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
-          var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
-          var recipients = item.cc;
-          addGroupContacts(id,recipients);
-        });
-        $("#groups .ms-Button.bcc").click(function() {
-          var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
-          var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
-          var recipients = item.bcc;
-          addGroupContacts(id,recipients);
-        });
+        // $("#groups .ms-Button.to").click(function() {
+        //   var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
+        //   var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
+        //   var recipients = item.to;
+        //   addGroupContacts(id,recipients);
+        // });
+        // $("#groups .ms-Button.cc").click(function() {
+        //   var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
+        //   var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
+        //   var recipients = item.cc;
+        //   addGroupContacts(id,recipients);
+        // });
+        // $("#groups .ms-Button.bcc").click(function() {
+        //   var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
+        //   var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
+        //   var recipients = item.bcc;
+        //   addGroupContacts(id,recipients);
+        // });
+
+		if (data.count < 25) {
+        	moreAvailable = false;
+      	}
 
       }
+    }
+
+    function expandGroups(event){
+      if($(this).parent().hasClass("expanded")){
+          $(this).parent().removeClass('expanded')
+          $(this).parent().children("ul").empty()
+          $(this).attr('class', 'ms-Icon ms-Icon--ChevronRight');
+          return;
+      }
+      $(this).parent().addClass('expanded')
+    	let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ","-").toLowerCase();
+    	let id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
+      // $(this).parent().append('<div id="' + name + '-expanded-groups"></div>');
+      var url = config.url + '?';
+        var data = {
+          "entity": "Outlook365Group",
+          "action": "get",
+          "api_key": config.apikey,
+          "key": config.sitekey,
+          "json": {
+            "sequential": 1,
+            "options": {
+              "limit": 0,
+            },
+            "group_id":id,
+          }
+        };
+        for(var prop in data) {
+          if (prop == 'json') {
+            url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+          } else {
+            url = url + '&' + prop + '=' + data[prop];
+          }
+        }
+
+        $(event.target).parent().append('<div class="allData"><button class="ms-Button ms-Button--small selectAll"><span class="ms-Button-label">Select All</span></button>' +
+                                        '<button class="ms-Button ms-Button--small"><span class="ms-Button-label unselectAll">Unselect All</span></button></div>')
+        $.getJSON(url, {}, function(data){
+          let html = ''
+          for(var i in data.values){
+            var contact = data.values[i]
+            html += '<li class="ms-ListItem is-selectable" data-civicrm-name="'+contact.display_name+
+                        '" data-civicrm-email="'+contact.email+'">'+
+                        contact.display_name+
+                        '<div class="ms-ListItem-selectionTarget"></div></li>'
+            // break
+          }
+          $(event.target).parent().append('<ul class="ms-List ' +name +'-list-email">'+html+'</ul>')
+        });
+
+        // to get smoothness change class after query
+        $(this).attr('class', 'ms-Icon ms-Icon--ChevronDown');
+
+
+
+
+        $("#groups .ms-Button.to").click(function(event) {
+          let toSend = []
+          var recipients = item.to
+          $('.'+name+'-list-email').children().each(function (index) {
+              if($(this).hasClass('is-selected')){
+                let contact = $(this)
+                toSend.push([contact.data('civicrm-name'),contact.data('civicrm-email')])
+              }
+
+          });
+          for(var iter in toSend){
+            addReiever(recipients, toSend[iter][1], toSend[iter][0]);
+          }
+        });
+    	
+    }
+    
+
+    function toggleFunction(event){
+      console.log(event)
     }
     /**
      * Add group contacts.
@@ -259,7 +376,7 @@
 
 
     /**
-     * Retrieve next batch of groups.
+     * Retrieve next batch of contacts.
      */
     function loadNextContacts() {
       if (!moreAvailable || !config) {
@@ -299,7 +416,6 @@
      * @param data
      */
     function addContacts(data) {
-      console.log(data.count)
       $('#loadingContacts').hide();
       if (data.is_error == 0) {
         for(var i in data.values) {
@@ -360,13 +476,47 @@
       }
     }
 
-    /**
-     * Add the contact to the To, CC or BCC part of the compose e-mail.
-     *
-     * @param recipients
-     * @param email
-     * @param name
-     */
+    function clearRecipients() {
+    	var toRecipients, ccRecipients, bccRecipients;
+    	if (item.itemType == Office.MailboxEnums.ItemType.Appointment) {
+	        toRecipients = item.requiredAttendees;
+	        ccRecipients = item.optionalAttendees;
+	    }
+	    else {
+	        toRecipients = item.to;
+	        ccRecipients = item.cc;
+	        bccRecipients = item.bcc;
+	    }
+
+	    toRecipients.setAsync([],
+	        function (asyncResult) {
+	            if (asyncResult.status == Office.AsyncResultStatus.Failed){
+	                write(asyncResult.error.message);
+	            }
+	            else {
+	            }    
+	    }); 
+
+	    ccRecipients.setAsync([],
+	        function (asyncResult) {
+	            if (asyncResult.status == Office.AsyncResultStatus.Failed){
+	                write(asyncResult.error.message);
+	            }
+	            else {
+	            }    
+	    });
+
+	    bccRecipients.setAsync([],
+	        function (asyncResult) {
+	            if (asyncResult.status == Office.AsyncResultStatus.Failed){
+	                write(asyncResult.error.message);
+	            }
+	            else {
+	            }    
+	    }); 
+
+    }
+
     function addReiever(recipients, email, name) {
       var data = [
         {
@@ -420,8 +570,12 @@
             settingsDialog.close();
             settingsDialog = null;
             reset();
-            loadNextContacts();
-            loadNextGroups();
+            if(currentTab==="contacts"){
+              loadNextContacts();
+            } 
+            else if(currentTab==="groups"){
+              loadNextGroups();  
+            }
           });
         });
       });

@@ -33,10 +33,15 @@
 
     <div class="ms-CommandBar-mainArea">
       <div class="ms-CommandButton ms-CommandButton--pivot is-active">
-              <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label contacts">Contacts</span>  </a> 
+          <!-- <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label contacts">Contacts</span>  </a>  -->
+          <i class="ms-Icon ms-Icon--Contact" aria-hidden="true" ><span class="ms-font-l contacts">Contacts</span></i>
       </div>
       <div class="ms-CommandButton ms-CommandButton--pivot">
-          <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label groups">Groups</span>  </a> 
+          <!-- <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label groups">Groups</span>  </a>  -->
+          <i class="ms-Icon ms-Icon--Group" aria-hidden="true"><span class="ms-font-l groups">Groups</span></i>
+      </div>
+      <div class="ms-CommandButton ms-CommandButton--pivot" id="settings-icon">
+          <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">Settings</span>  </i> 
       </div>
       <div id="search-form">
         <div class="ms-SearchBox ms-SearchBox--commandBar">
@@ -65,6 +70,14 @@
           </div>
         </div>
       </div>
+      <div >
+        <button class="ms-Button ms-Button--small" id="reset">
+          <span class="ms-Button-label">Reset</span> 
+        </button>
+      </div>
+    </div>
+    <div class="dataclass">
+      <br>
     </div>
     <div class="dataclass" id="contacts">
     </div>
@@ -73,17 +86,18 @@
 
     <div class="ms-Spinner" id="loadingContacts">
       <div class="ms-Spinner-label">
+        <br>
         Loading...
       </div>
     </div>
     
   </section>
 </main>
-<footer class="ms-landing-page__footer ms-bgColor-neutralLighter ms-bgColor-neutralLight--hover">
+<!-- <footer class="ms-landing-page__footer ms-bgColor-neutralLighter ms-bgColor-neutralLight--hover">
   <div id="settings-icon" class="ms-landing-page__footer--left ms-bgColor-neutralLight--hover ms-fontColor-neutralDark ms-fontColor-neutralDarker--hover" aria-label="Settings" tabindex=0>
     <i class="ms-Icon enlarge ms-Icon--Settings "></i><span class="label"></span>
   </div>
-</footer>
+</footer> -->
 
 <script>
   {literal}

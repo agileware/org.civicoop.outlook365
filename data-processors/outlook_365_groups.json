@@ -1,0 +1,174 @@
+{
+    "name": "outlook_365_groups",
+    "title": "Outlook 365 Groups",
+    "type": "default",
+    "is_active": "1",
+    "description": "Use this data processor to override what information is send to outlook 365.",
+    "configuration": [],
+    "storage_configuration": [],
+    "data_sources": [
+        {
+            "weight": "1",
+            "name": "group",
+            "title": "Group",
+            "type": "group",
+            "configuration": {
+                "filter": []
+            },
+            "join_configuration": []
+        },
+        {
+            "weight": "2",
+            "name": "contacts_in_a_group",
+            "title": "Contacts in a group",
+            "type": "group_contact",
+            "configuration": {
+                "filter": []
+            },
+            "join_type": "simple_join",
+            "join_configuration": {
+                "left_prefix": "contacts_in_a_group",
+                "left_field": "contacts_in_a_group_group_id",
+                "right_prefix": "group",
+                "right_field": "group_id"
+            }
+        },
+        {
+            "weight": "3",
+            "name": "e_mail",
+            "title": "E-mail",
+            "type": "email",
+            "configuration": {
+                "filter": {
+                    "is_primary": {
+                        "op": "=",
+                        "value": "1"
+                    }
+                }
+            },
+            "join_type": "simple_join",
+            "join_configuration": {
+                "left_prefix": "e_mail",
+                "left_field": "e_mail_contact_id",
+                "right_prefix": "contacts_in_a_group",
+                "right_field": "contacts_in_a_group_contact_id"
+            }
+        },
+        {
+            "weight": "4",
+            "name": "contact",
+            "title": "Contact",
+            "type": "contact",
+            "configuration": {
+                "filter": {
+                    "is_deleted": {
+                        "op": "=",
+                        "value": "0"
+                    }
+                }
+            },
+            "join_type": "simple_join",
+            "join_configuration": {
+                "left_prefix": "contact",
+                "left_field": "contact_id",
+                "right_prefix": "contacts_in_a_group",
+                "right_field": "contacts_in_a_group_contact_id"
+            }
+        }
+    ],
+    "filters": [
+        {
+            "weight": "1",
+            "name": "group_id",
+            "title": "Group ID",
+            "type": "simple_sql_filter",
+            "is_required": "0",
+            "is_exposed": "1",
+            "configuration": {
+                "field": "group_id",
+                "datasource": "group"
+            },
+            "filter_value": []
+        },
+        {
+            "weight": "2",
+            "name": "group_name",
+            "title": "Group Name",
+            "type": "simple_sql_filter",
+            "is_required": "0",
+            "is_exposed": "1",
+            "configuration": {
+                "field": "group_name",
+                "datasource": "group"
+            },
+            "filter_value": []
+        }
+    ],
+    "fields": [
+        {
+            "weight": "1",
+            "name": "group_name",
+            "title": "Group Name",
+            "type": "raw",
+            "configuration": {
+                "field": "group_name",
+                "datasource": "group",
+                "is_aggregate": ""
+            }
+        },
+        {
+            "weight": "2",
+            "name": "contact_id",
+            "title": "Contact ID",
+            "type": "raw",
+            "configuration": {
+                "field": "contacts_in_a_group_contact_id",
+                "datasource": "contacts_in_a_group",
+                "is_aggregate": ""
+            }
+        },
+        {
+            "weight": "3",
+            "name": "group_id",
+            "title": "Group ID",
+            "type": "raw",
+            "configuration": {
+                "field": "contacts_in_a_group_group_id",
+                "datasource": "contacts_in_a_group",
+                "is_aggregate": ""
+            }
+        },
+        {
+            "weight": "4",
+            "name": "email",
+            "title": "Email",
+            "type": "raw",
+            "configuration": {
+                "field": "e_mail_email",
+                "datasource": "e_mail",
+                "is_aggregate": ""
+            }
+        },
+        {
+            "weight": "5",
+            "name": "display_name",
+            "title": "Display Name",
+            "type": "raw",
+            "configuration": {
+                "field": "contact_display_name",
+                "datasource": "contact",
+                "is_aggregate": ""
+            }
+        }
+    ],
+    "outputs": [
+        {
+            "type": "api",
+            "configuration": [],
+            "permission": "access CiviCRM",
+            "api_entity": "Outlook365Group",
+            "api_action": "get",
+            "api_count_action": "getcount"
+        }
+    ]
+}
