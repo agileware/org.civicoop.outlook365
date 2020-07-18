@@ -78,6 +78,9 @@
       }
     });
 
+    /**
+      * Handle Tab Change
+    */
     function handleTabChange(event){
       let classes = event.target.className.split(" ")
       let targetTab = classes[classes.length - 1]
@@ -99,7 +102,38 @@
         loadNextGroups()
       }
       
+    }
 
+    function getSearchForm(id){
+      let html = '<div id="group_search_' + id + '">'+
+        '<div class="ms-SearchBox ms-SearchBox--commandBar">'+
+          '<input class="ms-SearchBox-field" id="groupSearchField" type="text" value="">'+
+          '<label class="ms-SearchBox-label">'+
+            '<i class="ms-SearchBox-icon ms-Icon ms-Icon--Search"></i>'+
+            '<span class="ms-SearchBox-text">Search</span>'+
+          '</label>'+
+          '<div class="ms-CommandButton ms-SearchBox-clear ms-CommandButton--noLabel">'+
+            '<button class="ms-CommandButton-button">'+
+              '<span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Clear"></i></span>'+
+              '<span class="ms-CommandButton-label"></span>'+
+            '</button>'+
+          '</div>'+
+          '<div class="ms-CommandButton ms-SearchBox-exit ms-CommandButton--noLabel">'+
+            '<button class="ms-CommandButton-button">'+
+              '<span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--ChromeBack"></i></span>'+
+              '<span class="ms-CommandButton-label"></span>'+
+            '</button>'+
+          '</div>'+
+          '<div class="ms-CommandButton ms-SearchBox-filter ms-CommandButton--noLabel">'+
+            '<button class="ms-CommandButton-button">'+
+              '<span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Filter"></i></span>'+
+              '<span class="ms-CommandButton-label"></span>'+
+            '</button>'+
+          '</div>'+
+        '</div>'+
+      '</div>'
+
+      return html
     }
 
     /**
@@ -237,45 +271,29 @@
         $('#'+idname+'-expand-groups').on('click', expandGroups);
         }
 
-        // $("#groups .ms-Button.to").click(function() {
-        //   var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
-        //   var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
-        //   var recipients = item.to;
-        //   addGroupContacts(id,recipients);
-        // });
-        // $("#groups .ms-Button.cc").click(function() {
-        //   var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
-        //   var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
-        //   var recipients = item.cc;
-        //   addGroupContacts(id,recipients);
-        // });
-        // $("#groups .ms-Button.bcc").click(function() {
-        //   var id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
-        //   var name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name');
-        //   var recipients = item.bcc;
-        //   addGroupContacts(id,recipients);
-        // });
-
-		if (data.count < 25) {
-        	moreAvailable = false;
-      	}
+        if (data.count < 25) {
+          moreAvailable = false;
+        }
 
       }
     }
 
-    function expandGroups(event){
+    async function expandGroups(event){
       if($(this).parent().hasClass("expanded")){
+          let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ","-").toLowerCase();
           $(this).parent().removeClass('expanded')
-          $(this).parent().children("ul").empty()
+          $(this).parent().children(".allData").remove()
+          $(this).parent().children("#group_search_"+name).remove()
+          $(this).parent().children("ul").remove()
           $(this).attr('class', 'ms-Icon ms-Icon--ChevronRight');
           return;
       }
       $(this).parent().addClass('expanded')
-    	let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ","-").toLowerCase();
-    	let id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
+      let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ","-").toLowerCase();
+      let id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
       // $(this).parent().append('<div id="' + name + '-expanded-groups"></div>');
       var url = config.url + '?';
-        var data = {
+      var data = {
           "entity": "Outlook365Group",
           "action": "get",
           "api_key": config.apikey,
@@ -295,27 +313,20 @@
             url = url + '&' + prop + '=' + data[prop];
           }
         }
+        let html = await getGroupContacts(url)
+
 
         $(event.target).parent().append('<div class="allData"><button class="ms-Button ms-Button--small selectAll"><span class="ms-Button-label">Select All</span></button>' +
                                         '<button class="ms-Button ms-Button--small"><span class="ms-Button-label unselectAll">Unselect All</span></button></div>')
-        $.getJSON(url, {}, function(data){
-          let html = ''
-          for(var i in data.values){
-            var contact = data.values[i]
-            html += '<li class="ms-ListItem is-selectable" data-civicrm-name="'+contact.display_name+
-                        '" data-civicrm-email="'+contact.email+'">'+
-                        contact.display_name+
-                        '<div class="ms-ListItem-selectionTarget"></div></li>'
-            // break
-          }
-          $(event.target).parent().append('<ul class="ms-List ' +name +'-list-email">'+html+'</ul>')
-        });
+        $(event.target).parent().append(getSearchForm(name))
+        $("#group_search_"+name+" .ms-SearchBox-text").text("");
+
+        $(event.target).parent().append('<ul class="ms-List ' +name +'-list-email">'+html+'</ul>')
+
+
 
         // to get smoothness change class after query
         $(this).attr('class', 'ms-Icon ms-Icon--ChevronDown');
-
-
-
 
         $("#groups .ms-Button.to").click(function(event) {
           let toSend = []
@@ -331,49 +342,44 @@
             addReiever(recipients, toSend[iter][1], toSend[iter][0]);
           }
         });
-    	
-    }
-    
 
-    function toggleFunction(event){
-      console.log(event)
+        $("#group_search_"+name+" #groupSearchField").on("keypress", async function(e) {
+            if (e.keyCode == 13) {
+              let newUrl = config.url + '?';
+              let groupSearchVal = $(this).val();
+              console.log(groupSearchVal)
+              if (groupSearchVal!='') {
+                data.json.display_name = {"LIKE": '%'+groupSearchVal+'%'};
+              } 
+              for(var prop in data) {
+                if (prop == 'json') {
+                  newUrl = newUrl + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
+                } else {
+                  newUrl = newUrl + '&' + prop + '=' + data[prop];
+                }
+              }
+              let newHtml = await getGroupContacts(newUrl)
+              $("."+name +'-list-email').html(newHtml)
+              console.log(newHtml)
+              return false; // prevent the button click from happening
+            }
+          });
     }
-    /**
-     * Add group contacts.
-     */
 
-     function addGroupContacts(groupId,recipients) {
-        var url = config.url + '?';
-        var data = {
-          "entity": "Outlook365Group",
-          "action": "get",
-          "api_key": config.apikey,
-          "key": config.sitekey,
-          "json": {
-            "sequential": 1,
-            "options": {
-              "limit": 0,
-            },
-            "group_id":groupId,
-          }
-        };
-        for(var prop in data) {
-          if (prop == 'json') {
-            url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
-          } else {
-            url = url + '&' + prop + '=' + data[prop];
-          }
-        }
-        $.getJSON(url, {}, function(data){
+    async function getGroupContacts(url){
+      var html =''
+      await $.getJSON(url, {}, function(data){
           for(var i in data.values){
             var contact = data.values[i]
-            addReiever(recipients, contact.email, contact.display_name);
+            html += '<li class="ms-ListItem is-selectable" data-civicrm-name="'+contact.display_name+
+                        '" data-civicrm-email="'+contact.email+'">'+
+                        contact.display_name+
+                        '<div class="ms-ListItem-selectionTarget"></div></li>'
+            // break
           }
         });
-
-     }
-
-
+      return html
+    }
 
     /**
      * Retrieve next batch of contacts.
@@ -476,44 +482,47 @@
       }
     }
 
+    /**
+     * Clear Recipients
+     */
     function clearRecipients() {
-    	var toRecipients, ccRecipients, bccRecipients;
-    	if (item.itemType == Office.MailboxEnums.ItemType.Appointment) {
-	        toRecipients = item.requiredAttendees;
-	        ccRecipients = item.optionalAttendees;
-	    }
-	    else {
-	        toRecipients = item.to;
-	        ccRecipients = item.cc;
-	        bccRecipients = item.bcc;
-	    }
+      var toRecipients, ccRecipients, bccRecipients;
+      if (item.itemType == Office.MailboxEnums.ItemType.Appointment) {
+          toRecipients = item.requiredAttendees;
+          ccRecipients = item.optionalAttendees;
+      }
+      else {
+          toRecipients = item.to;
+          ccRecipients = item.cc;
+          bccRecipients = item.bcc;
+      }
 
-	    toRecipients.setAsync([],
-	        function (asyncResult) {
-	            if (asyncResult.status == Office.AsyncResultStatus.Failed){
-	                write(asyncResult.error.message);
-	            }
-	            else {
-	            }    
-	    }); 
+      toRecipients.setAsync([],
+          function (asyncResult) {
+              if (asyncResult.status == Office.AsyncResultStatus.Failed){
+                  write(asyncResult.error.message);
+              }
+              else {
+              }    
+      }); 
 
-	    ccRecipients.setAsync([],
-	        function (asyncResult) {
-	            if (asyncResult.status == Office.AsyncResultStatus.Failed){
-	                write(asyncResult.error.message);
-	            }
-	            else {
-	            }    
-	    });
+      ccRecipients.setAsync([],
+          function (asyncResult) {
+              if (asyncResult.status == Office.AsyncResultStatus.Failed){
+                  write(asyncResult.error.message);
+              }
+              else {
+              }    
+      });
 
-	    bccRecipients.setAsync([],
-	        function (asyncResult) {
-	            if (asyncResult.status == Office.AsyncResultStatus.Failed){
-	                write(asyncResult.error.message);
-	            }
-	            else {
-	            }    
-	    }); 
+      bccRecipients.setAsync([],
+          function (asyncResult) {
+              if (asyncResult.status == Office.AsyncResultStatus.Failed){
+                  write(asyncResult.error.message);
+              }
+              else {
+              }    
+      }); 
 
     }
 
