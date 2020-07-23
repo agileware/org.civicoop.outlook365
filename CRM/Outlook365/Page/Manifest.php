@@ -9,7 +9,7 @@ class CRM_Outlook365_Page_Manifest extends CRM_Core_Page {
 
     $this->_print = CRM_Core_Smarty::PRINT_SNIPPET;
     $baseUrl = E::url('');
-    $baseUrl = "https://02fcfc63.ngrok.io/sites/default/files/civicrm/ext/outlook365/";
+    $baseUrl = "https://ab7c84b5e36d.ngrok.io/sites/default/files/civicrm/ext/outlook365/";
     $this->assign('baseurl', $baseUrl);
 
     self::$_template->assign('mode', $this->_mode);

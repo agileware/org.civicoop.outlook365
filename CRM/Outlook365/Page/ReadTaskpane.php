@@ -1,7 +1,7 @@
 <?php
 use CRM_Outlook365_ExtensionUtil as E;
 
-class CRM_Outlook365_Page_Taskpane extends CRM_Core_Page {
+class CRM_Outlook365_Page_ReadTaskpane extends CRM_Core_Page {
 
   public function run() {
     // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml

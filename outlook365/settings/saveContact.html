@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <title>Settings</title>
+
+  <!-- Office JavaScript API -->
+  <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+  <script type="text/javascript" src="../../assets/jquery-3.4.1.min.js"></script>
+
+  <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+  <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.min.css" />
+  <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.components.min.css" />
+  <script type="text/javascript" src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/js/fabric.min.js"></script>
+
+  <!-- Template styles -->
+  <link href="settings.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="ms-font-l">
+<main>
+  <section class="ms-font-m ms-fontColor-neutralPrimary">
+    <h1 class="title"></h1>
+    <div class="not-configured-warning ms-MessageBar ms-MessageBar--warning">
+      <div class="ms-MessageBar-content">
+        <div class="ms-MessageBar-icon">
+          <i class="ms-Icon ms-Icon--Info"></i>
+        </div>
+        <div class="ms-MessageBar-text">
+        </div>
+      </div>
+    </div>
+    <div class="ms-Grid">
+      <div class="ms-Grid-row">
+        <div class="ms-TextField">
+          <label class="ms-Label save-contact-name"></label>
+          <input class="ms-TextField-field" id="civicrm-name" type="text" value="" placeholder="" required>
+        </div>
+      </div>
+      <div class="ms-Grid-row">
+        <div class="ms-TextField">
+          <label class="ms-Label save-contact-email"></label>
+          <input class="ms-TextField-field" id="civicrm-email" type="text" value="" placeholder="">
+        </div>
+      </div>
+      <div class="ms-Grid-row">
+        <div class="ms-TextField">
+          <label class="ms-Label save-contact-type"></label>
+          <input class="ms-TextField-field" id="civicrm-contact-type" type="text" value="" placeholder="" required>
+        </div>
+      </div>
+    </div>
+    <div class="ms-Dialog-actions">
+      <div class="ms-Dialog-actionsRight">
+        <button class="ms-Dialog-action ms-Button ms-Button--primary" disabled id="settings-done-contact">
+          <span class="ms-Button-label"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="../../assets/UIStrings.js" type="text/javascript"></script>
+<script type="text/javascript" src="saveContact.js"></script>
+</body>
+
+</html>

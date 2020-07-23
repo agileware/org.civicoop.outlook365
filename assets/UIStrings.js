@@ -24,6 +24,13 @@ var UIStrings = (function ()
         "SiteKey": "Site key",
         "ApiKey": "Api Key",
         "Done": "Done"
+      },
+      "SaveContactScreen": {
+        "Title": "Save Contact",
+        "ContactName": "Contact Name",
+        "ContactEmail": "Contact Email",
+        "ContactType": "Contact Type",
+        "Done": "Done"
       }
     };
 
