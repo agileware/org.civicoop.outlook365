@@ -33,11 +33,9 @@
 
     <div class="ms-CommandBar-mainArea">
       <div class="ms-CommandButton ms-CommandButton--pivot is-active">
-          <!-- <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label contacts">Contacts</span>  </a>  -->
           <i class="ms-Icon ms-Icon--Contact" aria-hidden="true" ><span class="ms-font-l contacts">Contacts</span></i>
       </div>
       <div class="ms-CommandButton ms-CommandButton--pivot">
-          <!-- <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label groups">Groups</span>  </a>  -->
           <i class="ms-Icon ms-Icon--Group" aria-hidden="true"><span class="ms-font-l groups">Groups</span></i>
       </div>
       <div class="ms-CommandButton ms-CommandButton--pivot" id="settings-icon">
@@ -93,24 +91,7 @@
     
   </section>
 </main>
-<!-- <footer class="ms-landing-page__footer ms-bgColor-neutralLighter ms-bgColor-neutralLight--hover">
-  <div id="settings-icon" class="ms-landing-page__footer--left ms-bgColor-neutralLight--hover ms-fontColor-neutralDark ms-fontColor-neutralDarker--hover" aria-label="Settings" tabindex=0>
-    <i class="ms-Icon enlarge ms-Icon--Settings "></i><span class="label"></span>
-  </div>
-</footer> -->
 
-<script>
-  {literal}
-  var SpinnerElements = document.querySelectorAll(".ms-Spinner");
-  for (var i = 0; i < SpinnerElements.length; i++) {
-    new fabric['Spinner'](SpinnerElements[i]);
-  }
-  var SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
-  for (var i = 0; i < SearchBoxElements.length; i++) {
-    new fabric['SearchBox'](SearchBoxElements[i]);
-  }
-  {/literal}
-</script>
 <script type="text/javascript" src="{$baseurl}assets/UIStrings.js"></script>
 <script type="text/javascript" src="{$baseurl}assets/taskpane.js"></script>
 </body>

@@ -343,6 +343,36 @@
           }
         });
 
+        $("#groups .ms-Button.cc").click(function(event) {
+          let toSend = []
+          var recipients = item.cc
+          $('.'+name+'-list-email').children().each(function (index) {
+              if($(this).hasClass('is-selected')){
+                let contact = $(this)
+                toSend.push([contact.data('civicrm-name'),contact.data('civicrm-email')])
+              }
+
+          });
+          for(var iter in toSend){
+            addReiever(recipients, toSend[iter][1], toSend[iter][0]);
+          }
+        });
+
+        $("#groups .ms-Button.bcc").click(function(event) {
+          let toSend = []
+          var recipients = item.bcc
+          $('.'+name+'-list-email').children().each(function (index) {
+              if($(this).hasClass('is-selected')){
+                let contact = $(this)
+                toSend.push([contact.data('civicrm-name'),contact.data('civicrm-email')])
+              }
+
+          });
+          for(var iter in toSend){
+            addReiever(recipients, toSend[iter][1], toSend[iter][0]);
+          }
+        });
+
         $("#group_search_"+name+" #groupSearchField").on("keypress", async function(e) {
             if (e.keyCode == 13) {
               let newUrl = config.url + '?';

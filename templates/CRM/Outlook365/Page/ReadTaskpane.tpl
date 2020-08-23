@@ -9,9 +9,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CiviCRM</title>
-  <script type="text/javascript">
+  <script type="text/javascript">    
+    var confirmDialogUrl = '{$baseurl}outlook365/settings/confirm.html';
     var settingsDialogUrl = '{$baseurl}outlook365/settings/dialog.html';
     var saveContactDialogUrl = '{$baseurl}outlook365/settings/saveContact.html';
+    var saveContactInGroupDialogUrl = '{$baseurl}outlook365/settings/saveContactInGroup.html';
   </script>
 
   <!-- Office JavaScript API -->
@@ -45,9 +47,17 @@
     <div class="dataclass">
       <br>
     </div>
-    <div class="dataclass" id="contacts">
+    <div>
+      <button class="ms-Button ms-Button--small selectAll">
+        <span class="ms-Button-label">Select All</span>
+      </button>
+      <button class="ms-Button ms-Button--small">
+        <span class="ms-Button-label unselectAll">Unselect All</span>
+      </button>
     </div>
 
+    <div class="dataclass" id="contacts">
+    </div>
     <div class="ms-Spinner" id="loadingContacts">
       <div class="ms-Spinner-label">
         <br>

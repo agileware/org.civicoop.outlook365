@@ -34,21 +34,21 @@
     </div>
     <div class="ms-Grid">
       <div class="ms-Grid-row">
-        <div class="ms-TextField">
-          <label class="ms-Label save-contact-name"></label>
-          <input class="ms-TextField-field" id="civicrm-name" type="text" value="" placeholder="" required>
-        </div>
-      </div>
-      <div class="ms-Grid-row">
-        <div class="ms-TextField">
-          <label class="ms-Label save-contact-email"></label>
-          <input class="ms-TextField-field" id="civicrm-email" type="text" value="" placeholder="">
+        <div class="ms-Dropdown" tabindex="0">
+		  <label class="ms-Label">Dropdown label</label>
+		  <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--ChevronDown"></i>
+		  <select class="ms-Dropdown-select group-select-dropdown">
+		  </select>
+		</div>
+		<div class="ms-TextField">
+          <label class="ms-Label group-name-select">Enter Group Name</label>
+          <input class="ms-TextField-field" id="civicrm-group-field" type="text" value="" placeholder="">
         </div>
       </div>
     </div>
     <div class="ms-Dialog-actions">
       <div class="ms-Dialog-actionsRight">
-        <button class="ms-Dialog-action ms-Button ms-Button--primary" disabled id="settings-done-contact">
+        <button class="ms-Dialog-action ms-Button ms-Button--primary" id="group-select-done">
           <span class="ms-Button-label"></span>
         </button>
       </div>
@@ -56,7 +56,7 @@
   </section>
 </main>
 <script src="../../assets/UIStrings.js" type="text/javascript"></script>
-<script type="text/javascript" src="saveContact.js"></script>
+<script type="text/javascript" src="saveContactInGroup.js"></script>
 </body>
 
 </html>

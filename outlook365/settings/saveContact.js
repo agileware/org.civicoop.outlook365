@@ -12,12 +12,10 @@
       $('.not-configured-warning .ms-MessageBar-text').html(UIText.SettingsScreen.NotConfigured);
       $('.ms-Label.save-contact-name').text(UIText.SaveContactScreen.ContactName);
       $('.ms-Label.save-contact-email').text(UIText.SaveContactScreen.ContactEmail);
-      $('.ms-Label.save-contact-type').text(UIText.SaveContactScreen.ContactType);
       $('#settings-done-contact .ms-Button-label').text(UIText.SaveContactScreen.Done);
 
-      $('#civicrm-url').change(change);
-      $('#site-key').change(change);
-      $('#api-key').change(change);
+      $('#civicrm-name').change(change);
+      $('#civicrm-email').change(change);
 
       // Check if warning should be displayed.
       var contact = JSON.parse(getParameterByName('config'));
@@ -39,7 +37,6 @@
     var contact = {};
     contact.name = $('#civicrm-name').val();
     contact.email = $('#civicrm-email').val();
-    contact.type = $('#civicrm-contact-type').val();
     $('#settings-done-contact').prop('disabled', false);
   }
 
@@ -47,7 +44,6 @@
     var contact = {};
     contact.name = $('#civicrm-name').val();
     contact.email = $('#civicrm-email').val();
-    contact.type = $('#civicrm-contact-type').val();
     Office.context.ui.messageParent(JSON.stringify(contact));
   }
 

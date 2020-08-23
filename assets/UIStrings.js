@@ -23,6 +23,7 @@ var UIStrings = (function ()
         "URL_Placeholder": "E.g. http://your-site/sites/all/modules/civicrm/extern/rest.php",
         "SiteKey": "Site key",
         "ApiKey": "Api Key",
+        "ContactType": "Contact Type",
         "Done": "Done"
       },
       "SaveContactScreen": {
@@ -30,6 +31,11 @@ var UIStrings = (function ()
         "ContactName": "Contact Name",
         "ContactEmail": "Contact Email",
         "ContactType": "Contact Type",
+        "Done": "Done"
+      }
+      ,
+      "SaveContactInGroupScreen": {
+        "Title": "Save Contact in Groups",
         "Done": "Done"
       }
     };

@@ -9,9 +9,9 @@ class CRM_Outlook365_Page_ReadTaskpane extends CRM_Core_Page {
 
     $this->_print = CRM_Core_Smarty::PRINT_SNIPPET;
     $baseUrl = E::url('');
-    $baseUrl = "https://9c2e39f5a71f.ngrok.io/sites/default/files/civicrm/ext/outlook365/";
+    $baseUrl = "https://7a85cf4d458e.ngrok.io/sites/default/files/civicrm/ext/outlook365/";
     $this->assign('baseurl', $baseUrl);
-    CRM_Core_Error::debug_var("baseUrltaskpane", $baseUrl);
+
 
     self::$_template->assign('mode', $this->_mode);
     $pageTemplateFile = $this->getHookedTemplateFileName();

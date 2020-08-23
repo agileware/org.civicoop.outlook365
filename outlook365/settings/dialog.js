@@ -13,8 +13,11 @@
       $('.ms-Label.url').text(UIText.SettingsScreen.URL);
       $('.ms-Label.sitekey').text(UIText.SettingsScreen.SiteKey);
       $('.ms-Label.apikey').text(UIText.SettingsScreen.ApiKey);
+      $('.ms-Label.contacttype').text(UIText.SettingsScreen.ContactType);
       $('#settings-done .ms-Button-label').text(UIText.SettingsScreen.Done);
       $('#civicrm-url').attr("placeholder", UIText.SettingsScreen.URL_Placeholder);
+
+
 
       $('#civicrm-url').change(change);
       $('#site-key').change(change);
@@ -44,6 +47,7 @@
     settings.url = $('#civicrm-url').val();
     settings.sitekey = $('#site-key').val();
     settings.apikey = $('#api-key').val();
+    settings.contacttype = $('#contact-type').val();
     if (settings.url && settings.sitekey && settings.apikey) {
       $('#settings-done').prop('disabled', false);
     } else {
@@ -56,6 +60,7 @@
     settings.url = $('#civicrm-url').val();
     settings.sitekey = $('#site-key').val();
     settings.apikey = $('#api-key').val();
+    settings.contacttype = $('#contact-type').val();
     Office.context.ui.messageParent(JSON.stringify(settings));
   }
 
