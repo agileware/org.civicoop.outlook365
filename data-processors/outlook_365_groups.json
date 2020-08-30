@@ -2,9 +2,9 @@
     "name": "outlook_365_groups",
     "title": "Outlook 365 Groups",
     "type": "default",
+    "configuration": [],
     "is_active": "1",
     "description": "Use this data processor to override what information is send to outlook 365.",
-    "configuration": [],
     "storage_configuration": [],
     "data_sources": [
         {
@@ -100,6 +100,19 @@
             "configuration": {
                 "field": "group_name",
                 "datasource": "group"
+            },
+            "filter_value": []
+        },
+        {
+            "weight": "3",
+            "name": "display_name",
+            "title": "Display Name",
+            "type": "simple_sql_filter",
+            "is_required": "0",
+            "is_exposed": "1",
+            "configuration": {
+                "field": "contact_display_name",
+                "datasource": "contact"
             },
             "filter_value": []
         }
