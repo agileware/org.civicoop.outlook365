@@ -36,7 +36,7 @@
     $("body").delegate(".ms-ListItem", "click", function(event){
         if($(event.target).hasClass('is-selected')){
           $(event.target).removeClass('is-selected');
-        } 
+        }
         else{
           $(event.target).addClass('is-selected');
         }
@@ -85,7 +85,7 @@
       let classes = event.target.className.split(" ")
       let targetTab = classes[classes.length - 1]
       if(targetTab === "settings"){
-        return 
+        return
       }
       currentTab = targetTab
       let parentselector = $($(event.target).parent()).parent()
@@ -101,7 +101,7 @@
         $("#search-form").show()
         loadNextGroups()
       }
-      
+
     }
 
     function getSearchForm(id){
@@ -236,7 +236,7 @@
         } else {
           url = url + '&' + prop + '=' + data[prop];
         }
-      } 
+      }
       $.getJSON(url, {}, addGroups);
     }
 
@@ -250,8 +250,8 @@
       if (data.is_error == 0) {
         for(var i in data.values) {
           var group = data.values[i];
-          var name = group.name;
-          var idname = name.replace(" ","-").toLowerCase();
+          var name = group.title;
+          var idname = group.name.replace(" ","-").toLowerCase();
           var id = group.id
           var buttons = '<button class="ms-Button ms-Button--small to"><span class="ms-Button-label">'+UIText.To+'</span></button>' +
                         '<button class="ms-Button ms-Button--small cc"><span class="ms-Button-label">'+UIText.Cc+'</span></button>' +
@@ -263,7 +263,7 @@
             '<div class="ms-Persona">'+
             '<div class="ms-Persona-details">' +
             '<div class="ms-Persona-primaryText">' + name + '</div>' +
-            '<div class="ms-Persona-secondaryText">' + buttons + '</div>' 
+            '<div class="ms-Persona-secondaryText">' + buttons + '</div>'
             '</div>' +
             '</div>';
           $('#groups').append(html);
@@ -380,7 +380,7 @@
               console.log(groupSearchVal)
               if (groupSearchVal!='') {
                 data.json.display_name = {"LIKE": '%'+groupSearchVal+'%'};
-              } 
+              }
               for(var prop in data) {
                 if (prop == 'json') {
                   newUrl = newUrl + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
@@ -533,8 +533,8 @@
                   write(asyncResult.error.message);
               }
               else {
-              }    
-      }); 
+              }
+      });
 
       ccRecipients.setAsync([],
           function (asyncResult) {
@@ -542,7 +542,7 @@
                   write(asyncResult.error.message);
               }
               else {
-              }    
+              }
       });
 
       bccRecipients.setAsync([],
@@ -551,8 +551,8 @@
                   write(asyncResult.error.message);
               }
               else {
-              }    
-      }); 
+              }
+      });
 
     }
 
@@ -611,9 +611,9 @@
             reset();
             if(currentTab==="contacts"){
               loadNextContacts();
-            } 
+            }
             else if(currentTab==="groups"){
-              loadNextGroups();  
+              loadNextGroups();
             }
           });
         });
