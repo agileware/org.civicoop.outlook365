@@ -7,15 +7,17 @@ class CRM_Outlook365_Page_Manifest extends CRM_Core_Page {
     // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
     CRM_Utils_System::setTitle(E::ts('Manifest'));
 
-
+    $site_url = CRM_Utils_System::baseURL();
     $defaultContact = civicrm_api3('Contact', 'getvalue', ['id' => 1, 'return' => 'display_name']);
     $defaultContactName = CRM_Utils_String::convertStringToCamel($defaultContact);
+    $guid = CRM_Outlook365_Utils_Uuid::v5('3b44a0ed-311f-4f35-ba77-d8467a3624f6', $site_url);
 
     $this->_print = CRM_Core_Smarty::PRINT_SNIPPET;
     $baseUrl = E::url('');
     $this->assign('baseurl', $baseUrl);
     $this->assign('default_contact', $defaultContact);
     $this->assign('default_contact_name', $defaultContactName);
+    $this->assign('guid', $guid);
 
     self::$_template->assign('mode', $this->_mode);
     $pageTemplateFile = $this->getHookedTemplateFileName();
