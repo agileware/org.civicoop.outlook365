@@ -220,7 +220,7 @@
         "key": config.sitekey,
         "json": {
           "sequential": 1,
-          "return": ["id","name"],
+          "return": ["id","name", "title"],
           "options": {
             "offset": currentOffset,
             "limit": 25,
