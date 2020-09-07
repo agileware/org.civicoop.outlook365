@@ -1,6 +1,3 @@
-<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
-<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
-
 <!DOCTYPE html>
 <html>
 
@@ -39,7 +36,7 @@
           <i class="ms-Icon ms-Icon--Group" aria-hidden="true"><span class="ms-font-l groups">Groups</span></i>
       </div>
       <div class="ms-CommandButton ms-CommandButton--pivot" id="settings-icon">
-          <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">Settings</span>  </i> 
+          <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">Settings</span>  </i>
       </div>
       <div id="search-form">
         <div class="ms-SearchBox ms-SearchBox--commandBar">
@@ -70,7 +67,7 @@
       </div>
       <div >
         <button class="ms-Button ms-Button--small" id="reset">
-          <span class="ms-Button-label">Reset</span> 
+          <span class="ms-Button-label">Reset</span>
         </button>
       </div>
     </div>
@@ -88,7 +85,7 @@
         Loading...
       </div>
     </div>
-    
+
   </section>
 </main>
 

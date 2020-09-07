@@ -1,6 +1,3 @@
-<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
-<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
-
 <!DOCTYPE html>
 <html>
 
@@ -9,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CiviCRM</title>
-  <script type="text/javascript">    
+  <script type="text/javascript">
     var confirmDialogUrl = '{$baseurl}outlook365/settings/confirm.html';
     var settingsDialogUrl = '{$baseurl}outlook365/settings/dialog.html';
     var saveContactDialogUrl = '{$baseurl}outlook365/settings/saveContact.html';
@@ -40,7 +37,7 @@
           <i class="ms-Icon ms-Icon--Contact" aria-hidden="true" ><span class="ms-font-l contacts">Contacts</span></i>
       </div>
       <div class="ms-CommandButton ms-CommandButton--pivot" id="settings-icon">
-          <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">Settings</span>  </i> 
+          <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">Settings</span>  </i>
       </div>
       </div>
     </div>
@@ -64,7 +61,7 @@
         Loading...
       </div>
     </div>
-    
+
   </section>
 </main>
 <!-- <footer class="ms-landing-page__footer ms-bgColor-neutralLighter ms-bgColor-neutralLight--hover">
