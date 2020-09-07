@@ -2,13 +2,13 @@
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
   <Id>f0a36d59-3604-4168-ab79-df86c946b35f</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>CiviCRM</ProviderName>
+  <ProviderName>{$default_contact_name}</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="CiviCRM"/>
+  <DisplayName DefaultValue="{$default_contact}"/>
   <Description DefaultValue="Integrate outlook 365 with CiviRM."/>
   <IconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
   <HighResolutionIconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
-  <SupportUrl DefaultValue="https://www.contoso.com/help"/>
+  <SupportUrl DefaultValue="https://www.civicrm.org"/>
   <AppDomains>
     <AppDomain>civicrm.org</AppDomain>
   </AppDomains>
