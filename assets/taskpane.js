@@ -443,6 +443,7 @@
           url = url + '&' + prop + '=' + data[prop];
         }
       }
+      url = encodeURI(url);
       $.getJSON(url, {}, addContacts);
     }
 
