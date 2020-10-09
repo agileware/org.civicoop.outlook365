@@ -3,21 +3,57 @@
   Office.initialize = function (reason) {
 
         var requiredAttendees = Office.context.mailbox.item;
-        console.log(Office)
-        Office.context.auth.getAccessTokenAsync(function(result) {
-            if (result.status === "succeeded") {
-                var token = result.value;
-                // ...
-            } else {
-                console.log("Error obtaining token", result.error);
-            }
-        });
         var config = false;
         var saveDialog = null
 
         jQuery(document).ready(async function() {
           // Set localized text for UI elements.
           await reset();
+
+          Office.context.mailbox.getCallbackTokenAsync({ isRest: true }, function (result) {
+            var accessToken = result.value;
+            var getMessageUrl = Office.context.mailbox.restUrl + '/v2.0/me/MailFolders';
+
+            $.ajax({
+              url: getMessageUrl,
+              dataType: 'json',
+              headers: { 'Authorization': 'Bearer ' + accessToken }
+            }).done(function (data) {
+              // Message is passed in `item`.
+              $('#target').empty();
+              console.log(data);
+              for (const item of data.value) {
+                let html = $(`<div><input type="checkbox" name="${item.Id}" id="${item.Id}" /><label for="${item.Id}">${item.DisplayName}</label></div>`);
+                html.appendTo('#target');
+              }
+            }).fail(function (error) {
+              // Handle error.
+              console.log(error);
+            });
+
+            $("#send-submit").on('click', function(event) {
+              $('#folder-form input:checked').each((index, element) => {
+                let folderID = element.getAttribute('name');
+                let getMessageUrl = Office.context.mailbox.restUrl +
+                  '/v2.0/me/MailFolders/'+ folderID +'/messages';
+                $.ajax({
+                  url: getMessageUrl,
+                  dataType: 'json',
+                  headers: { 'Authorization': 'Bearer ' + accessToken }
+                }).done(function (data) {
+                  // Message is passed in `item`.
+                  if (!data.value.length) return;
+                  for (const email of data.value) {
+                    console.log(email);
+                    pushEmailActivity(email.Subject, email.Body.Content, Date.now());
+                  }
+                }).fail(function (error) {
+                  // Handle error.
+                  console.log(error);
+                });
+              });
+            });
+          });
 
           // fetch all folders
 
@@ -47,6 +83,36 @@
           });
 
         });
+
+    async function pushEmailActivity(subject, body, date, from, to) {
+      let emailData = {
+        "source_contact_id": "user_contact_id",
+        "activity_type_id": "Email",
+        "subject":subject,
+        "details":body,
+        "activity_date_time":date.toString(),
+      }
+
+      let url = config.url + '?';
+      let data = {
+        "entity": "Activity",
+        "action": "create",
+        "api_key": config.apikey,
+        "key": config.sitekey,
+        "json": 1
+      };
+      for(var prop in data) {
+        if (prop == 'json') {
+          url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+        } else {
+          url = url + '&' + prop + '=' + data[prop];
+        }
+      }
+
+      await $.post(url, emailData, function(result) {
+        console.log(result)
+      })
+    }
 
         async function reset() {
           config = await getConfig();
@@ -435,12 +501,6 @@
                       '<span class="ms-Button-label">Save Email</span>'+
                     '</button>'
 
-            html += '<br><br>'
-
-            html += '<button class="ms-Button ms-Button--medium save-folder-emails">'+
-                      '<span class="ms-Button-label">Save Email</span>'+
-                    '</button>'
-
 
             $("#contacts").html(html)
             $(".save-contact").on('click',saveContact)
@@ -465,7 +525,7 @@
                 emailBody = result['value']
 
                 var data = {
-                  "source_contact_id":202,
+                  "source_contact_id": "user_contact_id",
                   "activity_type_id": "Email",
                   "subject":requiredAttendees.subject,
                   "details":emailBody,

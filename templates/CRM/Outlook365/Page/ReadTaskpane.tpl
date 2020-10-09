@@ -62,6 +62,13 @@
       </div>
     </div>
 
+      <div>
+          <form id="folder-form">
+              <div id="target"></div>
+              <input id="send-submit" type='button' value='Send to Civi'/>
+          </form>
+      </div>
+
   </section>
 </main>
 <!-- <footer class="ms-landing-page__footer ms-bgColor-neutralLighter ms-bgColor-neutralLight--hover">

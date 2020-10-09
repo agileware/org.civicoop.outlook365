@@ -6,6 +6,7 @@
 
     var myLanguage = Office.context.displayLanguage;
     var UIText = UIStrings.getLocaleStrings(myLanguage);
+    var accessToken;
 
     jQuery(document).ready(function(){
       $('h1.title').text(UIText.SettingsScreen.Title);
