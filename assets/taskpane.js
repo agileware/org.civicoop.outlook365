@@ -250,20 +250,19 @@
       if (data.is_error == 0) {
         for(var i in data.values) {
           var group = data.values[i];
-          var name = group.title;
           var idname = group.name.replace(" ","-").toLowerCase();
-          var id = group.id
-          var buttons = '<button class="ms-Button ms-Button--small to"><span class="ms-Button-label">'+UIText.To+'</span></button>' +
-                        '<button class="ms-Button ms-Button--small cc"><span class="ms-Button-label">'+UIText.Cc+'</span></button>' +
-                        '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">'+UIText.Bcc+'</span></button>'+
-                         '<i class="ms-Icon ms-Icon--ChevronRight" id="'+idname + '-expand-groups" style="padding: 6px"></i>';
-          buttons = '<div class="CiviCRM-Group-Email" data-civicrm-id="'+id+'" data-civicrm-name="'+name+'">'+buttons+'</div>';
+          var name = group.title;
+          var id = group.id;
 
           var html = '' +
             '<div class="ms-Persona">'+
             '<div class="ms-Persona-details">' +
-            '<div class="ms-Persona-primaryText">' + name + '</div>' +
-            '<div class="ms-Persona-secondaryText">' + buttons + '</div>'
+            '<div class="ms-Persona-primaryText CiviCRM-Group-Email"  data-civicrm-id="'+id+'" data-civicrm-name="'+name+'">' +
+            name +
+            '<i class="ms-Icon ms-Icon--ChevronRight" id="'+
+            idname +
+            '-expand-groups" style="padding: 6px"></i>'+
+            '</div>' +
             '</div>' +
             '</div>';
           $('#groups').append(html);
@@ -315,7 +314,11 @@
         }
         let html = await getGroupContacts(url)
 
-
+        var buttons = '<button class="ms-Button ms-Button--small to"><span class="ms-Button-label">'+UIText.To+'</span></button>' +
+          '<button class="ms-Button ms-Button--small cc"><span class="ms-Button-label">'+UIText.Cc+'</span></button>' +
+          '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">'+UIText.Bcc+'</span></button>';
+        buttons = '<div class="CiviCRM-Group-Email" data-civicrm-id="'+id+'" data-civicrm-name="'+name+'">'+buttons+'</div>';
+        $(event.target).parent().append(buttons);
         $(event.target).parent().append('<div class="allData"><button class="ms-Button ms-Button--small selectAll"><span class="ms-Button-label">Select All</span></button>' +
                                         '<button class="ms-Button ms-Button--small"><span class="ms-Button-label unselectAll">Unselect All</span></button></div>')
         $(event.target).parent().append(getSearchForm(name))
