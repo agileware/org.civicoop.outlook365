@@ -415,7 +415,7 @@
      * Retrieve next batch of contacts.
      */
     function loadNextContacts() {
-      if (!moreAvailable || !config) {
+      if (!moreAvailable || !config || !search) {
         return;
       }
       $('#loadingContacts').show();
