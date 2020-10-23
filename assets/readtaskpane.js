@@ -201,7 +201,7 @@
               };
             for(var prop in data) {
                 if (prop == 'json') {
-                  url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+                  url = url + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
                 } else {
                   url = url + '&' + prop + '=' + data[prop];
                 }
@@ -356,7 +356,7 @@
             };
           for(var prop in data) {
               if (prop == 'json') {
-                url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+                url = url + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
               } else {
                 url = url + '&' + prop + '=' + data[prop];
               }

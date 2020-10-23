@@ -27,4 +27,7 @@
   <requires>
     <ext>dataprocessor</ext>
   </requires>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi" />
+  </classloader>
 </extension>
