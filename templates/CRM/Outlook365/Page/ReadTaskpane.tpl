@@ -78,6 +78,7 @@
 </footer> -->
 
 <script>
+  var CRMContactURL = "{$contactURL}";
   {literal}
   var SpinnerElements = document.querySelectorAll(".ms-Spinner");
   for (var i = 0; i < SpinnerElements.length; i++) {

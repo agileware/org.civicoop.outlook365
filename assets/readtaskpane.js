@@ -178,7 +178,7 @@
             }
 
             if(res['exist']){
-              html+= '<a href="'+res.contact_url+'" ><i class="ms-Icon ms-Icon--Contact"></i></a>'
+              html+= '<a href="'+res.contact_url+'" target="_blank"><i class="ms-Icon ms-Icon--Contact"></i></a>'
             }
             else{
               html += '<i class="ms-Icon ms-Icon--Save save-contact"></i>'
@@ -418,24 +418,21 @@
             }
             var contact_info
             var exist = null
-            var contact_url = ''
+            var contact_url = CRMContactURL
             var contact_name = null
             var contact_id
             for(const [key,val] of Object.entries(config.url.split("/"))){
               if(val == "sites"){
                 break
               }
-              contact_url += val
-              contact_url += "/"
             }
-            contact_url += "civicrm/contact/view/?reset=1&cid="
             await $.post(url, function(result) {
                   exist = false
                   if( result["count"] > 0 ){
                     exist = true
                     let keys = Object.keys(result["values"])
                     contact_id = result["values"][keys[0]]["contact_id"]
-                    contact_url += String(contact_id)
+                    contact_url += "&cid=" + String(contact_id)
                   }
             })
             if(exist){
