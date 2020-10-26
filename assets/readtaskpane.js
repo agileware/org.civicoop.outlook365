@@ -173,6 +173,9 @@
             if(res['exist']){
               html+= ' data-civicrm-id="' + String(contact_id) +'">'
             }
+            else {
+              html += '>';
+            }
 
             if(res['exist']){
               html+= '<a href="'+res.contact_url+'" ><i class="ms-Icon ms-Icon--Contact"></i></a>'

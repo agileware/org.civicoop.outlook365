@@ -282,6 +282,7 @@
           let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ","-").toLowerCase();
           $(this).parent().removeClass('expanded')
           $(this).parent().children(".allData").remove()
+          $(this).parent().children(".CiviCRM-Group-Email").remove()
           $(this).parent().children("#group_search_"+name).remove()
           $(this).parent().children("ul").remove()
           $(this).attr('class', 'ms-Icon ms-Icon--ChevronRight');
@@ -406,11 +407,17 @@
             var contact = data.values[i]
             html += '<li class="ms-ListItem is-selectable" data-civicrm-name="'+contact.display_name+
                         '" data-civicrm-email="'+contact.email+'">'+
-                        contact.display_name+
+                        '<span class=""ms-ListItem-primaryText">'+ contact.display_name+ '</span>' +
                         '<div class="ms-ListItem-selectionTarget"></div></li>'
             // break
           }
         });
+      html += '<script type="text/javascript">\n' +
+        '  var ListItemElements = document.querySelectorAll(".ms-ListItem");\n' +
+        '  for (var i = 0; i < ListItemElements.length; i++) {\n' +
+        '    new fabric[\'ListItem\'](ListItemElements[i]);\n' +
+        '  }\n' +
+        '</script>';
       return html
     }
 
