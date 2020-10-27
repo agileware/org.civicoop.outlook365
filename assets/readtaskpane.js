@@ -506,10 +506,10 @@
             html += '</ul>'
 
             html += '<button class="ms-Button ms-Button--small save-contact-all">'+
-                      '<span class="ms-Button-label">Save all</span>'+
+                      '<span class="ms-Button-label">Save Contacts</span>'+
                     '</button>'
             html += '<button class="ms-Button ms-Button--small save-contact-all-group">'+
-                      '<span class="ms-Button-label">Save all in Group</span>'+
+                      '<span class="ms-Button-label">Save Contacts to Group</span>'+
                     '</button>'
 
             html += '<br><br>'
