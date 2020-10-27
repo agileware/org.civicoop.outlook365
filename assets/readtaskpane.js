@@ -32,10 +32,11 @@
             });
 
             $("#send-submit").on('click', function(event) {
+              $(this).prop('disabled', true);
               $('#folder-form input:checked').each((index, element) => {
                 let folderID = element.getAttribute('name');
                 let getMessageUrl = Office.context.mailbox.restUrl +
-                  '/v2.0/me/MailFolders/'+ folderID +'/messages';
+                  '/v2.0/me/MailFolders/'+ folderID +'/messages?$expand=SingleValueExtendedProperties';
                 $.ajax({
                   url: getMessageUrl,
                   dataType: 'json',
@@ -43,9 +44,26 @@
                 }).done(function (data) {
                   // Message is passed in `item`.
                   if (!data.value.length) return;
+                  console.log(data);
                   for (const email of data.value) {
-                    console.log(email);
-                    pushEmailActivity(email.Subject, email.Body.Content, Date.now());
+                    if (email.Categories.includes('Saved in CiviCRM')) {
+                      continue;
+                    }
+                    $.ajax({
+                      url: Office.context.mailbox.restUrl + "/v2.0/me/messages/" + email.Id,
+                      dataType: 'json',
+                      contentType: 'application/json',
+                      method: 'PATCH',
+                      headers: { 'Authorization': 'Bearer ' + accessToken },
+                      data: JSON.stringify({
+                        Categories: [
+                          "Saved in CiviCRM"
+                        ]
+                      })
+                    }).done(result => {
+                      console.log(result);
+                    });
+                    pushEmailActivity(email.Subject, email.Body.Content, new Date());
                   }
                 }).fail(function (error) {
                   // Handle error.
@@ -90,7 +108,6 @@
         "activity_type_id": "Email",
         "subject":subject,
         "details":body,
-        "activity_date_time":date.toString(),
       }
 
       let url = config.url + '?';
@@ -178,10 +195,10 @@
             }
 
             if(res['exist']){
-              html+= '<a href="'+res.contact_url+'" target="_blank"><i class="ms-Icon ms-Icon--Contact"></i></a>'
+              html+= '<a href="'+res.contact_url+'" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="View Contact in CiviCRM"></i></a>'
             }
             else{
-              html += '<i class="ms-Icon ms-Icon--Save save-contact"></i>'
+              html += '<i class="ms-Icon ms-Icon--Save save-contact" title="Save Contact to CiviCRM"></i>'
             }
 
             html +='</div>'+

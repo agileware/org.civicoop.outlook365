@@ -64,8 +64,11 @@
 
       <div>
           <form id="folder-form">
-              <div id="target"></div>
-              <input id="send-submit" type='button' value='Send to Civi'/>
+
+            <div id="target"></div>
+            <button class="ms-Button ms-Button--medium save-email" id="send-submit">
+              <span class="ms-Button-label">Send to CiviCRM</span>
+            </button>
           </form>
       </div>
 
