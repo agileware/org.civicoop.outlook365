@@ -29,7 +29,6 @@
       }
 
       $('#settings-icon').on('click', openSettingsDialog);
-      $('#reset').on('click', clearRecipients);
       $('.ms-CommandButton--pivot span').on('click', handleTabChange);
     });
 
@@ -106,7 +105,7 @@
 
     function getSearchForm(id){
       let html = '<div id="group_search_' + id + '">'+
-        '<div class="ms-SearchBox ms-SearchBox--commandBar">'+
+        '<div class="ms-SearchBox ms-SearchBox--commandBar search-in-group">'+
           '<input class="ms-SearchBox-field" id="groupSearchField" type="text" value="">'+
           '<label class="ms-SearchBox-label">'+
             '<i class="ms-SearchBox-icon ms-Icon ms-Icon--Search"></i>'+
@@ -258,10 +257,12 @@
             '<div class="ms-Persona">'+
             '<div class="ms-Persona-details">' +
             '<div class="ms-Persona-primaryText CiviCRM-Group-Email"  data-civicrm-id="'+id+'" data-civicrm-name="'+name+'">' +
-            name +
             '<i class="ms-Icon ms-Icon--ChevronRight" id="'+
             idname +
             '-expand-groups" style="padding: 6px"></i>'+
+            '<span class="group-name">' +
+            name +
+            '</span>' +
             '</div>' +
             '</div>' +
             '</div>';
@@ -521,50 +522,6 @@
       if (data.count < 25) {
         moreAvailable = false;
       }
-    }
-
-    /**
-     * Clear Recipients
-     */
-    function clearRecipients() {
-      var toRecipients, ccRecipients, bccRecipients;
-      if (item.itemType == Office.MailboxEnums.ItemType.Appointment) {
-          toRecipients = item.requiredAttendees;
-          ccRecipients = item.optionalAttendees;
-      }
-      else {
-          toRecipients = item.to;
-          ccRecipients = item.cc;
-          bccRecipients = item.bcc;
-      }
-
-      toRecipients.setAsync([],
-          function (asyncResult) {
-              if (asyncResult.status == Office.AsyncResultStatus.Failed){
-                  write(asyncResult.error.message);
-              }
-              else {
-              }
-      });
-
-      ccRecipients.setAsync([],
-          function (asyncResult) {
-              if (asyncResult.status == Office.AsyncResultStatus.Failed){
-                  write(asyncResult.error.message);
-              }
-              else {
-              }
-      });
-
-      bccRecipients.setAsync([],
-          function (asyncResult) {
-              if (asyncResult.status == Office.AsyncResultStatus.Failed){
-                  write(asyncResult.error.message);
-              }
-              else {
-              }
-      });
-
     }
 
     function addReiever(recipients, email, name) {

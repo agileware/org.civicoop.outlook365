@@ -19,12 +19,12 @@ var UIStrings = (function ()
       "SettingsScreen": {
         "Title": "Settings",
         "NotConfigured": "Please enter the URL to the REST endpoint of your CiviCRM and your Site key and API key.<br>If you don't know what this is ask your administrator of CiviCRM.",
-        "URL": "URL to your CiviCRM REST endpoint",
+        "URL": "CiviCRM REST URL",
         "URL_Placeholder": "E.g. http://your-site/sites/all/modules/civicrm/extern/rest.php",
-        "SiteKey": "Site key",
-        "ApiKey": "Api Key",
+        "SiteKey": "CiviCRM Site Key",
+        "ApiKey": "CiviCRM API Key",
         "ContactType": "Contact Type",
-        "Done": "Done"
+        "Done": "Save"
       },
       "SaveContactScreen": {
         "Title": "Save Contact",

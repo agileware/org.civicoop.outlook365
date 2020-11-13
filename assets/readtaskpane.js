@@ -24,7 +24,15 @@
               console.log(data);
               for (const item of data.value) {
                 let html = $(`<div><input type="checkbox" name="${item.Id}" id="${item.Id}" /><label for="${item.Id}">${item.DisplayName}</label></div>`);
+                html = $('<li class="ms-ListItem is-selectable" tabindex="0">' +
+                  `<span class="ms-ListItem-secondaryText">${item.DisplayName}</span>` +
+                  '<div class="ms-ListItem-selectionTarget"></div>' +
+                  '</li>');
                 html.appendTo('#target');
+              }
+              var ListItemElements = document.querySelectorAll(".ms-ListItem");
+              for (var i = 0; i < ListItemElements.length; i++) {
+                new fabric['ListItem'](ListItemElements[i]);
               }
             }).fail(function (error) {
               // Handle error.
@@ -208,6 +216,7 @@
         }
 
         async function saveContactToCRM(contact){
+            let contactName = splitContactName(contact.name);
             var url = config.url + '?';
             var data = {
                 "entity": "Contact",
@@ -215,8 +224,9 @@
                 "api_key": config.apikey,
                 "key": config.sitekey,
                 "json": {
-                    "display_name":contact.name,
-                    "contact_type":config.contacttype,
+                    "first_name": contactName.firstName,
+                    'last_name': contactName.lastName,
+                    "contact_type": 'Individual',
                 }
               };
             for(var prop in data) {
@@ -258,39 +268,14 @@
 
         async function saveContact(event) {
             let name = $(event.target).parent().data('civicrm-name')
-            let email = $(event.target).parent().data('civicrm-email')
-            var dialogOptions = { width: 30, height: 40, displayInIframe: true };
-            let contactObject = {"name":name,"email":email}
-            var url = saveContactDialogUrl;
-            url = url + '?config='+JSON.stringify(contactObject);
-            Office.context.ui.displayDialogAsync(url, dialogOptions,async function(result) {
-                var saveDialog = result.value;
-                saveDialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, async function(message){
-                  let contact = JSON.parse(message.message);
-                  await saveContactToCRM(contact)
-                  saveDialog.close();
-                  saveDialog = null;
-                  showContacts()
-                });
-
-              });
+            let email = $(event.target).parent().data('civicrm-email');
+            let contact = {name: name, email: email};
+            await saveContactToCRM(contact);
+            showContacts();
         }
 
         async function confirmSaveAllContact(event) {
-            var dialogOptions = { width: 30, height: 40, displayInIframe: true };
-            var url = confirmDialogUrl;
-            Office.context.ui.displayDialogAsync(url, dialogOptions,async function(result) {
-                var confirmDialog = result.value;
-                confirmDialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, async function(message){
-                  let action = JSON.parse(message.message);
-                  if(action['action']===true){
-                    saveAllContact()
-                    confirmDialog.close();
-                    confirmDialog = null;
-                  }
-                });
-
-              });
+          saveAllContact();
         }
 
         async function saveAllContact(event){
@@ -576,7 +561,6 @@
           config.url = Office.context.roamingSettings.get('civicrm_url');
           config.sitekey = Office.context.roamingSettings.get('civicrm_sitekey');
           config.apikey = Office.context.roamingSettings.get('civicrm_apikey');
-          config.contacttype = Office.context.roamingSettings.get('civicrm_contacttype');
           if (config.url && config.apikey && config.sitekey) {
             return config;
           }
@@ -593,8 +577,22 @@
           await Office.context.roamingSettings.set('civicrm_url', config.url);
           await Office.context.roamingSettings.set('civicrm_sitekey', config.sitekey);
           await Office.context.roamingSettings.set('civicrm_apikey', config.apikey);
-          await Office.context.roamingSettings.set('civicrm_contacttype', config.contacttype);
           Office.context.roamingSettings.saveAsync(callback);
+        }
+
+        function splitContactName(name) {
+          let nameArray = name.split(' ');
+          if (nameArray.length < 2) {
+            nameArray = name.split(',');
+          }
+          let contact = {};
+          if (nameArray.length < 2) {
+            contact.lastName = 'Unknown';
+          } else {
+            contact.lastName = nameArray[1];
+          }
+          contact.firstName = nameArray[0];
+          return contact;
         }
   }
 })();

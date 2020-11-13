@@ -40,7 +40,6 @@
           <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">Settings</span>  </i>
       </div>
       </div>
-    </div>
     <div class="dataclass">
       <br>
     </div>
@@ -61,13 +60,17 @@
         Loading...
       </div>
     </div>
+    <hr>
 
-      <div>
+    <div class="ms-CommandBar-mainArea">
+      <h2>Save in CiviCRM</h2>
+      <p>Select one or more email folders to save all the emails to CiviCRM as an Activity.</p>
           <form id="folder-form">
 
-            <div id="target"></div>
+            <ul class="ms-List" id="target">
+            </ul>
             <button class="ms-Button ms-Button--medium save-email" id="send-submit">
-              <span class="ms-Button-label">Send to CiviCRM</span>
+              <span class="ms-Button-label">Save Folder in CiviCRM</span>
             </button>
           </form>
       </div>

@@ -65,11 +65,6 @@
           </div>
         </div>
       </div>
-      <div >
-        <button class="ms-Button ms-Button--small" id="reset">
-          <span class="ms-Button-label">Reset</span>
-        </button>
-      </div>
     </div>
     <div class="dataclass">
       <br>
@@ -79,15 +74,17 @@
     <div class="dataclass" id="groups">
     </div>
 
-    <div class="ms-Spinner" id="loadingContacts">
-      <div class="ms-Spinner-label">
-        <br>
-        Loading...
-      </div>
-    </div>
-
   </section>
 </main>
+
+<script>
+  {literal}
+  var SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
+  for (var i = 0; i < SearchBoxElements.length; i++) {
+    new fabric['SearchBox'](SearchBoxElements[i]);
+  }
+  {/literal}
+</script>
 
 <script type="text/javascript" src="{$baseurl}assets/UIStrings.js"></script>
 <script type="text/javascript" src="{$baseurl}assets/taskpane.js"></script>
