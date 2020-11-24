@@ -78,6 +78,7 @@
 </main>
 
 <script>
+  var CRMContactURL = "{$contactURL}";
   {literal}
   var SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
   for (var i = 0; i < SearchBoxElements.length; i++) {

@@ -11,6 +11,15 @@ class CRM_Outlook365_Page_Taskpane extends CRM_Core_Page {
     $baseUrl = E::url('');
     $this->assign('baseurl', $baseUrl);
 
+	  $this->assign('contactURL', CRM_Utils_System::url(
+		  'civicrm/contact/view',
+		  ['reset' => 1] ,
+		  TRUE,
+		  NULL,
+		  FALSE,
+		  FALSE,
+		  TRUE));
+
     self::$_template->assign('mode', $this->_mode);
     $pageTemplateFile = $this->getHookedTemplateFileName();
     self::$_template->assign('tplFile', $pageTemplateFile);

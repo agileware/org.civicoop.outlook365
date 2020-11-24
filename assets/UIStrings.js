@@ -35,8 +35,8 @@ var UIStrings = (function ()
       }
       ,
       "SaveContactInGroupScreen": {
-        "Title": "Save Contact in Groups",
-        "Done": "Done"
+        "Title": "Save Contacts to Group",
+        "Done": "Save Contacts to Group"
       }
     };
 

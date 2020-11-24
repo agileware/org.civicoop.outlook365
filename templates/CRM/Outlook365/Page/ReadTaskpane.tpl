@@ -63,7 +63,11 @@
     <hr>
 
     <div class="ms-CommandBar-mainArea">
-      <h2>Save in CiviCRM</h2>
+      <h2>Save Email</h2>
+      <p>Click the following button to save this email in CiviCRM as an Activity</p>
+      <button class="ms-Button ms-Button--medium save-email">
+        <span class="ms-Button-label">Save Email</span>
+      </button>
       <p>Select one or more email folders to save all the emails to CiviCRM as an Activity.</p>
           <form id="folder-form">
 
@@ -72,6 +76,8 @@
             <button class="ms-Button ms-Button--medium save-email" id="send-submit">
               <span class="ms-Button-label">Save Folder in CiviCRM</span>
             </button>
+            <p id="saving-email-notice" style="display: none;">Emails are being saved to CiviCRM, please wait...</p>
+            <p id="saved-email-notice" style="display: none;">All emails have been saved to CiviCRM and assigned the "Saved in CiviCRM" category</p>
           </form>
       </div>
 

@@ -93,11 +93,13 @@
       $(".dataclass").empty()
       reset()
       if(currentTab === "contacts"){
-        $("#search-form").show()
+        $("#search-form").show();
+        $('#search-form span.ms-SearchBox-text').text('Search');
         loadNextContacts()
       }
       else if(currentTab === "groups"){
-        $("#search-form").show()
+        $("#search-form").show();
+        $('#search-form span.ms-SearchBox-text').text('Search Group');
         loadNextGroups()
       }
 
@@ -247,6 +249,7 @@
     function addGroups(data) {
 
       if (data.is_error == 0) {
+        console.log(data);
         for(var i in data.values) {
           var group = data.values[i];
           var idname = group.name.replace(" ","-").toLowerCase();
@@ -267,9 +270,11 @@
             '</div>' +
             '</div>';
           $('#groups').append(html);
-
-        $('#'+idname+'-expand-groups').on('click', expandGroups);
+          $('#'+idname+'-expand-groups').on('click', expandGroups);
         }
+        $('.group-name').on('click', event => {
+          $(event.target).siblings('i').trigger('click');
+        });
 
         if (data.count < 25) {
           moreAvailable = false;
@@ -324,9 +329,13 @@
         $(event.target).parent().append('<div class="allData"><button class="ms-Button ms-Button--small selectAll"><span class="ms-Button-label">Select All</span></button>' +
                                         '<button class="ms-Button ms-Button--small"><span class="ms-Button-label unselectAll">Unselect All</span></button></div>')
         $(event.target).parent().append(getSearchForm(name))
-        $("#group_search_"+name+" .ms-SearchBox-text").text("");
+        $("#group_search_"+name+" .ms-SearchBox-text").text("Search contact in group");
 
         $(event.target).parent().append('<ul class="ms-List ' +name +'-list-email">'+html+'</ul>')
+        var SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
+        for (var i = 0; i < SearchBoxElements.length; i++) {
+          new fabric['SearchBox'](SearchBoxElements[i]);
+        }
 
 
 
@@ -402,14 +411,20 @@
     }
 
     async function getGroupContacts(url){
-      var html =''
+      var html ='';
       await $.getJSON(url, {}, function(data){
           for(var i in data.values){
-            var contact = data.values[i]
+            var contact = data.values[i];
+            var contact_url = CRMContactURL;
+            contact_url += "&cid=" + String(contact.contact_id);
             html += '<li class="ms-ListItem is-selectable" data-civicrm-name="'+contact.display_name+
-                        '" data-civicrm-email="'+contact.email+'">'+
-                        '<span class=""ms-ListItem-primaryText">'+ contact.display_name+ '</span>' +
-                        '<div class="ms-ListItem-selectionTarget"></div></li>'
+              '" data-civicrm-email="'+contact.email+'">'+
+              '<span class=""ms-ListItem-primaryText">'+ contact.display_name+ '</span>' +
+              '<div class="ms-ListItem-selectionTarget"></div>' +
+              '<div class="ms-ListItem-actions"><div class="ms-ListItem-action">' +
+              '<a href="'+contact_url+'" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="View Contact in CiviCRM"></i></a>' +
+              '</div></div>' +
+              '</li>';
             // break
           }
         });
@@ -420,6 +435,69 @@
         '  }\n' +
         '</script>';
       return html
+    }
+
+    async function checkContact(val){
+      var url = config.url + '?';
+      var data = {
+        "entity": "Email",
+        "action": "get",
+        "api_key": config.apikey,
+        "key": config.sitekey,
+        "json": {
+          "email":val.emailAddress,
+        }
+      };
+      for(var prop in data) {
+        if (prop == 'json') {
+          url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+        } else {
+          url = url + '&' + prop + '=' + data[prop];
+        }
+      }
+      var contact_info
+      var exist = null
+      var contact_url = CRMContactURL
+      var contact_name = null
+      var contact_id
+      for(const [key,val] of Object.entries(config.url.split("/"))){
+        if(val == "sites"){
+          break
+        }
+      }
+      await $.post(url, function(result) {
+        exist = false
+        if( result["count"] > 0 ){
+          exist = true
+          let keys = Object.keys(result["values"])
+          contact_id = result["values"][keys[0]]["contact_id"]
+          contact_url += "&cid=" + String(contact_id)
+        }
+      })
+      if(exist){
+        url = config.url + '?'
+        data = {
+          "entity": "Contact",
+          "action": "getsingle",
+          "api_key": config.apikey,
+          "key": config.sitekey,
+          "json": {
+            "id":contact_id,
+          }
+        };
+        for(var prop in data) {
+          if (prop == 'json') {
+            url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+          } else {
+            url = url + '&' + prop + '=' + data[prop];
+          }
+        }
+        await $.post(url, function(result) {
+          contact_name = result["display_name"]
+        })
+      }
+
+      return {"exist":exist,"contact_url":contact_url,"contact_name":contact_name,"contact_id":contact_id}
     }
 
     /**

@@ -2,9 +2,9 @@
   "name": "outlook_365_contacts",
   "title": "Outlook 365 Contacts",
   "type": "default",
+  "configuration": [],
   "is_active": "1",
   "description": "Use this data processor to override what information is send to outlook 365.",
-  "configuration": [],
   "storage_configuration": [],
   "data_sources": [
     {
@@ -84,6 +84,57 @@
         "datasource": "contact"
       },
       "filter_value": []
+    },
+    {
+      "weight": "3",
+      "name": "do_not_email",
+      "title": "Do Not Email",
+      "type": "simple_sql_filter",
+      "is_required": "0",
+      "is_exposed": "0",
+      "configuration": {
+        "field": "contact_do_not_email",
+        "datasource": "contact"
+      },
+      "filter_value": {
+        "op": "NOT IN",
+        "value": [
+          "1"
+        ]
+      }
+    },
+    {
+      "weight": "4",
+      "name": "deceased",
+      "title": "Deceased",
+      "type": "simple_sql_filter",
+      "is_required": "0",
+      "is_exposed": "0",
+      "configuration": {
+        "field": "contact_is_deceased",
+        "datasource": "contact"
+      },
+      "filter_value": {
+        "op": "NOT IN",
+        "value": [
+          "1"
+        ]
+      }
+    },
+    {
+      "weight": "5",
+      "name": "email",
+      "title": "Email",
+      "type": "simple_sql_filter",
+      "is_required": "0",
+      "is_exposed": "0",
+      "configuration": {
+        "field": "e_mail_email",
+        "datasource": "e_mail"
+      },
+      "filter_value": {
+        "op": "not null"
+      }
     }
   ],
   "fields": [

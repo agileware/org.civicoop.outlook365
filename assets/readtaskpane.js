@@ -41,6 +41,7 @@
 
             $("#send-submit").on('click', function(event) {
               $(this).prop('disabled', true);
+              savingEmailInFolderInfo();
               $('#folder-form input:checked').each((index, element) => {
                 let folderID = element.getAttribute('name');
                 let getMessageUrl = Office.context.mailbox.restUrl +
@@ -49,7 +50,7 @@
                   url: getMessageUrl,
                   dataType: 'json',
                   headers: { 'Authorization': 'Bearer ' + accessToken }
-                }).done(function (data) {
+                }).done(async function (data) {
                   // Message is passed in `item`.
                   if (!data.value.length) return;
                   console.log(data);
@@ -71,8 +72,9 @@
                     }).done(result => {
                       console.log(result);
                     });
-                    pushEmailActivity(email.Subject, email.Body.Content, new Date());
+                    await pushEmailActivity(email.Subject, email.Body.Content, new Date());
                   }
+                  emailInFolderSavedInfo();
                 }).fail(function (error) {
                   // Handle error.
                   console.log(error);
@@ -109,6 +111,16 @@
           });
 
         });
+
+    function savingEmailInFolderInfo() {
+      $('#saving-email-notice').show();
+      $('#saved-email-notice').hide();
+    }
+
+    function emailInFolderSavedInfo() {
+      $('#saving-email-notice').hide();
+      $('#saved-email-notice').show();
+    }
 
     async function pushEmailActivity(subject, body, date, from, to) {
       let emailData = {
@@ -267,15 +279,33 @@
         }
 
         async function saveContact(event) {
-            let name = $(event.target).parent().data('civicrm-name')
-            let email = $(event.target).parent().data('civicrm-email');
-            let contact = {name: name, email: email};
-            await saveContactToCRM(contact);
-            showContacts();
+          $(this).prop('disabled', true);
+          showSavingContactInfo();
+          let name = $(event.target).parent().data('civicrm-name')
+          let email = $(event.target).parent().data('civicrm-email');
+          let contact = {name: name, email: email};
+          await saveContactToCRM(contact);
+          $(this).prop('disabled', false);
+          showContactSavedInfo();
+          showContacts();
         }
 
         async function confirmSaveAllContact(event) {
-          saveAllContact();
+          $(this).prop('disabled', true);
+          showSavingContactInfo();
+          await saveAllContact();
+          $(this).prop('disabled', false);
+          showContactSavedInfo();
+        }
+
+        function showSavingContactInfo() {
+          $('#saving-contact-help-text').toggle(true);
+          $('#saved-contact-help-text').toggle(false);
+        }
+
+        function showContactSavedInfo() {
+          $('#saving-contact-help-text').toggle(false);
+          $('#saved-contact-help-text').toggle(true);
         }
 
         async function saveAllContact(event){
@@ -294,7 +324,7 @@
         }
 
         async function confirmSaveAllContactInGroup(event){
-          let toSave = []
+          let toSave = [];
           $('.ms-List').children().each(function (index) {
               let contact = $(this).children(".ms-ListItem-actions").children(".ms-ListItem-action")
               // name,email,already saved
@@ -496,12 +526,10 @@
             html += '<button class="ms-Button ms-Button--small save-contact-all-group">'+
                       '<span class="ms-Button-label">Save Contacts to Group</span>'+
                     '</button>'
+            html += '<p id="saving-contact-help-text" style="display: none;">Contacts are being saved to CiviCRM, please wait...</p>';
+            html += '<p id="saved-contact-help-text" style="display: none;">All selected contacts have been saved to CiviCRM</p>';
 
-            html += '<br><br>'
-
-            html += '<button class="ms-Button ms-Button--medium save-email">'+
-                      '<span class="ms-Button-label">Save Email</span>'+
-                    '</button>'
+            html += '<br><br>';
 
 
             $("#contacts").html(html)
