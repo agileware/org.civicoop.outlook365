@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
   Office.initialize = function (reason) {
     var item = Office.context.mailbox.item;
@@ -14,7 +14,7 @@
     var fields = [];
 
 
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
       // Set localized text for UI elements.
       $("#loadingContacts .ms-Spinner-label").text(UIText.Loading);
       $("#searchField .ms-SearchBox-text").text(UIText.Search);
@@ -32,58 +32,55 @@
       $('.ms-CommandButton--pivot span').on('click', handleTabChange);
     });
 
-    $("body").delegate(".ms-ListItem", "click", function(event){
-        if($(event.target).hasClass('is-selected')){
-          $(event.target).removeClass('is-selected');
-        }
-        else{
-          $(event.target).addClass('is-selected');
-        }
+    $("body").delegate(".ms-ListItem", "click", function (event) {
+      if ($(event.target).hasClass('is-selected')) {
+        $(event.target).removeClass('is-selected');
+      } else {
+        $(event.target).addClass('is-selected');
+      }
     });
 
-    $("body").delegate(".selectAll", "click", function(event){
-        let parentElement = $(event.target).closest(".allData").parent()
-        parentElement.children("ul").children(".ms-ListItem").addClass("is-selected")
+    $("body").delegate(".selectAll", "click", function (event) {
+      let parentElement = $(event.target).closest(".allData").parent()
+      parentElement.children("ul").children(".ms-ListItem").addClass("is-selected")
     });
 
-    $("body").delegate(".unselectAll", "click", function(event){
-        let parentElement = $(event.target).closest(".allData").parent()
-        parentElement.children("ul").children(".ms-ListItem").removeClass("is-selected")
+    $("body").delegate(".unselectAll", "click", function (event) {
+      let parentElement = $(event.target).closest(".allData").parent()
+      parentElement.children("ul").children(".ms-ListItem").removeClass("is-selected")
     });
 
-    $('#searchField').on("keypress", function(e) {
+    $('#searchField').on("keypress", function (e) {
       if (e.keyCode == 13) {
         reset();
         search = $(this).val();
-        if(currentTab==="contacts"){
+        if (currentTab === "contacts") {
           loadNextContacts();
-        }
-        else if (currentTab==="groups"){
+        } else if (currentTab === "groups") {
           loadNextGroups();
         }
         return false; // prevent the button click from happening
       }
     });
 
-    $(window).scroll(function() {
-      if($(window).scrollTop() == $(document).height() - $(window).height()) {
+    $(window).scroll(function () {
+      if ($(window).scrollTop() == $(document).height() - $(window).height()) {
         // ajax call get data from server and append to the div
-        if(currentTab==="contacts"){
+        if (currentTab === "contacts") {
           loadNextContacts();
-        }
-        else if (currentTab==="groups"){
+        } else if (currentTab === "groups") {
           loadNextGroups();
         }
       }
     });
 
     /**
-      * Handle Tab Change
-    */
-    function handleTabChange(event){
+     * Handle Tab Change
+     */
+    function handleTabChange(event) {
       let classes = event.target.className.split(" ")
       let targetTab = classes[classes.length - 1]
-      if(targetTab === "settings"){
+      if (targetTab === "settings") {
         return
       }
       currentTab = targetTab
@@ -92,12 +89,11 @@
       parentselector.addClass("is-active")
       $(".dataclass").empty()
       reset()
-      if(currentTab === "contacts"){
+      if (currentTab === "contacts") {
         $("#search-form").show();
         $('#search-form span.ms-SearchBox-text').text('Search');
         loadNextContacts()
-      }
-      else if(currentTab === "groups"){
+      } else if (currentTab === "groups") {
         $("#search-form").show();
         $('#search-form span.ms-SearchBox-text').text('Search Group');
         loadNextGroups()
@@ -105,34 +101,34 @@
 
     }
 
-    function getSearchForm(id){
-      let html = '<div id="group_search_' + id + '">'+
-        '<div class="ms-SearchBox ms-SearchBox--commandBar search-in-group">'+
-          '<input class="ms-SearchBox-field" id="groupSearchField" type="text" value="">'+
-          '<label class="ms-SearchBox-label">'+
-            '<i class="ms-SearchBox-icon ms-Icon ms-Icon--Search"></i>'+
-            '<span class="ms-SearchBox-text">Search</span>'+
-          '</label>'+
-          '<div class="ms-CommandButton ms-SearchBox-clear ms-CommandButton--noLabel">'+
-            '<button class="ms-CommandButton-button">'+
-              '<span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Clear"></i></span>'+
-              '<span class="ms-CommandButton-label"></span>'+
-            '</button>'+
-          '</div>'+
-          '<div class="ms-CommandButton ms-SearchBox-exit ms-CommandButton--noLabel">'+
-            '<button class="ms-CommandButton-button">'+
-              '<span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--ChromeBack"></i></span>'+
-              '<span class="ms-CommandButton-label"></span>'+
-            '</button>'+
-          '</div>'+
-          '<div class="ms-CommandButton ms-SearchBox-filter ms-CommandButton--noLabel">'+
-            '<button class="ms-CommandButton-button">'+
-              '<span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Filter"></i></span>'+
-              '<span class="ms-CommandButton-label"></span>'+
-            '</button>'+
-          '</div>'+
-        '</div>'+
-      '</div>'
+    function getSearchForm(id) {
+      let html = '<div id="group_search_' + id + '">' +
+        '<div class="ms-SearchBox ms-SearchBox--commandBar search-in-group">' +
+        '<input class="ms-SearchBox-field" id="groupSearchField" type="text" value="">' +
+        '<label class="ms-SearchBox-label">' +
+        '<i class="ms-SearchBox-icon ms-Icon ms-Icon--Search"></i>' +
+        '<span class="ms-SearchBox-text">Search</span>' +
+        '</label>' +
+        '<div class="ms-CommandButton ms-SearchBox-clear ms-CommandButton--noLabel">' +
+        '<button class="ms-CommandButton-button">' +
+        '<span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Clear"></i></span>' +
+        '<span class="ms-CommandButton-label"></span>' +
+        '</button>' +
+        '</div>' +
+        '<div class="ms-CommandButton ms-SearchBox-exit ms-CommandButton--noLabel">' +
+        '<button class="ms-CommandButton-button">' +
+        '<span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--ChromeBack"></i></span>' +
+        '<span class="ms-CommandButton-label"></span>' +
+        '</button>' +
+        '</div>' +
+        '<div class="ms-CommandButton ms-SearchBox-filter ms-CommandButton--noLabel">' +
+        '<button class="ms-CommandButton-button">' +
+        '<span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Filter"></i></span>' +
+        '<span class="ms-CommandButton-label"></span>' +
+        '</button>' +
+        '</div>' +
+        '</div>' +
+        '</div>'
 
       return html
     }
@@ -147,7 +143,7 @@
         $('#search-form').hide();
       } else {
         $('.not-configured-warning').hide();
-        if(currentTab!=="settings"){
+        if (currentTab !== "settings") {
           $('#search-form').show();
         }
       }
@@ -158,7 +154,7 @@
       moreAvailable = true;
       search = false;
       fields = [];
-      if(currentTab === "contacts"){
+      if (currentTab === "contacts") {
         getContactFields();
       }
     }
@@ -182,14 +178,14 @@
           "api_action": "get"
         }
       };
-      for(var prop in data) {
+      for (var prop in data) {
         if (prop == 'json') {
           url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
         } else {
           url = url + '&' + prop + '=' + data[prop];
         }
       }
-      $.getJSON(url, {}, function(result) {
+      $.getJSON(url, {}, function (result) {
         fields = [];
         if (!result.is_error) {
           for (var i in result.values) {
@@ -221,7 +217,7 @@
         "key": config.sitekey,
         "json": {
           "sequential": 1,
-          "return": ["id","name", "title"],
+          "return": ["id", "name", "title"],
           "options": {
             "offset": currentOffset,
             "limit": 25,
@@ -229,9 +225,9 @@
         }
       };
       if (search) {
-        data.json.name = {"LIKE": '%'+search+'%'};
+        data.json.name = {"LIKE": '%' + search + '%'};
       }
-      for(var prop in data) {
+      for (var prop in data) {
         if (prop == 'json') {
           url = url + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
         } else {
@@ -250,31 +246,31 @@
 
       if (data.is_error == 0) {
         console.log(data);
-        for(var i in data.values) {
+        for (var i in data.values) {
           var group = data.values[i];
-          var idname = group.name.replace(" ","-").toLowerCase();
+          var idname = group.name.replace(" ", "-").toLowerCase();
           var name = group.title;
           var id = group.id;
           var groupURL = CRMGroupURL + '&id=' + id;
 
           var html = '' +
-            '<div class="ms-Persona">'+
+            '<div class="ms-Persona">' +
             '<div class="ms-Persona-details">' +
-            '<div class="ms-Persona-primaryText CiviCRM-Group-Email"  data-civicrm-id="'+id+'" data-civicrm-name="'+name+'">' +
-            '<i class="ms-Icon ms-Icon--ChevronRight" id="'+
+            '<div class="ms-Persona-primaryText CiviCRM-Group-Email"  data-civicrm-id="' + id + '" data-civicrm-name="' + name + '">' +
+            '<i class="ms-Icon ms-Icon--ChevronRight" id="' +
             idname +
-            '-expand-groups" style="padding: 6px"></i>'+
+            '-expand-groups" style="padding: 6px"></i>' +
             '<span class="group-name">' +
             name +
             '</span>' +
             '<div class="ms-ListItem-actions"><div class="ms-ListItem-action">' +
-            '<a href="'+ groupURL + '" target="_blank"><i class="ms-Icon ms-Icon--Settings" title="View Group Settings in CiviCRM"></i></a>' +
+            '<a href="' + groupURL + '" target="_blank"><i class="ms-Icon ms-Icon--Settings" title="View Group Settings in CiviCRM"></i></a>' +
             '</div></div>' +
             '</div>' +
             '</div>' +
             '</div>';
           $('#groups').append(html);
-          $('#'+idname+'-expand-groups').on('click', expandGroups);
+          $('#' + idname + '-expand-groups').on('click', expandGroups);
         }
         $('.group-name').on('click', event => {
           $(event.target).siblings('i').trigger('click');
@@ -287,151 +283,150 @@
       }
     }
 
-    async function expandGroups(event){
-      if($(this).parent().hasClass("expanded")){
-          let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ","-").toLowerCase();
-          $(this).parent().removeClass('expanded')
-          $(this).parent().children(".allData").remove()
-          $(this).parent().children(".CiviCRM-Group-Email").remove()
-          $(this).parent().children("#group_search_"+name).remove()
-          $(this).parent().children("ul").remove()
-          $(this).attr('class', 'ms-Icon ms-Icon--ChevronRight');
-          return;
+    async function expandGroups(event) {
+      if ($(this).parent().hasClass("expanded")) {
+        let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ", "-").toLowerCase();
+        $(this).parent().removeClass('expanded')
+        $(this).parent().children(".allData").remove()
+        $(this).parent().children(".CiviCRM-Group-Email").remove()
+        $(this).parent().children("#group_search_" + name).remove()
+        $(this).parent().children("ul").remove()
+        $(this).attr('class', 'ms-Icon ms-Icon--ChevronRight');
+        return;
       }
       $(this).parent().addClass('expanded')
-      let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ","-").toLowerCase();
+      let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ", "-").toLowerCase();
       let id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
       // $(this).parent().append('<div id="' + name + '-expanded-groups"></div>');
       var url = config.url + '?';
       var data = {
-          "entity": "Outlook365Group",
-          "action": "get",
-          "api_key": config.apikey,
-          "key": config.sitekey,
-          "json": {
-            "sequential": 1,
-            "options": {
-              "limit": 0,
-            },
-            "group_id":id,
-          }
-        };
-        for(var prop in data) {
-          if (prop == 'json') {
-            url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
-          } else {
-            url = url + '&' + prop + '=' + data[prop];
-          }
+        "entity": "Outlook365Group",
+        "action": "get",
+        "api_key": config.apikey,
+        "key": config.sitekey,
+        "json": {
+          "sequential": 1,
+          "options": {
+            "limit": 0,
+          },
+          "group_id": id,
         }
-        let html = await getGroupContacts(url)
-
-        var buttons = '<button class="ms-Button ms-Button--small to"><span class="ms-Button-label">'+UIText.To+'</span></button>' +
-          '<button class="ms-Button ms-Button--small cc"><span class="ms-Button-label">'+UIText.Cc+'</span></button>' +
-          '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">'+UIText.Bcc+'</span></button>';
-        buttons = '<div class="CiviCRM-Group-Email" data-civicrm-id="'+id+'" data-civicrm-name="'+name+'">'+buttons+'</div>';
-        $(event.target).parent().append(buttons);
-        $(event.target).parent().append('<div class="allData"><button class="ms-Button ms-Button--small selectAll"><span class="ms-Button-label">Select All</span></button>' +
-                                        '<button class="ms-Button ms-Button--small"><span class="ms-Button-label unselectAll">Unselect All</span></button></div>')
-        $(event.target).parent().append(getSearchForm(name))
-        $("#group_search_"+name+" .ms-SearchBox-text").text("Search contact in group");
-
-        $(event.target).parent().append('<ul class="ms-List ' +name +'-list-email">'+html+'</ul>')
-        var SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
-        for (var i = 0; i < SearchBoxElements.length; i++) {
-          new fabric['SearchBox'](SearchBoxElements[i]);
+      };
+      for (var prop in data) {
+        if (prop == 'json') {
+          url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+        } else {
+          url = url + '&' + prop + '=' + data[prop];
         }
+      }
+      let html = await getGroupContacts(url)
+
+      var buttons = '<button class="ms-Button ms-Button--small to"><span class="ms-Button-label">' + UIText.To + '</span></button>' +
+        '<button class="ms-Button ms-Button--small cc"><span class="ms-Button-label">' + UIText.Cc + '</span></button>' +
+        '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">' + UIText.Bcc + '</span></button>';
+      buttons = '<div class="CiviCRM-Group-Email" data-civicrm-id="' + id + '" data-civicrm-name="' + name + '">' + buttons + '</div>';
+      $(event.target).parent().append(buttons);
+      $(event.target).parent().append('<div class="allData"><button class="ms-Button ms-Button--small selectAll"><span class="ms-Button-label">Select All</span></button>' +
+        '<button class="ms-Button ms-Button--small"><span class="ms-Button-label unselectAll">Unselect All</span></button></div>')
+      $(event.target).parent().append(getSearchForm(name))
+      $("#group_search_" + name + " .ms-SearchBox-text").text("Search contact in group");
+
+      $(event.target).parent().append('<ul class="ms-List ' + name + '-list-email">' + html + '</ul>')
+      var SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
+      for (var i = 0; i < SearchBoxElements.length; i++) {
+        new fabric['SearchBox'](SearchBoxElements[i]);
+      }
 
 
+      // to get smoothness change class after query
+      $(this).attr('class', 'ms-Icon ms-Icon--ChevronDown');
 
-        // to get smoothness change class after query
-        $(this).attr('class', 'ms-Icon ms-Icon--ChevronDown');
-
-        $("#groups .ms-Button.to").click(function(event) {
-          let toSend = []
-          var recipients = item.to
-          $('.'+name+'-list-email').children().each(function (index) {
-              if($(this).hasClass('is-selected')){
-                let contact = $(this)
-                toSend.push([contact.data('civicrm-name'),contact.data('civicrm-email')])
-              }
-
-          });
-          for(var iter in toSend){
-            addReiever(recipients, toSend[iter][1], toSend[iter][0]);
+      $("#groups .ms-Button.to").click(function (event) {
+        let toSend = []
+        var recipients = item.to
+        $('.' + name + '-list-email').children().each(function (index) {
+          if ($(this).hasClass('is-selected')) {
+            let contact = $(this)
+            toSend.push([contact.data('civicrm-name'), contact.data('civicrm-email')])
           }
+
         });
+        for (var iter in toSend) {
+          addReiever(recipients, toSend[iter][1], toSend[iter][0]);
+        }
+      });
 
-        $("#groups .ms-Button.cc").click(function(event) {
-          let toSend = []
-          var recipients = item.cc
-          $('.'+name+'-list-email').children().each(function (index) {
-              if($(this).hasClass('is-selected')){
-                let contact = $(this)
-                toSend.push([contact.data('civicrm-name'),contact.data('civicrm-email')])
-              }
-
-          });
-          for(var iter in toSend){
-            addReiever(recipients, toSend[iter][1], toSend[iter][0]);
+      $("#groups .ms-Button.cc").click(function (event) {
+        let toSend = []
+        var recipients = item.cc
+        $('.' + name + '-list-email').children().each(function (index) {
+          if ($(this).hasClass('is-selected')) {
+            let contact = $(this)
+            toSend.push([contact.data('civicrm-name'), contact.data('civicrm-email')])
           }
+
         });
+        for (var iter in toSend) {
+          addReiever(recipients, toSend[iter][1], toSend[iter][0]);
+        }
+      });
 
-        $("#groups .ms-Button.bcc").click(function(event) {
-          let toSend = []
-          var recipients = item.bcc
-          $('.'+name+'-list-email').children().each(function (index) {
-              if($(this).hasClass('is-selected')){
-                let contact = $(this)
-                toSend.push([contact.data('civicrm-name'),contact.data('civicrm-email')])
-              }
-
-          });
-          for(var iter in toSend){
-            addReiever(recipients, toSend[iter][1], toSend[iter][0]);
+      $("#groups .ms-Button.bcc").click(function (event) {
+        let toSend = []
+        var recipients = item.bcc
+        $('.' + name + '-list-email').children().each(function (index) {
+          if ($(this).hasClass('is-selected')) {
+            let contact = $(this)
+            toSend.push([contact.data('civicrm-name'), contact.data('civicrm-email')])
           }
-        });
 
-        $("#group_search_"+name+" #groupSearchField").on("keypress", async function(e) {
-            if (e.keyCode == 13) {
-              let newUrl = config.url + '?';
-              let groupSearchVal = $(this).val();
-              console.log(groupSearchVal)
-              if (groupSearchVal!='') {
-                data.json.display_name = {"LIKE": '%'+groupSearchVal+'%'};
-              }
-              for(var prop in data) {
-                if (prop == 'json') {
-                  newUrl = newUrl + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
-                } else {
-                  newUrl = newUrl + '&' + prop + '=' + data[prop];
-                }
-              }
-              let newHtml = await getGroupContacts(newUrl)
-              $("."+name +'-list-email').html(newHtml)
-              console.log(newHtml)
-              return false; // prevent the button click from happening
+        });
+        for (var iter in toSend) {
+          addReiever(recipients, toSend[iter][1], toSend[iter][0]);
+        }
+      });
+
+      $("#group_search_" + name + " #groupSearchField").on("keypress", async function (e) {
+        if (e.keyCode == 13) {
+          let newUrl = config.url + '?';
+          let groupSearchVal = $(this).val();
+          console.log(groupSearchVal)
+          if (groupSearchVal != '') {
+            data.json.display_name = {"LIKE": '%' + groupSearchVal + '%'};
+          }
+          for (var prop in data) {
+            if (prop == 'json') {
+              newUrl = newUrl + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
+            } else {
+              newUrl = newUrl + '&' + prop + '=' + data[prop];
             }
-          });
+          }
+          let newHtml = await getGroupContacts(newUrl)
+          $("." + name + '-list-email').html(newHtml)
+          console.log(newHtml)
+          return false; // prevent the button click from happening
+        }
+      });
     }
 
-    async function getGroupContacts(url){
-      var html ='';
-      await $.getJSON(url, {}, function(data){
-          for(var i in data.values){
-            var contact = data.values[i];
-            var contact_url = CRMContactURL;
-            contact_url += "&cid=" + String(contact.contact_id);
-            html += '<li class="ms-ListItem is-selectable" data-civicrm-name="'+contact.display_name+
-              '" data-civicrm-email="'+contact.email+'">'+
-              '<span class=""ms-ListItem-primaryText">'+ contact.display_name+ '</span>' +
-              '<div class="ms-ListItem-selectionTarget"></div>' +
-              '<div class="ms-ListItem-actions"><div class="ms-ListItem-action">' +
-              '<a href="'+contact_url+'" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="View Contact in CiviCRM"></i></a>' +
-              '</div></div>' +
-              '</li>';
-            // break
-          }
-        });
+    async function getGroupContacts(url) {
+      var html = '';
+      await $.getJSON(url, {}, function (data) {
+        for (var i in data.values) {
+          var contact = data.values[i];
+          var contact_url = CRMContactURL;
+          contact_url += "&cid=" + String(contact.contact_id);
+          html += '<li class="ms-ListItem is-selectable" data-civicrm-name="' + contact.display_name +
+            '" data-civicrm-email="' + contact.email + '">' +
+            '<span class=""ms-ListItem-primaryText">' + contact.display_name + '</span>' +
+            '<div class="ms-ListItem-selectionTarget"></div>' +
+            '<div class="ms-ListItem-actions"><div class="ms-ListItem-action">' +
+            '<a href="' + contact_url + '" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="View Contact in CiviCRM"></i></a>' +
+            '</div></div>' +
+            '</li>';
+          // break
+        }
+      });
       html += '<script type="text/javascript">\n' +
         '  var ListItemElements = document.querySelectorAll(".ms-ListItem");\n' +
         '  for (var i = 0; i < ListItemElements.length; i++) {\n' +
@@ -441,7 +436,7 @@
       return html
     }
 
-    async function checkContact(val){
+    async function checkContact(val) {
       var url = config.url + '?';
       var data = {
         "entity": "Email",
@@ -449,10 +444,10 @@
         "api_key": config.apikey,
         "key": config.sitekey,
         "json": {
-          "email":val.emailAddress,
+          "email": val.emailAddress,
         }
       };
-      for(var prop in data) {
+      for (var prop in data) {
         if (prop == 'json') {
           url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
         } else {
@@ -464,14 +459,14 @@
       var contact_url = CRMContactURL
       var contact_name = null
       var contact_id
-      for(const [key,val] of Object.entries(config.url.split("/"))){
-        if(val == "sites"){
+      for (const [key, val] of Object.entries(config.url.split("/"))) {
+        if (val == "sites") {
           break
         }
       }
-      await $.post(url, function(result, status) {
+      await $.post(url, function (result, status) {
         exist = false
-        if( result["count"] > 0 ){
+        if (result["count"] > 0) {
           exist = true
           let keys = Object.keys(result["values"])
           contact_id = result["values"][keys[0]]["contact_id"]
@@ -480,7 +475,7 @@
       }).fail(response => {
         openDialog(dialogComponent);
       });
-      if(exist){
+      if (exist) {
         url = config.url + '?'
         data = {
           "entity": "Contact",
@@ -488,24 +483,24 @@
           "api_key": config.apikey,
           "key": config.sitekey,
           "json": {
-            "id":contact_id,
+            "id": contact_id,
           }
         };
-        for(var prop in data) {
+        for (var prop in data) {
           if (prop == 'json') {
             url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
           } else {
             url = url + '&' + prop + '=' + data[prop];
           }
         }
-        await $.post(url, function(result, status) {
+        await $.post(url, function (result, status) {
           contact_name = result["display_name"]
         }).fail(response => {
           openDialog(dialogComponent);
         });
       }
 
-      return {"exist":exist,"contact_url":contact_url,"contact_name":contact_name,"contact_id":contact_id}
+      return {"exist": exist, "contact_url": contact_url, "contact_name": contact_name, "contact_id": contact_id}
     }
 
     /**
@@ -531,9 +526,9 @@
         }
       };
       if (search) {
-        data.json.display_name = {"LIKE": '%'+search+'%'};
+        data.json.display_name = {"LIKE": '%' + search + '%'};
       }
-      for(var prop in data) {
+      for (var prop in data) {
         if (prop == 'json') {
           url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
         } else {
@@ -552,18 +547,18 @@
     function addContacts(data) {
       $('#loadingContacts').hide();
       if (data.is_error == 0) {
-        for(var i in data.values) {
-          currentOffset ++;
+        for (var i in data.values) {
+          currentOffset++;
           var contact = data.values[i];
           var name = contact.display_name;
           var email = '';
           var buttons = '';
           if (contact.email) {
             buttons =
-              '<button class="ms-Button ms-Button--small to"><span class="ms-Button-label">'+UIText.To+'</span></button>' +
-              '<button class="ms-Button ms-Button--small cc"><span class="ms-Button-label">'+UIText.Cc+'</span></button>' +
-              '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">'+UIText.Bcc+'</span></button>';
-            buttons = '<div class="CiviCRM-Email" data-civicrm-name="'+contact.display_name+'" data-civicrm-email="'+contact.email+'">'+buttons+'</div>';
+              '<button class="ms-Button ms-Button--small to"><span class="ms-Button-label">' + UIText.To + '</span></button>' +
+              '<button class="ms-Button ms-Button--small cc"><span class="ms-Button-label">' + UIText.Cc + '</span></button>' +
+              '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">' + UIText.Bcc + '</span></button>';
+            buttons = '<div class="CiviCRM-Email" data-civicrm-name="' + contact.display_name + '" data-civicrm-email="' + contact.email + '">' + buttons + '</div>';
           }
 
           var secondaryFields = '';
@@ -575,7 +570,7 @@
           //   }
           // }
           var html = '' +
-            '<div class="ms-Persona">'+
+            '<div class="ms-Persona">' +
             '<div class="ms-Persona-details">' +
             '<div class="ms-Persona-primaryText">' + name + '</div>' +
             '<div class="ms-Persona-secondaryText">' + email + '</div>' +
@@ -586,19 +581,19 @@
           $('#contacts').append(html);
         }
 
-        $("#contacts .ms-Button.to").click(function() {
+        $("#contacts .ms-Button.to").click(function () {
           var email = $(this).parent('.CiviCRM-Email').data('civicrm-email');
           var name = $(this).parent('.CiviCRM-Email').data('civicrm-name');
           var recipients = item.to;
           addReiever(recipients, email, name);
         });
-        $("#contacts .ms-Button.cc").click(function() {
+        $("#contacts .ms-Button.cc").click(function () {
           var email = $(this).parent('.CiviCRM-Email').data('civicrm-email');
           var name = $(this).parent('.CiviCRM-Email').data('civicrm-name');
           var recipients = item.cc;
           addReiever(recipients, email, name);
         });
-        $("#contacts .ms-Button.bcc").click(function() {
+        $("#contacts .ms-Button.bcc").click(function () {
           var email = $(this).parent('.CiviCRM-Email').data('civicrm-email');
           var name = $(this).parent('.CiviCRM-Email').data('civicrm-name');
           var recipients = item.bcc;
@@ -621,21 +616,21 @@
       // of the composed item. Each time, this example passes an anonymous
       // callback function that doesn't take any parameters.
       recipients.getAsync(function (asyncResult) {
-        if (asyncResult.status == Office.AsyncResultStatus.Failed){
+        if (asyncResult.status == Office.AsyncResultStatus.Failed) {
           write(asyncResult.error.message);
-        }
-        else {
+        } else {
           // Async call to get to-recipients of the item completed.
           // Display the email addresses of the to-recipients.
           var emailAlreadyExists = false;
-          for (var i=0; i<asyncResult.value.length; i++) {
+          for (var i = 0; i < asyncResult.value.length; i++) {
             if (asyncResult.value[i].emailAddress == email) {
               emailAlreadyExists = true;
               break;
             }
           }
           if (!emailAlreadyExists) {
-            recipients.addAsync(data, function (asyncResult) {});
+            recipients.addAsync(data, function (asyncResult) {
+            });
           }
         }
       });
@@ -650,23 +645,22 @@
       if (config) {
         // If the add-in has already been configured, pass the existing values
         // to the dialog.
-        url = url + '?config='+JSON.stringify(config);
+        url = url + '?config=' + JSON.stringify(config);
       }
 
-      var dialogOptions = { width: 30, height: 40, displayInIframe: true };
+      var dialogOptions = {width: 30, height: 40, displayInIframe: true};
 
-      Office.context.ui.displayDialogAsync(url, dialogOptions, function(result) {
+      Office.context.ui.displayDialogAsync(url, dialogOptions, function (result) {
         var settingsDialog = result.value;
-        settingsDialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, function(message){
+        settingsDialog.addEventHandler(Microsoft.Office.WebExtension.EventType.DialogMessageReceived, function (message) {
           config = JSON.parse(message.message);
-          setConfig(config, function(result) {
+          setConfig(config, function (result) {
             settingsDialog.close();
             settingsDialog = null;
             reset();
-            if(currentTab==="contacts"){
+            if (currentTab === "contacts") {
               loadNextContacts();
-            }
-            else if(currentTab==="groups"){
+            } else if (currentTab === "groups") {
               loadNextGroups();
             }
           });

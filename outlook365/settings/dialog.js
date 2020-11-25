@@ -1,14 +1,14 @@
-(function(){
+(function () {
   'use strict';
 
   // The Office initialize function must be run each time a new page is loaded.
-  Office.initialize = function(reason){
+  Office.initialize = function (reason) {
 
     var myLanguage = Office.context.displayLanguage;
     var UIText = UIStrings.getLocaleStrings(myLanguage);
     var accessToken;
 
-    jQuery(document).ready(function(){
+    jQuery(document).ready(function () {
       $('h1.title').text(UIText.SettingsScreen.Title);
       $('.not-configured-warning .ms-MessageBar-text').html(UIText.SettingsScreen.NotConfigured);
       $('.ms-Label.url').text(UIText.SettingsScreen.URL);
@@ -16,7 +16,6 @@
       $('.ms-Label.apikey').text(UIText.SettingsScreen.ApiKey);
       $('#settings-done .ms-Button-label').text(UIText.SettingsScreen.Done);
       $('#civicrm-url').attr("placeholder", UIText.SettingsScreen.URL_Placeholder);
-
 
 
       $('#civicrm-url').change(change);

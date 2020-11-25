@@ -1,21 +1,19 @@
-(function(){
+(function () {
   'use strict';
 
   // The Office initialize function must be run each time a new page is loaded.
-  Office.initialize = function(reason){
+  Office.initialize = function (reason) {
 
     var myLanguage = Office.context.displayLanguage;
     var UIText = UIStrings.getLocaleStrings(myLanguage);
     var config = null;
 
-    jQuery(document).ready(async function(){
+    jQuery(document).ready(async function () {
       $('h1.title').text(UIText.SaveContactInGroupScreen.Title);
       $('.not-configured-warning .ms-MessageBar-text').html(UIText.SettingsScreen.NotConfigured);
       $('#group-select-done .ms-Button-label').text(UIText.SaveContactInGroupScreen.Done);
       config = await getConfig();
       await getGroups(config)
-
-      
 
 
       var DropdownHTMLElements = document.querySelectorAll('.ms-Dropdown');
@@ -39,35 +37,35 @@
     });
   };
 
-  async function getGroups(config){
+  async function getGroups(config) {
     var url = config.url + '?';
-      var data = {
-        "entity": "Group",
-        "action": "get",
-        "api_key": config.apikey,
-        "key": config.sitekey,
-        "json": {
-          "sequential": 1,
-          "return": ["id","name"],
-          "options": {
-            "limit": 0,
-          }
+    var data = {
+      "entity": "Group",
+      "action": "get",
+      "api_key": config.apikey,
+      "key": config.sitekey,
+      "json": {
+        "sequential": 1,
+        "return": ["id", "name"],
+        "options": {
+          "limit": 0,
         }
-      };
-      for(var prop in data) {
-        if (prop == 'json') {
-          url = url + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
-        } else {
-          url = url + '&' + prop + '=' + data[prop];
-        }
-      } 
-      await $.getJSON(url, {}, addGroups);
+      }
+    };
+    for (var prop in data) {
+      if (prop == 'json') {
+        url = url + '&' + prop + '=' + encodeURI(JSON.stringify(data[prop]));
+      } else {
+        url = url + '&' + prop + '=' + data[prop];
+      }
+    }
+    await $.getJSON(url, {}, addGroups);
   }
 
-  function addGroups(data){
+  function addGroups(data) {
     console.log(data)
-    for(var key in data['values']){
-      $('.group-select-dropdown').append('<option value="' + data['values'][key]["id"] + '">' + data['values'][key]['name'] + '</option>'); 
+    for (var key in data['values']) {
+      $('.group-select-dropdown').append('<option value="' + data['values'][key]["id"] + '">' + data['values'][key]['name'] + '</option>');
     }
   }
 
@@ -75,10 +73,14 @@
     let selectedGroup = $(".group-select-dropdown").val()
     let fieldName = $("#civicrm-group-field").val()
     let exist = true
-    if(fieldName!==""){
+    if (fieldName !== "") {
       exist = false
     }
-    Office.context.ui.messageParent(JSON.stringify({"exist":exist,"selectedGroup":selectedGroup,"groupName":fieldName}));
+    Office.context.ui.messageParent(JSON.stringify({
+      "exist": exist,
+      "selectedGroup": selectedGroup,
+      "groupName": fieldName
+    }));
   }
 
   function getParameterByName(name, url) {
@@ -94,14 +96,14 @@
   }
 
   function getConfig() {
-      var config = {};
+    var config = {};
 
-      config.url = Office.context.roamingSettings.get('civicrm_url');
-      config.sitekey = Office.context.roamingSettings.get('civicrm_sitekey');
-      config.apikey = Office.context.roamingSettings.get('civicrm_apikey');
-      if (config.url && config.apikey && config.sitekey) {
-        return config;
-      }
-      return null;
+    config.url = Office.context.roamingSettings.get('civicrm_url');
+    config.sitekey = Office.context.roamingSettings.get('civicrm_sitekey');
+    config.apikey = Office.context.roamingSettings.get('civicrm_apikey');
+    if (config.url && config.apikey && config.sitekey) {
+      return config;
+    }
+    return null;
   }
 })();

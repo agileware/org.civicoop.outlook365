@@ -1,13 +1,13 @@
-(function(){
+(function () {
   'use strict';
 
   // The Office initialize function must be run each time a new page is loaded.
-  Office.initialize = function(reason){
+  Office.initialize = function (reason) {
 
     var myLanguage = Office.context.displayLanguage;
     var UIText = UIStrings.getLocaleStrings(myLanguage);
 
-    jQuery(document).ready(function(){
+    jQuery(document).ready(function () {
       $('h1.title').text(UIText.SaveContactScreen.Title);
       $('.not-configured-warning .ms-MessageBar-text').html(UIText.SettingsScreen.NotConfigured);
       $('.ms-Label.save-contact-name').text(UIText.SaveContactScreen.ContactName);

@@ -1,7 +1,6 @@
 /* Store the locale-specific strings */
 
-var UIStrings = (function ()
-{
+var UIStrings = (function () {
   "use strict";
 
   var UIStrings = {};
@@ -60,8 +59,7 @@ var UIStrings = (function ()
       }
     };
 
-  UIStrings.getLocaleStrings = function (locale)
-  {
+  UIStrings.getLocaleStrings = function (locale) {
     var text;
     var localeProp = locale.replace("-", "_");
     if (UIStrings[localeProp]) {

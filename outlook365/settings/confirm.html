@@ -2,49 +2,52 @@
 <html>
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-  <title>Settings</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>Settings</title>
 
-  <!-- Office JavaScript API -->
-  <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
-  <script type="text/javascript" src="../../assets/jquery-3.4.1.min.js"></script>
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <script type="text/javascript" src="../../assets/jquery-3.4.1.min.js"></script>
 
-  <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
-  <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.min.css" />
-  <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.components.min.css" />
-  <script type="text/javascript" src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/js/fabric.min.js"></script>
+    <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
+    <link rel="stylesheet"
+          href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.min.css"/>
+    <link rel="stylesheet"
+          href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.components.min.css"/>
+    <script type="text/javascript"
+            src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/js/fabric.min.js"></script>
 
-  <!-- Template styles -->
-  <link href="settings.css" rel="stylesheet" type="text/css" />
+    <!-- Template styles -->
+    <link href="settings.css" rel="stylesheet" type="text/css"/>
 </head>
 
 <body class="ms-font-l">
 <main>
-  <section class="ms-font-m ms-fontColor-neutralPrimary">
-    <h1 class="title"></h1>
-    <div class="ms-MessageBar ms-MessageBar--warning">
-      <div class="ms-MessageBar-content">
-        <div class="ms-MessageBar-icon">
-          <i class="ms-Icon ms-Icon--Info"></i>
+    <section class="ms-font-m ms-fontColor-neutralPrimary">
+        <h1 class="title"></h1>
+        <div class="ms-MessageBar ms-MessageBar--warning">
+            <div class="ms-MessageBar-content">
+                <div class="ms-MessageBar-icon">
+                    <i class="ms-Icon ms-Icon--Info"></i>
+                </div>
+                <div class="ms-MessageBar-text">
+                </div>
+            </div>
         </div>
-        <div class="ms-MessageBar-text">
+        <div class="ms-Dialog-actions">
+            <div class="ms-Dialog-actions">
+                <button class="ms-Dialog-action ms-Button ms-Button--primary" id="confirm-done">
+                    <span class="ms-Button-label"></span>
+                </button>
+            </div>
+            <div class="ms-Dialog-actions">
+                <button class="ms-Dialog-action ms-Button ms-Button--primary" id="confirm-cancel">
+                    <span class="ms-Button-label"></span>
+                </button>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="ms-Dialog-actions">
-      <div class="ms-Dialog-actions">
-        <button class="ms-Dialog-action ms-Button ms-Button--primary" id="confirm-done">
-          <span class="ms-Button-label"></span>
-        </button>
-      </div>
-      <div class="ms-Dialog-actions">
-        <button class="ms-Dialog-action ms-Button ms-Button--primary" id="confirm-cancel">
-          <span class="ms-Button-label"></span>
-        </button>
-      </div>
-    </div>
-  </section>
+    </section>
 </main>
 <script src="../../assets/UIStrings.js" type="text/javascript"></script>
 <script type="text/javascript" src="confirm.js"></script>
