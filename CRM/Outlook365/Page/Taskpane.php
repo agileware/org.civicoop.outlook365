@@ -20,6 +20,15 @@ class CRM_Outlook365_Page_Taskpane extends CRM_Core_Page {
 		  FALSE,
 		  TRUE));
 
+	  $this->assign('groupURL', CRM_Utils_System::url(
+		  'civicrm/group',
+		  ['reset' => 1, 'action' => 'update'] ,
+		  TRUE,
+		  NULL,
+		  FALSE,
+		  FALSE,
+		  TRUE));
+
     self::$_template->assign('mode', $this->_mode);
     $pageTemplateFile = $this->getHookedTemplateFileName();
     self::$_template->assign('tplFile', $pageTemplateFile);

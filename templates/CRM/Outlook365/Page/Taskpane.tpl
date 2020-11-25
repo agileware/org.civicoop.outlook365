@@ -79,6 +79,7 @@
 
 <script>
   var CRMContactURL = "{$contactURL}";
+  var CRMGroupURL = "{$groupURL}";
   {literal}
   var SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
   for (var i = 0; i < SearchBoxElements.length; i++) {

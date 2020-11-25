@@ -51,6 +51,10 @@
 .ms-SearchBox.search-in-group {
   width: 100%;
 }
+
+span.group-name {
+  white-space: normal;
+}
 /*.ms-landing-page__footer--left:active, .ms-landing-page__footer--left:hover {
   cursor: pointer;
 }

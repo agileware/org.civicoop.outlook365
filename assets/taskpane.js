@@ -255,6 +255,7 @@
           var idname = group.name.replace(" ","-").toLowerCase();
           var name = group.title;
           var id = group.id;
+          var groupURL = CRMGroupURL + '&id=' + id;
 
           var html = '' +
             '<div class="ms-Persona">'+
@@ -266,6 +267,9 @@
             '<span class="group-name">' +
             name +
             '</span>' +
+            '<div class="ms-ListItem-actions"><div class="ms-ListItem-action">' +
+            '<a href="'+ groupURL + '" target="_blank"><i class="ms-Icon ms-Icon--Settings" title="View Group Settings in CiviCRM"></i></a>' +
+            '</div></div>' +
             '</div>' +
             '</div>' +
             '</div>';
