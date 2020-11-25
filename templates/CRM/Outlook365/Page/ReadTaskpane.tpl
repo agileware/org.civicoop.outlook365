@@ -89,6 +89,30 @@
   </div>
 </footer> -->
 
+<div class="civicrm-notice">
+  <div class="ms-Dialog">
+    <div class="ms-Dialog-title">CiviCRM</div>
+    <div class="ms-Dialog-content" id="civicrm-notice-div">
+      <p class="ms-Dialog-subText" id="civicrm-notice-text">An error occurred communicating with CiviCRM. This action could not be completed</p>
+    </div>
+    <div class="ms-Dialog-actions">
+      <button class="ms-Button ms-Dialog-action ms-Button--primary">
+        <span class="ms-Button-label">OK</span>
+      </button>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  {literal}
+  var noticeDialog = document.querySelector(".ms-Dialog");
+  var dialogComponent = new fabric['Dialog'](noticeDialog);
+  function openDialog(dialog) {
+    // Open the dialog
+    dialog.open();
+  }
+  {/literal}
+</script>
+
 <script>
   var CRMContactURL = "{$contactURL}";
   {literal}

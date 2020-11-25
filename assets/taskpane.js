@@ -465,7 +465,7 @@
           break
         }
       }
-      await $.post(url, function(result) {
+      await $.post(url, function(result, status) {
         exist = false
         if( result["count"] > 0 ){
           exist = true
@@ -473,7 +473,9 @@
           contact_id = result["values"][keys[0]]["contact_id"]
           contact_url += "&cid=" + String(contact_id)
         }
-      })
+      }).fail(response => {
+        openDialog(dialogComponent);
+      });
       if(exist){
         url = config.url + '?'
         data = {
@@ -492,9 +494,11 @@
             url = url + '&' + prop + '=' + data[prop];
           }
         }
-        await $.post(url, function(result) {
+        await $.post(url, function(result, status) {
           contact_name = result["display_name"]
-        })
+        }).fail(response => {
+          openDialog(dialogComponent);
+        });
       }
 
       return {"exist":exist,"contact_url":contact_url,"contact_name":contact_name,"contact_id":contact_id}

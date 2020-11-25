@@ -146,9 +146,11 @@
         }
       }
 
-      await $.post(url, emailData, function(result) {
+      await $.post(url, emailData, function(result, status) {
         console.log(result)
-      })
+      }).fail(response => {
+        openDialog(dialogComponent);
+      });
     }
 
         async function reset() {
@@ -205,7 +207,7 @@
                     '<span class="ms-ListItem-secondaryText">' + name +'</span>'+
                     '<span class="ms-ListItem-tertiaryText">' + item.emailAddress +'</span>'+
                     '<div class="ms-ListItem-actions">'+
-                        '<div class="ms-ListItem-action" data-civicrm-name="' + name+'" data-civicrm-email="' + item.emailAddress+'"'
+                    '<div class="ms-ListItem-action" data-civicrm-name="' + name+'" data-civicrm-email="' + item.emailAddress+'"'
 
             if(res['exist']){
               html+= ' data-civicrm-id="' + String(contact_id) +'">'
@@ -249,9 +251,11 @@
                 }
             }
             var contact_info
-            await $.post(url, function(result) {
+            await $.post(url, function(result, status) {
                 contact_info = result
-            })
+            }).fail(response => {
+              openDialog(dialogComponent);
+            });
             var contact_id = contact_info.id
 
             url = config.url + '?';
@@ -272,9 +276,11 @@
                   url = url + '&' + prop + '=' + data[prop];
                 }
             }
-            await $.post(url, function(result) {
+            await $.post(url, function(result, status) {
                 console.log(result)
-            })
+            }).fail(response => {
+              openDialog(dialogComponent);
+            });
             return contact_id
         }
 
@@ -396,9 +402,11 @@
                 url = url + '&' + prop + '=' + data[prop];
               }
           }
-          await $.post(url, function(result) {
+          await $.post(url, function(result, status) {
             console.log(result)
-          }) 
+          }).fail(response => {
+            openDialog(dialogComponent);
+          });
 
         }
 
@@ -422,10 +430,11 @@
               }
           }
           let groupInfo
-          await $.post(url, function(result) {
-            console.log(result)
+          await $.post(url, function(result, status) {
               groupInfo = result
-          }) 
+          }).fail(response => {
+            openDialog(dialogComponent);
+          });
 
           return groupInfo
         }
@@ -458,7 +467,7 @@
                 break
               }
             }
-            await $.post(url, function(result) {
+            await $.post(url, function(result, status) {
                   exist = false
                   if( result["count"] > 0 ){
                     exist = true
@@ -466,7 +475,9 @@
                     contact_id = result["values"][keys[0]]["contact_id"]
                     contact_url += "&cid=" + String(contact_id)
                   }
-            })
+            }).fail(response => {
+              openDialog(dialogComponent);
+            });
             if(exist){
               url = config.url + '?'
               data = {
@@ -485,9 +496,11 @@
                     url = url + '&' + prop + '=' + data[prop];
                   }
               }
-              await $.post(url, function(result) {
+              await $.post(url, function(result, status) {
                 contact_name = result["display_name"]
-              })
+              }).fail(response => {
+                openDialog(dialogComponent);
+              });
             }
 
             return {"exist":exist,"contact_url":contact_url,"contact_name":contact_name,"contact_id":contact_id}
@@ -577,9 +590,11 @@
                       url = url + '&' + prop + '=' + data[prop];
                     }
                 }
-                await $.post(url, function(result) {
+                await $.post(url, function(result, status) {
                   console.log(result)
-                })
+                }).fail(response => {
+                  openDialog(dialogComponent);
+                });
           });
         }
 
