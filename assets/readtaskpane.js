@@ -672,17 +672,17 @@
     }
 
     function splitContactName(name) {
-      let nameArray = name.split(' ');
-      if (nameArray.length < 2) {
-        nameArray = name.split(',');
+      let separatorIndex = name.indexOf(' ');
+      if (separatorIndex === -1) {
+        separatorIndex = name.indexOf(',');
       }
       let contact = {};
-      if (nameArray.length < 2) {
+      if (separatorIndex === -1) {
         contact.lastName = 'Unknown';
       } else {
-        contact.lastName = nameArray[1];
+        contact.lastName = name.substring(separatorIndex + 1);
       }
-      contact.firstName = nameArray[0];
+      contact.firstName = name.substring(0, separatorIndex);
       return contact;
     }
   }
