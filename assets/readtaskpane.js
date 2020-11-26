@@ -304,6 +304,7 @@
       await saveAllContact();
       $(this).prop('disabled', false);
       showContactSavedInfo();
+      location.reload();
     }
 
     function showSavingContactInfo() {
@@ -374,11 +375,9 @@
               await saveContactGroup(toSave[key][3], groupId)
             }
           }
-          // await setConfig(config, function(result) {
-          //   confirmDialog.close();
-          //   confirmDialog = null;
-          // });
-
+          confirmDialog.close();
+          confirmDialog = null;
+          location.reload();
         });
 
       });
@@ -610,12 +609,12 @@
           var categories = asyncResult.value;
           var hasSaved = false;
           categories.forEach(function (item) {
-            if (item.displayName === 'Saved to CiviCRM') {
+            if (item.displayName === 'Saved in CiviCRM') {
               hasSaved = true;
             }
           });
           if (!hasSaved) {
-            Office.context.mailbox.item.categories.addAsync(['Saved to CiviCRM'], result => {
+            Office.context.mailbox.item.categories.addAsync(['Saved in CiviCRM'], result => {
               if (result.status === Office.AsyncResultStatus.Succeeded) {
                 console.log("Successfully added categories");
               } else {
@@ -624,7 +623,7 @@
                 if (result.error.code === 9044) {
                   var masterCategoriesToAdd = [
                     {
-                      "displayName": "Saved to CiviCRM",
+                      "displayName": "Saved in CiviCRM",
                       "color": Office.MailboxEnums.CategoryColor.Preset0
                     }
                   ];
