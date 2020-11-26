@@ -73,7 +73,7 @@
 
             <ul class="ms-List" id="target">
             </ul>
-            <button class="ms-Button ms-Button--medium save-email" id="send-submit">
+            <button class="ms-Button ms-Button--medium" id="send-submit">
               <span class="ms-Button-label">Save Folder in CiviCRM</span>
             </button>
             <p id="saving-email-notice" style="display: none;">Emails are being saved to CiviCRM, please wait...</p>

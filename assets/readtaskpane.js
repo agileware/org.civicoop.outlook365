@@ -5,13 +5,14 @@
     var requiredAttendees = Office.context.mailbox.item;
     var config = false;
     var saveDialog = null
+    var accessToken = null;
 
     jQuery(document).ready(async function () {
       // Set localized text for UI elements.
       await reset();
 
       Office.context.mailbox.getCallbackTokenAsync({isRest: true}, function (result) {
-        var accessToken = result.value;
+        accessToken = result.value;
         var getMessageUrl = Office.context.mailbox.restUrl + '/v2.0/me/MailFolders';
 
         $.ajax({
@@ -23,8 +24,7 @@
           $('#target').empty();
           console.log(data);
           for (const item of data.value) {
-            let html = $(`<div><input type="checkbox" name="${item.Id}" id="${item.Id}" /><label for="${item.Id}">${item.DisplayName}</label></div>`);
-            html = $('<li class="ms-ListItem is-selectable" tabindex="0">' +
+            let html = $(`<li class="ms-ListItem is-selectable" name="${item.Id}" id="${item.Id}" tabindex="0">` +
               `<span class="ms-ListItem-secondaryText">${item.DisplayName}</span>` +
               '<div class="ms-ListItem-selectionTarget"></div>' +
               '</li>');
@@ -39,48 +39,7 @@
           console.log(error);
         });
 
-        $("#send-submit").on('click', function (event) {
-          $(this).prop('disabled', true);
-          savingEmailInFolderInfo();
-          $('#folder-form input:checked').each((index, element) => {
-            let folderID = element.getAttribute('name');
-            let getMessageUrl = Office.context.mailbox.restUrl +
-              '/v2.0/me/MailFolders/' + folderID + '/messages?$expand=SingleValueExtendedProperties';
-            $.ajax({
-              url: getMessageUrl,
-              dataType: 'json',
-              headers: {'Authorization': 'Bearer ' + accessToken}
-            }).done(async function (data) {
-              // Message is passed in `item`.
-              if (!data.value.length) return;
-              console.log(data);
-              for (const email of data.value) {
-                if (email.Categories.includes('Saved in CiviCRM')) {
-                  continue;
-                }
-                $.ajax({
-                  url: Office.context.mailbox.restUrl + "/v2.0/me/messages/" + email.Id,
-                  dataType: 'json',
-                  contentType: 'application/json',
-                  method: 'PATCH',
-                  headers: {'Authorization': 'Bearer ' + accessToken},
-                  data: JSON.stringify({
-                    Categories: [
-                      "Saved in CiviCRM"
-                    ]
-                  })
-                }).done(result => {
-                  console.log(result);
-                });
-                await pushEmailActivity(email.Subject, email.Body.Content, new Date());
-              }
-              emailInFolderSavedInfo();
-            }).fail(function (error) {
-              // Handle error.
-              console.log(error);
-            });
-          });
-        });
+        $("#send-submit").on('click', saveEmailsInFolder);
       });
 
       // fetch all folders
@@ -110,6 +69,53 @@
       });
 
     });
+
+    /**
+     * An event handler for save emails in the selected folders
+     * @param event
+     */
+    function saveEmailsInFolder(event) {
+      $(this).prop('disabled', true);
+      savingEmailInFolderInfo();
+      $('#folder-form li.is-selected').each((index, element) => {
+        let folderID = element.getAttribute('name');
+        let getMessageUrl = Office.context.mailbox.restUrl +
+          '/v2.0/me/MailFolders/' + folderID + '/messages?$expand=SingleValueExtendedProperties';
+        $.ajax({
+          url: getMessageUrl,
+          dataType: 'json',
+          headers: {'Authorization': 'Bearer ' + accessToken}
+        }).done(async function (data) {
+          console.log(data);
+          // Message is passed in `item`.
+          if (!data.value.length) return;
+          for (const email of data.value) {
+            if (email.Categories.includes('Saved in CiviCRM')) {
+              continue;
+            }
+            $.ajax({
+              url: Office.context.mailbox.restUrl + "/v2.0/me/messages/" + email.Id,
+              dataType: 'json',
+              contentType: 'application/json',
+              method: 'PATCH',
+              headers: {'Authorization': 'Bearer ' + accessToken},
+              data: JSON.stringify({
+                Categories: [
+                  "Saved in CiviCRM"
+                ]
+              })
+            }).done(result => {
+              console.log(result);
+            });
+            await pushEmailActivity(email.Subject, email.Body.Content, new Date());
+          }
+          emailInFolderSavedInfo();
+        }).fail(function (error) {
+          // Handle error.
+          console.log(error);
+        });
+      });
+    }
 
     function savingEmailInFolderInfo() {
       $('#saving-email-notice').show();
@@ -572,26 +578,72 @@
           }
 
           var url = config.url + '?'
-          data = {
+          var param = {
             "entity": "Activity",
             "action": "create",
             "api_key": config.apikey,
             "key": config.sitekey,
-            "json": {...data}
+            "json": 1
           };
-          for (var prop in data) {
+          for (var prop in param) {
             if (prop == 'json') {
-              url = url + '&' + prop + '=' + JSON.stringify(data[prop]);
+              url = url + '&' + prop + '=' + JSON.stringify(param[prop]);
             } else {
-              url = url + '&' + prop + '=' + data[prop];
+              url = url + '&' + prop + '=' + param[prop];
             }
           }
-          await $.post(url, function (result, status) {
-            console.log(result)
+          await $.post(url, data, function (result, status) {
+            console.log(result);
+            addSavedCategoryToCurrentMessage();
           }).fail(response => {
             openDialog(dialogComponent);
           });
         });
+    }
+
+    function addSavedCategoryToCurrentMessage() {
+      // skip if the message has sent to CiviCRM
+      Office.context.mailbox.item.categories.getAsync(function (asyncResult) {
+        if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+          console.log("Action failed with error: " + asyncResult.error.message);
+        } else {
+          var categories = asyncResult.value;
+          var hasSaved = false;
+          categories.forEach(function (item) {
+            if (item.displayName === 'Saved to CiviCRM') {
+              hasSaved = true;
+            }
+          });
+          if (!hasSaved) {
+            Office.context.mailbox.item.categories.addAsync(['Saved to CiviCRM'], result => {
+              if (result.status === Office.AsyncResultStatus.Succeeded) {
+                console.log("Successfully added categories");
+              } else {
+                console.log("categories.addAsync call failed with error: " + result.error.message);
+                // create the category if it is not exist and try again
+                if (result.error.code === 9044) {
+                  var masterCategoriesToAdd = [
+                    {
+                      "displayName": "Saved to CiviCRM",
+                      "color": Office.MailboxEnums.CategoryColor.Preset0
+                    }
+                  ];
+
+                  Office.context.mailbox.masterCategories.addAsync(masterCategoriesToAdd, function (asyncResult) {
+                    if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
+                      console.log("Successfully added categories to master list");
+                      addSavedCategoryToCurrentMessage();
+                    } else {
+                      console.log("masterCategories.addAsync call failed with error: " + asyncResult.error.message);
+                    }
+                  });
+                }
+              }
+            });
+          }
+        }
+      });
+
     }
 
     async function getConfig() {
