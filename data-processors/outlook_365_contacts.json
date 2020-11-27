@@ -157,6 +157,17 @@
         "field": "email",
         "datasource": "e_mail"
       }
+    },
+    {
+      "weight": "3",
+      "name": "contact_id",
+      "title": "Contact ID",
+      "type": "raw",
+      "configuration": {
+        "field": "contact_id",
+        "datasource": "contact",
+        "is_aggregate": ""
+      }
     }
   ],
   "outputs": [

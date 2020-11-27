@@ -569,10 +569,15 @@
           //     secondaryFields = secondaryFields + '<div class="ms-Persona-secondaryText"><strong>' + fields[fieldI].title + ':</strong>&nbsp;' + value + '</div>';
           //   }
           // }
+          var contact_url = CRMContactURL;
+          contact_url += "&cid=" + String(contact.contact_id);
           var html = '' +
             '<div class="ms-Persona">' +
             '<div class="ms-Persona-details">' +
             '<div class="ms-Persona-primaryText">' + name + '</div>' +
+            '<div class="ms-ListItem-actions search-contact-profile"><div class="ms-ListItem-action">' +
+            '<a href="' + contact_url + '" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="View Contact in CiviCRM"></i></a>' +
+            '</div></div>' +
             '<div class="ms-Persona-secondaryText">' + email + '</div>' +
             secondaryFields +
             buttons +

@@ -55,6 +55,10 @@
 span.group-name {
   white-space: normal;
 }
+
+.ms-ListItem-actions.search-contact-profile {
+    top: 0;
+}
 /*.ms-landing-page__footer--left:active, .ms-landing-page__footer--left:hover {
   cursor: pointer;
 }
