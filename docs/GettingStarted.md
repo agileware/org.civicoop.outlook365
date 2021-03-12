@@ -1,92 +1,91 @@
 # Getting started
 
-This page explains how you could integrate your CiviCRM with Outlook 365.
+This page explains how to set up CiviCRM and Outlook 365 integration.
 
-## Get the REST URL from CiviCRM, SITE Key, and API Key
+## Obtain the CiviCRM REST URL, CiviCRM Site Key and CiviCRM API Key
 
-Before we continue get your SITE KEY and your API KEY.
-Also retrieve the rest url. This one could be under Support --> Developers --> API Explorer (v3)
+### CiviCRM REST URL
 
-[This answer on Stack Exchange](https://civicrm.stackexchange.com/a/31093/90) explains how to get the API Key and Site Key.
+For **WordPress** sites with CiviCRM, the CiviCRM REST URL is https://your.domain.name/wp-json/civicrm/v3/rest
 
-Make sure the API user has access to view contacts in your CiviCRM installation.
+For **Drupal** sites with CiviCRM, the CiviCRM REST URL is (typically), https://your.domain.name/sites/all/modules/civicrm/extern/rest.php
 
-## Install data processor extension
+You can also find out the REST URL in the CiviCRM Menu under *Support, Developers, API Explorer (v3)*. Select an Entity to query and then check the *Rest*  URL provided.
 
-Make sure you have installed the [data processor](lab.civicrm.org/extensions/dataprocessor) extension version 1.1.0 or newer.
+### CiviCRM Site Key
 
-## Install this extension
+The CiviCRM Site Key is **unique** for each CiviCRM site. To obtain this information, see https://docs.civicrm.org/sysadmin/en/latest/setup/secret-keys/
 
-Download the extension from GitLab and upload it in your extension folder.
+### CiviCRM API Key
 
-Go in CiviCRM to Administer --> System Setting --> Extension and press install next to Outlook 365 Integration
+Each user that will be using the Outlook integration will need to have a CiviCRM API Key generated for their CiviCRM Contact. Locate each Contact, click on the API Key tab and click the Add Key API button. (If you have many users, then you will probably want to find a faster way to do this, because life is short!). Each user can also login to CiviCRM and generate their own API Key for their CiviCRM Contact.  
 
-## Give the Anonymous User the permission to Access Outlook 365 files
+## Provide the CiviCRM REST URL, Site Key and API Key to the end user
 
-_This could be different in your installation. Below is a description of how to do this when CiviCRM is installed in Drupal 7._
+Provide the CiviCRM REST URL, CiviCRM Site Key and CiviCRM API Key to each user, as this is required for setting up their Outlook integration. Ensure each user receives the correct CiviCRM API Key.
 
-Go in Drupal to People --> Permissions and check **Access outlook 365 pages** in the column of the Anonymous User.
-And press Save Permissions.
+## CiviCRM Permissions 
 
-![drupal-7-permission](../images/GettingStarted/outlook-civicrm-permission.png)
+For **WordPress**, go to CiviCRM Users and Permissions, Access Control and enable the **Access Outlook 365 pages** permission to **Anonymous User**.
 
-## Download the Outlook 365 Manifest file.
+For **Drupal**, go to People, Permissions and enable the **Access Outlook 365 pages** permission to **Anonymous User**.
 
-The manifest file is used to install the Add-In into Outlook 365.
+## Outlook 365 Manifest file (manifest.xml)
 
-In CiviCRM go to Administer --> Download Outlook 365 Manifest.xml
-Safe this file on your computer and keep it for the next steps.
+In the CiviCRM Menu under *Administer*. Select the **Download Outlook 365 Manifest file.xml** option and download the **manifest.xml** file. This file is used to install the Outlook integration as an **Add-In** into Outlook 365.
 
-## Install the Add-In in Outlook 365
+## Setting up Outlook 365
 
-There are two ways of how you could install the add-in in Outlook 365: the first method
-is that you make the add-in available in your Organization. The other method is installing it on a per user account.
+There are **two options** for deploying the Outlook 365 Add-Ins, either for all users in the Organisation or on a per user basis.
 
-### Install the add-in Organization wide
+*Note: Screenshots are not shown for these steps as Microsoft regularly changes the Microsoft 365 admin center.*
 
-1. Go to the [Office 365 Admin console](https://admin.microsoft.com/AdminPortal)
-2. Click on View all and the on Settings and then on Services and Add-ins
-3. Click on Implement Add-in ![implement add in](../images/GettingStarted/outlook-admin-implement-add-in.png)
-4. Click on Next
-5. Click on Upload Add-In ![upload add in](../images/GettingStarted/outlook-admin-upload-add-in.png)
-6. Select a file for upload and browse to your manifest.xml
-7. Select who and how they can use your add-in. If you dont know leave the settings as it is (meaning the add-in is enabled for all users).
-8. Click on implement
+### Deploying for the Organisation
 
-_**ps.** It could take a while before you can continue to the [First Use](#first-use-per-user) section._
+1. Go to the [Microsoft 365 admin center](https://admin.microsoft.com/AdminPortal)
+2. Click **Settings**
+3. Click **Integrated apps**
+4. On the Integrated apps page, click the [Add-ins link](https://admin.microsoft.com/Adminportal#/Settings/AddIns)
+5. Click the **Deploy Add-in** button
+6. Click on Next
+7. On the **Deploy a new add-in** page, under the **Deploy a custom add-in** click the **Upload custom apps** button
+8. Select **manifest.xml** file from your computer and click **Upload**
+9. On the **Configure add-in** page, select options as appropriate for you
+10. Click on **Deploy**
 
-_**ps2.** The screenshots are in Dutch so I had to guess the English names of the buttons, hope it makes sense._
+The Add-in will be deployed in your Organisation for Outlook 365 users. See the **First use** section below.
 
-### Install the add-in per user
+### Deploying per user
 
-1. Login into Outlook 365. Press new message
-2. In the new message screen press on the ... in the bottom right corner of your screen ![install-1](../images/GettingStarted/outlook-install-1.png)
-3. Press Get Add-Ins
-4. In the next screen go to My add-ins ![install-2](../images/GettingStarted/outlook-install-2.png)
-5. Press Add a custom add-in --> Add From File
-6. Browse to the manifest file (which you have downloaded earlier from CiviCRM)
-7. Press install ![install-3](../images/GettingStarted/outlook-install-3.png)
+1. Login into Outlook 365
+2. **Open an email** or click on **New message**
+3. On the **email page** click on the **...** action button
+4. Select the option, **Get Add-Ins**
+5. On the **Add-Ins for Outlook** page, select **My add-ins** and scroll to the bottom of the page
+6. Select **Add a custom add-in** and select the **Add From file...** option
+8. Select **manifest.xml** file from your computer
+9. Click **Install** when prompted
 
-The Add-in is now available in Outlook 365. But before you can actually use it you can to configire the Add-in with the CiviCRM
-rest URL and the site key and api key.
+The Add-in will now be available in this users Outlook 365. See the *First use configuration* section below.
 
-## First Use (per user)
+## First use configuration
 
-When you first use the Add-in you have to enter your CiviCRM settings.
+The Add-in must be configured for *each user* with the following settings:
+* CiviCRM REST URL
+* Site Key
+* API Key
 
-_Due to the fact how Outlook 365 works. We can only store those settings on a per user base. So that means
-that you have to do this step for every user in your outlook 365 installation_
+See the *Obtain the CiviCRM REST URL, Site Key and API Key* section above for more details.
 
-1. Login in Outlook 365 And click on New message
-2. In the new message screen press on the ... in the bottom right corner of your screen
-3. Click on CiviCRM ![outlook-add-in-menu](../images/GettingStarted/outlook-add-in-menu.png)
-4. On your right hand side a screen appears with a grey button called Settings. Click on this button.
-5. Enter you CiviCRM REST Url, Site Key and API Key. ![civicrm-settings-in-outlook](../images/GettingStarted/civicrm-settings-in-outlook.png)
-6. Click on Done
+1. Login into Outlook 365
+2. **Open an email** or click on **New message**
+3. On the **email page** click on the **...** action button
+4. Click on icon with the **CiviCRM logo**, your Organisation name should be shown next to this icon
+5. The **Add-in pane** will open. Click on the Settings in the **Add-in pane** 
+6. Enter the following details: CiviCRM REST URL, CiviCRM Site Key, CiviCRM API Key
+6. Click **Save**
 
-Now you are  ready to use this extension. If everything went well. You can search for contacts from CiviCRM in your Outlook new Message Screen.
-
-![outlook-in-use](../images/GettingStarted/outlook-in-use.png)
+If the details have been entered correctly, then the Add-in should now be ready to use.
 
 
 
