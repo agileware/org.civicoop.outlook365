@@ -5,7 +5,7 @@
   <ProviderName>{$default_contact_name}</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="{$default_contact}"/>
-  <Description DefaultValue="Integrate outlook 365 with CiviRM."/>
+  <Description DefaultValue="Integrate outlook 365 with CiviCRM."/>
   <IconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
   <HighResolutionIconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
   <SupportUrl DefaultValue="https://www.civicrm.org"/>
