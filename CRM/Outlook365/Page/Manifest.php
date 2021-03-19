@@ -8,15 +8,16 @@ class CRM_Outlook365_Page_Manifest extends CRM_Core_Page {
     CRM_Utils_System::setTitle(E::ts('Manifest'));
 
     $site_url = CRM_Utils_System::baseURL();
-    $defaultContact = civicrm_api3('Contact', 'getvalue', ['id' => 1, 'return' => 'display_name']);
-    $defaultContactName = CRM_Utils_String::convertStringToCamel($defaultContact);
+    $domainContactID = civicrm_api3('Domain', 'getvalue', ['return' => "contact_id", 'current_domain' => $site_url]);
+    $domainContact = civicrm_api3('Contact', 'getvalue', ['id' => $domainContactID, 'return' => 'display_name']);
+    $domainContactName = CRM_Utils_String::convertStringToCamel($domainContact);
     $guid = CRM_Outlook365_Utils_Uuid::v5('3b44a0ed-311f-4f35-ba77-d8467a3624f6', $site_url);
 
     $this->_print = CRM_Core_Smarty::PRINT_SNIPPET;
     $baseUrl = E::url('');
     $this->assign('baseurl', $baseUrl);
-    $this->assign('default_contact', $defaultContact);
-    $this->assign('default_contact_name', $defaultContactName);
+    $this->assign('default_contact', $domainContact);
+    $this->assign('default_contact_name', $domainContactName);
     $this->assign('guid', $guid);
 
     self::$_template->assign('mode', $this->_mode);
