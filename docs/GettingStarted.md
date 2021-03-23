@@ -2,6 +2,10 @@
 
 This page explains how to set up CiviCRM and Outlook 365 integration.
 
+## Enable CiviCRM Extension, Outlook 365 Integration
+
+Go to the CiviCRM Extensions page and enable the CiviCRM extension, **Outlook 365 Integration**.
+
 ## Obtain the CiviCRM REST URL, CiviCRM Site Key and CiviCRM API Key
 
 ### CiviCRM REST URL
