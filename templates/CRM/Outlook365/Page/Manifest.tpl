@@ -2,9 +2,9 @@
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
   <Id>{$guid}</Id>
   <Version>1.0.0.0</Version>
-  <ProviderName>{$default_contact_name}</ProviderName>
+  <ProviderName>{$default_contact_name|escape}</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="{$default_contact}"/>
+  <DisplayName DefaultValue="{$default_contact|escape}"/>
   <Description DefaultValue="Integrate outlook 365 with CiviCRM."/>
   <IconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
   <HighResolutionIconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
