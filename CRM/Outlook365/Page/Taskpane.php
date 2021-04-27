@@ -9,6 +9,9 @@ class CRM_Outlook365_Page_Taskpane extends CRM_Core_Page {
 
     $this->_print = CRM_Core_Smarty::PRINT_SNIPPET;
     $baseUrl = E::url('');
+    if (!strncmp($baseUrl, '/', 1)) {
+        $baseUrl = rtrim(CRM_Utils_System::baseURL(), '/') . $baseUrl;
+    }
     $this->assign('baseurl', $baseUrl);
 
 	  $this->assign('contactURL', CRM_Utils_System::url(
