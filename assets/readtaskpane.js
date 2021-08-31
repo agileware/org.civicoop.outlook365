@@ -574,8 +574,22 @@
             "subject": requiredAttendees.subject,
             "details": emailBody,
             "activity_date_time": datetime.toString(),
+            "target_id": [],
           }
 
+          $('.ms-List').children().each(function (index) {
+             let contact = $(this).children(".ms-ListItem-actions").children(".ms-ListItem-action")
+             // name,email,already saved
+             if ($(this).hasClass('is-selected')) {
+               if ($(this).hasClass('to_save')) {
+                 let contactId = saveContactToCRM({"name": contact.data('civicrm-name'), "email": contact.data('civicrm-email')})
+                 data.target_id.push(contactId);
+               } else {
+                 data.target_id.push(contact.data('civicrm-id'));
+               }
+             }
+          });
+      
           var url = config.url + '?'
           var param = {
             "entity": "Activity",
