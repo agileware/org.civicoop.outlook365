@@ -34,6 +34,15 @@
       // // values back to the caller as a serialized
       // // object.
       $('#group-select-done').on('click', done);
+      $('.group-select-dropdown').on('change', function(){
+        var value = $('.group-select-dropdown').val();
+        if (value == '-1') {
+          $('#newGroupName').removeClass('is-disabled');
+        } else {
+          $('#newGroupName').addClass('is-disabled');
+        }
+      });
+      $('.group-select-dropdown').change();
     });
   };
 
@@ -46,7 +55,9 @@
       "key": config.sitekey,
       "json": {
         "sequential": 1,
-        "return": ["id", "name"],
+        "return": ["id", "title"],
+        "is_active": '1',
+        "is_hidden": '0',
         "options": {
           "limit": 0,
         }
@@ -65,7 +76,7 @@
   function addGroups(data) {
     console.log(data)
     for (var key in data['values']) {
-      $('.group-select-dropdown').append('<option value="' + data['values'][key]["id"] + '">' + data['values'][key]['name'] + '</option>');
+      $('.group-select-dropdown').append('<option value="' + data['values'][key]["id"] + '">' + data['values'][key]['title'] + '</option>');
     }
   }
 
@@ -73,7 +84,7 @@
     let selectedGroup = $(".group-select-dropdown").val()
     let fieldName = $("#civicrm-group-field").val()
     let exist = true
-    if (fieldName !== "") {
+    if (selectedGroup == '-1') {
       exist = false
     }
     Office.context.ui.messageParent(JSON.stringify({
