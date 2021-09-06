@@ -13,7 +13,16 @@
             "title": "Group",
             "type": "group",
             "configuration": {
-                "filter": []
+                "filter": {
+                    "is_active": {
+                        "op": "=",
+                        "value": "1"
+                    },
+                    "is_hidden": {
+                        "op": "=",
+                        "value": "0"
+                    }
+                }
             },
             "join_configuration": []
         },
