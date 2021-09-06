@@ -63,7 +63,7 @@ var UIStrings = (function () {
     var text;
     var localeProp = locale.replace("-", "_");
     if (UIStrings[localeProp]) {
-      text = UIStrings[localeProp];
+      text = $.extend( true, UIStrings.default, UIStrings[localeProp] );
     } else {
       text = UIStrings.default;
     }
