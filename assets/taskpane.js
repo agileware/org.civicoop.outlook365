@@ -562,13 +562,13 @@
           }
 
           var secondaryFields = '';
-          // for(var fieldI in fields) {
-          //   var fieldName = fields[fieldI].name;
-          //   var value = contact[fieldName];
-          //   if (value) {
-          //     secondaryFields = secondaryFields + '<div class="ms-Persona-secondaryText"><strong>' + fields[fieldI].title + ':</strong>&nbsp;' + value + '</div>';
-          //   }
-          // }
+          for(var fieldI in fields) {
+             var fieldName = fields[fieldI].name;
+             var value = contact[fieldName];
+             if (value) {
+               secondaryFields = secondaryFields + '<div class="ms-Persona-secondaryText"><strong>' + fields[fieldI].title + ':</strong>&nbsp;' + value + '</div>';
+             }
+          }
           var contact_url = CRMContactURL;
           contact_url += "&cid=" + String(contact.contact_id);
           var html = '' +
