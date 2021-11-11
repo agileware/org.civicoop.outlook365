@@ -6,9 +6,6 @@ This extension generates a Microsoft Outlook 365 add-in which connects Outlook 3
 **Features**
 
 * Look up Contacts in the Compose New Message Screen. So you can send them easily an e-mail by pressing To, CC or BCC.
-
-**Not implemented**
-
 * Storing of e-mails into CiviCRM
 * Creating new contacts in CiviCRM from Outlook 365
 
