@@ -13,16 +13,7 @@
             "title": "Group",
             "type": "group",
             "configuration": {
-                "filter": {
-                    "is_active": {
-                        "op": "=",
-                        "value": "1"
-                    },
-                    "is_hidden": {
-                        "op": "=",
-                        "value": "0"
-                    }
-                }
+                "filter": []
             },
             "join_configuration": []
         },
@@ -32,7 +23,14 @@
             "title": "Contacts in a group",
             "type": "group_contact",
             "configuration": {
-                "filter": []
+                "filter": {
+                    "status": {
+                        "op": "IN",
+                        "value": [
+                            "Added"
+                        ]
+                    }
+                }
             },
             "join_type": "simple_join",
             "join_configuration": {
