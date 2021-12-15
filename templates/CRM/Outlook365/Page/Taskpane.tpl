@@ -1,3 +1,4 @@
+{crmScope extensionKey='outlook365'}
 <!DOCTYPE html>
 <html>
 
@@ -30,20 +31,20 @@
 
     <div class="ms-CommandBar-mainArea">
       <div class="ms-CommandButton ms-CommandButton--pivot is-active">
-          <i class="ms-Icon ms-Icon--Contact" aria-hidden="true" ><span class="ms-font-l contacts">Contacts</span></i>
+          <i class="ms-Icon ms-Icon--Contact" aria-hidden="true" ><span class="ms-font-l contacts">{ts}Contacts{/ts}</span></i>
       </div>
       <div class="ms-CommandButton ms-CommandButton--pivot">
-          <i class="ms-Icon ms-Icon--Group" aria-hidden="true"><span class="ms-font-l groups">Groups</span></i>
+          <i class="ms-Icon ms-Icon--Group" aria-hidden="true"><span class="ms-font-l groups">{ts}Groups{/ts}</span></i>
       </div>
       <div class="ms-CommandButton ms-CommandButton--pivot" id="settings-icon">
-          <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">Settings</span>  </i>
+          <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">{ts}Settings{/ts}</span>  </i>
       </div>
       <div id="search-form">
         <div class="ms-SearchBox ms-SearchBox--commandBar">
           <input class="ms-SearchBox-field" id="searchField" type="text" value="">
           <label class="ms-SearchBox-label">
             <i class="ms-SearchBox-icon ms-Icon ms-Icon--Search"></i>
-            <span class="ms-SearchBox-text">Search</span>
+            <span class="ms-SearchBox-text">{ts}Search{/ts}</span>
           </label>
           <div class="ms-CommandButton ms-SearchBox-clear ms-CommandButton--noLabel">
             <button class="ms-CommandButton-button">
@@ -93,3 +94,4 @@
 </body>
 
 </html>
+{/crmScope}

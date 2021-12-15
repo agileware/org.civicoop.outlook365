@@ -91,11 +91,11 @@
       reset()
       if (currentTab === "contacts") {
         $("#search-form").show();
-        $('#search-form span.ms-SearchBox-text').text('Search');
+        $('#search-form span.ms-SearchBox-text').text(UIText.ContactScreen.Placeholder);
         loadNextContacts()
       } else if (currentTab === "groups") {
         $("#search-form").show();
-        $('#search-form span.ms-SearchBox-text').text('Search Group');
+        $('#search-form span.ms-SearchBox-text').text(UIText.GroupScreen.Placeholder);
         loadNextGroups()
       }
 
@@ -107,7 +107,7 @@
         '<input class="ms-SearchBox-field" id="groupSearchField" type="text" value="">' +
         '<label class="ms-SearchBox-label">' +
         '<i class="ms-SearchBox-icon ms-Icon ms-Icon--Search"></i>' +
-        '<span class="ms-SearchBox-text">Search</span>' +
+        '<span class="ms-SearchBox-text">' + UIText.ContactScreen.Placeholder + '</span>' +
         '</label>' +
         '<div class="ms-CommandButton ms-SearchBox-clear ms-CommandButton--noLabel">' +
         '<button class="ms-CommandButton-button">' +
@@ -264,7 +264,7 @@
             name +
             '</span>' +
             '<div class="ms-ListItem-actions"><div class="ms-ListItem-action">' +
-            '<a href="' + groupURL + '" target="_blank"><i class="ms-Icon ms-Icon--Settings" title="View Group Settings in CiviCRM"></i></a>' +
+            '<a href="' + groupURL + '" target="_blank"><i class="ms-Icon ms-Icon--Settings" title="' + UIText.GroupScreen.TitleURL + '"></i></a>' +
             '</div></div>' +
             '</div>' +
             '</div>' +
@@ -326,10 +326,10 @@
         '<button class="ms-Button ms-Button--small bcc"><span class="ms-Button-label">' + UIText.Bcc + '</span></button>';
       buttons = '<div class="CiviCRM-Group-Email" data-civicrm-id="' + id + '" data-civicrm-name="' + name + '">' + buttons + '</div>';
       $(event.target).parent().append(buttons);
-      $(event.target).parent().append('<div class="allData"><button class="ms-Button ms-Button--small selectAll"><span class="ms-Button-label">Select All</span></button>' +
-        '<button class="ms-Button ms-Button--small"><span class="ms-Button-label unselectAll">Unselect All</span></button></div>')
+      $(event.target).parent().append('<div class="allData"><button class="ms-Button ms-Button--small selectAll"><span class="ms-Button-label">' + UIText.GroupScreen.SelectAll + '</span></button>' +
+        '<button class="ms-Button ms-Button--small"><span class="ms-Button-label unselectAll">' + UIText.GroupScreen.UnselectAll + '</span></button></div>')
       $(event.target).parent().append(getSearchForm(name))
-      $("#group_search_" + name + " .ms-SearchBox-text").text("Search contact in group");
+      $("#group_search_" + name + " .ms-SearchBox-text").text(UIText.GroupScreen.SearchContact);
 
       $(event.target).parent().append('<ul class="ms-List ' + name + '-list-email">' + html + '</ul>')
       var SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
@@ -421,7 +421,7 @@
             '<span class=""ms-ListItem-primaryText">' + contact.display_name + '</span>' +
             '<div class="ms-ListItem-selectionTarget"></div>' +
             '<div class="ms-ListItem-actions"><div class="ms-ListItem-action">' +
-            '<a href="' + contact_url + '" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="View Contact in CiviCRM"></i></a>' +
+            '<a href="' + contact_url + '" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="' + UIText.ContactScreen.TitleURL + '"></i></a>' +
             '</div></div>' +
             '</li>';
           // break
@@ -576,7 +576,7 @@
             '<div class="ms-Persona-details">' +
             '<div class="ms-Persona-primaryText">' + name + '</div>' +
             '<div class="ms-ListItem-actions search-contact-profile"><div class="ms-ListItem-action">' +
-            '<a href="' + contact_url + '" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="View Contact in CiviCRM"></i></a>' +
+            '<a href="' + contact_url + '" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="' + UIText.ContactScreen.TitleURL + '"></i></a>' +
             '</div></div>' +
             '<div class="ms-Persona-secondaryText">' + email + '</div>' +
             secondaryFields +

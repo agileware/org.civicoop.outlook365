@@ -7,6 +7,9 @@
     var saveDialog = null
     var accessToken = null;
 
+    var myLanguage = Office.context.displayLanguage;
+    var UIText = UIStrings.getLocaleStrings(myLanguage);
+
     jQuery(document).ready(async function () {
       // Set localized text for UI elements.
       await reset();
@@ -220,9 +223,9 @@
       }
 
       if (res['exist']) {
-        html += '<a href="' + res.contact_url + '" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="View Contact in CiviCRM"></i></a>'
+        html += '<a href="' + res.contact_url + '" target="_blank"><i class="ms-Icon ms-Icon--Contact" title="' + UIText.ContactScreen.TitleURL + '"></i></a>'
       } else {
-        html += '<i class="ms-Icon ms-Icon--Save save-contact" title="Save Contact to CiviCRM"></i>'
+        html += '<i class="ms-Icon ms-Icon--Save save-contact" title="' + UIText.SaveContactInGroupScreen.SaveContact + '"></i>'
       }
 
       html += '</div>' +
@@ -535,13 +538,13 @@
       html += '</ul>'
 
       html += '<button class="ms-Button ms-Button--small save-contact-all">' +
-        '<span class="ms-Button-label">Save Contacts</span>' +
+        '<span class="ms-Button-label">' + UIText.SaveContactInGroupScreen.Save + '</span>' +
         '</button>'
       html += '<button class="ms-Button ms-Button--small save-contact-all-group">' +
-        '<span class="ms-Button-label">Save Contacts to Group</span>' +
+        '<span class="ms-Button-label">' + UIText.SaveContactInGroupScreen.Title + '</span>' +
         '</button>'
-      html += '<p id="saving-contact-help-text" style="display: none;">Contacts are being saved to CiviCRM, please wait...</p>';
-      html += '<p id="saved-contact-help-text" style="display: none;">All selected contacts have been saved to CiviCRM</p>';
+      html += '<p id="saving-contact-help-text" style="display: none;">' + UIText.SaveContactInGroupScreen.SavingText + '</p>';
+      html += '<p id="saved-contact-help-text" style="display: none;">' + UIText.SaveContactInGroupScreen.SavedText + '</p>';
 
       html += '<br><br>';
 
