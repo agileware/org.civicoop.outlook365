@@ -1,3 +1,4 @@
+{crmScope extensionKey='outlook365'}
 <!DOCTYPE html>
 <html>
 
@@ -34,10 +35,10 @@
     <div class="ms-CommandBar-mainArea">
       <div class="ms-CommandButton ms-CommandButton--pivot is-active">
           <!-- <a class="ms-CommandButton-button"> <span class="ms-CommandButton-label contacts">Contacts</span>  </a>  -->
-          <i class="ms-Icon ms-Icon--Contact" aria-hidden="true" ><span class="ms-font-l contacts">Contacts</span></i>
+          <i class="ms-Icon ms-Icon--Contact" aria-hidden="true" ><span class="ms-font-l contacts">{ts}Contacts{/ts}</span></i>
       </div>
       <div class="ms-CommandButton ms-CommandButton--pivot" id="settings-icon">
-          <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">Settings</span>  </i>
+          <i class="ms-Icon ms-Icon--Settings" aria-hidden="true"> <span class="ms-font-l settings">{ts}Settings{/ts}</span></i>
       </div>
       </div>
     <div class="dataclass">
@@ -45,10 +46,10 @@
     </div>
     <div>
       <button class="ms-Button ms-Button--small selectAll">
-        <span class="ms-Button-label">Select All</span>
+        <span class="ms-Button-label">{ts}Select All{/ts}</span>
       </button>
       <button class="ms-Button ms-Button--small">
-        <span class="ms-Button-label unselectAll">Unselect All</span>
+        <span class="ms-Button-label unselectAll">{ts}Unselect All{/ts}</span>
       </button>
     </div>
 
@@ -57,27 +58,27 @@
     <div class="ms-Spinner" id="loadingContacts">
       <div class="ms-Spinner-label">
         <br>
-        Loading...
+        {ts}Loading...{/ts}
       </div>
     </div>
     <hr>
 
     <div class="ms-CommandBar-mainArea">
-      <h2>Save Email</h2>
-      <p>Click the following button to save this email in CiviCRM as an Activity</p>
+      <h2>{ts}Save Email{/ts}</h2>
+      <p>{ts}Click the following button to save this email in CiviCRM as an Activity{/ts}</p>
       <button class="ms-Button ms-Button--medium save-email">
-        <span class="ms-Button-label">Save Email</span>
+        <span class="ms-Button-label">{ts}Save Email{/ts}</span>
       </button>
-      <p>Select one or more email folders to save all the emails to CiviCRM as an Activity.</p>
+      <p>{ts}Select one or more email folders to save all the emails to CiviCRM as an Activity.{/ts}</p>
           <form id="folder-form">
 
             <ul class="ms-List" id="target">
             </ul>
             <button class="ms-Button ms-Button--medium" id="send-submit">
-              <span class="ms-Button-label">Save Folder in CiviCRM</span>
+              <span class="ms-Button-label">{ts}Save Folder in CiviCRM{/ts}</span>
             </button>
-            <p id="saving-email-notice" style="display: none;">Emails are being saved to CiviCRM, please wait...</p>
-            <p id="saved-email-notice" style="display: none;">All emails have been saved to CiviCRM and assigned the "Saved in CiviCRM" category</p>
+            <p id="saving-email-notice" style="display: none;">{ts}Emails are being saved to CiviCRM, please wait...{/ts}</p>
+            <p id="saved-email-notice" style="display: none;">{ts}All emails have been saved to CiviCRM and assigned the "Saved in CiviCRM" category{/ts}</p>
           </form>
       </div>
 
@@ -93,7 +94,7 @@
   <div class="ms-Dialog">
     <div class="ms-Dialog-title">CiviCRM</div>
     <div class="ms-Dialog-content" id="civicrm-notice-div">
-      <p class="ms-Dialog-subText" id="civicrm-notice-text">An error occurred communicating with CiviCRM. This action could not be completed</p>
+      <p class="ms-Dialog-subText" id="civicrm-notice-text">{ts}An error occurred communicating with CiviCRM. This action could not be completed{/ts}</p>
     </div>
     <div class="ms-Dialog-actions">
       <button class="ms-Button ms-Dialog-action ms-Button--primary">
@@ -131,3 +132,4 @@
 </body>
 
 </html>
+{/crmScope}

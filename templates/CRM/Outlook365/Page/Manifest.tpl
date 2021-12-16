@@ -1,3 +1,4 @@
+{crmScope extensionKey='outlook365'}
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
   <Id>{$guid}</Id>
@@ -5,7 +6,7 @@
   <ProviderName>{$default_contact_name|escape}</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="{$default_contact|escape}"/>
-  <Description DefaultValue="Integrate outlook 365 with CiviCRM."/>
+  <Description DefaultValue="{ts}Integrate outlook 365 with CiviCRM.{/ts}"/>
   <IconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
   <HighResolutionIconUrl DefaultValue="{$baseurl}assets/CiviCRM-icon-2019-F-small.png"/>
   <SupportUrl DefaultValue="https://www.civicrm.org"/>
@@ -100,12 +101,13 @@
         <bt:Url id="ReadTaskpane.Url" DefaultValue="{crmURL p='civicrm/outlook365/readtaskpane.html' a=1 fe=1}"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GroupLabel" DefaultValue="CiviCRM Contacts"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="CiviCRM Contacts"/>
+        <bt:String id="GroupLabel" DefaultValue="{ts}CiviCRM Contacts{/ts}"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="{ts}CiviCRM Contacts{/ts}"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Search civicrm contacts within Outlook."/>
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="{ts}Search civicrm contacts within Outlook.{/ts}"/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
 </OfficeApp>
+{/crmScope}
