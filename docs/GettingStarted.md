@@ -12,7 +12,7 @@ Go to the CiviCRM Extensions page and enable the CiviCRM extension, **Outlook 36
 
 The CiviCRM REST URL is (typically), https://your.domain.name/civicrm/ajax/rest
 
-For more information see (APIv3 REST, End-Point URL](https://docs.civicrm.org/dev/en/latest/api/v3/rest/#end-point-url)
+For more information see [APIv3 REST, End-Point URL](https://docs.civicrm.org/dev/en/latest/api/v3/rest/#end-point-url)
 
 ### CiviCRM Site Key
 
