@@ -10,11 +10,9 @@ Go to the CiviCRM Extensions page and enable the CiviCRM extension, **Outlook 36
 
 ### CiviCRM REST URL
 
-For **WordPress** sites with CiviCRM, the CiviCRM REST URL is https://your.domain.name/wp-json/civicrm/v3/rest
+The CiviCRM REST URL is (typically), https://your.domain.name/civicrm/ajax/rest
 
-For **Drupal** sites with CiviCRM, the CiviCRM REST URL is (typically), https://your.domain.name/sites/all/modules/civicrm/extern/rest.php
-
-You can also find out the REST URL in the CiviCRM Menu under *Support, Developers, API Explorer (v3)*. Select an Entity to query and then check the *Rest*  URL provided.
+For more information see (APIv3 REST, End-Point URL](https://docs.civicrm.org/dev/en/latest/api/v3/rest/#end-point-url)
 
 ### CiviCRM Site Key
 
@@ -30,9 +28,9 @@ Provide the CiviCRM REST URL, CiviCRM Site Key and CiviCRM API Key to each user,
 
 ## CiviCRM Permissions 
 
-For **WordPress**, go to CiviCRM Users and Permissions, Access Control and enable the **Access Outlook 365 pages** permission to **Anonymous User**.
+For **WordPress**, enable the **Access Outlook 365 pages** permission to **Anonymous User**.
 
-For **Drupal**, go to People, Permissions and enable the **Access Outlook 365 pages** permission to **Anonymous User**.
+For **Drupal**, enable the **Access Outlook 365 pages** permission to both **Anonymous User** and **Authenticated User** roles.
 
 ## Outlook 365 Manifest file (manifest.xml)
 
@@ -90,6 +88,3 @@ See the *Obtain the CiviCRM REST URL, Site Key and API Key* section above for mo
 6. Click **Save**
 
 If the details have been entered correctly, then the Add-in should now be ready to use.
-
-
-
