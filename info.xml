@@ -17,18 +17,24 @@
   <version>2.2.4</version>
   <develStage>stable</develStage>
   <compatibility>
-    <ver>5.13</ver>
-    <ver>5.20</ver>
+    <ver>5.38</ver>
   </compatibility>
   <comments>Funded by MAKOA, Agileware. Major refactor and new features added by Agileware.</comments>
   <civix>
     <namespace>CRM/Outlook365</namespace>
+    <format>23.02.1</format>
   </civix>
   <requires>
     <ext>dataprocessor</ext>
     <ext>com.cividesk.apikey</ext>
   </requires>
   <classloader>
-    <psr4 prefix="Civi\" path="Civi" />
+    <psr4 prefix="Civi\" path="Civi"/>
+    <psr0 prefix="CRM_" path="."/>
   </classloader>
+  <mixins>
+    <mixin>menu-xml@1.0.0</mixin>
+    <mixin>smarty-v2@1.0.1</mixin>
+  </mixins>
+  <upgrader>CRM_Outlook365_Upgrader</upgrader>
 </extension>
