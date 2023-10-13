@@ -4,7 +4,7 @@ use CRM_Outlook365_ExtensionUtil as E;
 /**
  * Collection of upgrade steps.
  */
-class CRM_Outlook365_Upgrader extends CRM_Outlook365_Upgrader_Base {
+class CRM_Outlook365_Upgrader extends CRM_Extension_Upgrader_Base {
 
   /**
    * Add the data processor from this extension
