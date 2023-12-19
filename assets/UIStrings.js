@@ -168,6 +168,53 @@ var UIStrings = (function () {
       "SavedText": "Tots els contactes seleccionats s'han desat a CiviCRM",
     }
   };
+  // JSON for Canada Francais
+  UIStrings.fr_CA =
+  {
+    "Search": "Recherche",
+    "Loading": "Récupérer des contacts...",
+    "To": "To",
+    "Cc": "Cc",
+    "Bcc": "Bcc",
+    "Settings": "Paramètres",
+    "NotConfigured": "Cet ajout nécessite une configuration supplémentaire. Veuillez choisir l'option <strong>Paramètres</strong> button at the bottom of this win$
+    "ContactScreen": {
+      "Placeholder": "Recherche",
+      "TitleURL": "Voir le contact dans CiviCRM",
+    },
+    "GroupScreen": {
+      "Placeholder": "Groupe de recherche",
+      "TitleURL": "Afficher les paramètres du groupe dans CiviCRM",
+      "SearchContact": "Rechercher un contact dans le groupe",
+      "SelectAll": "Tout sélectionner",
+      "UnselectAll": "Tout déselectionner",
+    },
+    "SettingsScreen": {
+      "Title": "Paramètres",
+      "NotConfigured": "Veuillez entrer l'URL REST de CiviCRM et vos clés 'Site key' et 'API key'.<br>Au besoin, demandez à votre administrateur CiviCRM.",
+      "URL": "CiviCRM URL REST",
+      "URL_Placeholder": "ex: http://votre-site/sites/all/modules/civicrm/extern/rest.php",
+      "SiteKey": "'Site Key' de CiviCRM",
+      "ApiKey": "'API Key' de CiviCRM",
+      "ContactType": "Type de contact",
+      "Done": "Enregistrer"
+    },
+    "SaveContactScreen": {
+      "Title": "Sauvegarder le contact",
+      "ContactName": "Nom du contact",
+      "ContactEmail": "Courriel du contact",
+      "ContactType": "Type de contact",
+      "Done": "Enregistrer"
+    },
+    "SaveContactInGroupScreen": {
+      "Title": "Enregistrer les contacts dans un groupe",
+      "Done": "Enregistrer les contacts dans un groupe",
+      "Save": "Sauvegarder les contacts",
+      "SaveContact": "Enregistrer un contact dans CiviCRM",
+      "SavingText": "Les contacts sont en train d'être enregistrés dans CiviCRM, veuillez patienter...",
+      "SavedText": "Tous les contacts sélectionnés ont été enregistrés dans CiviCRM",
+    }
+  };
 
   UIStrings.getLocaleStrings = function (locale) {
     var text;
