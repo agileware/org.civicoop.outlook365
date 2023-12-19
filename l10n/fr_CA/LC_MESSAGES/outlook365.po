@@ -1,0 +1,96 @@
+#: ./CRM/Outlook365/Page/Manifest.php ./CRM/Outlook365/Page/ReadTaskpane.php ./CRM/Outlook365/Page/Taskpane.php
+msgid "Manifest"
+msgstr "Manifeste"
+
+#: ./CRM/Outlook365/Upgrader.php
+msgid "Prerequisite check failed."
+msgstr "Échec de la vérification des prérequis"
+
+#: ./CRM/Outlook365/Upgrader.php
+msgid "Outlook 365 was installed successfully, but you must also install and enable the <a href=\"%1\">dataprocessor Extension</a> version %2 or newer."
+msgstr "Outlook 365 a été installé avec succès, mais vous devez également installer et activer l'extension <a href=\"%1\">dataprocessor Extension</a> version %2 ou plus récente."
+
+#: ./CRM/Outlook365/Upgrader.php
+msgid "Clé d'erreur inconnue : %1"
+msgstr ""
+
+#: ./outlook365.php
+msgid "Access Outlook 365 pages"
+msgstr "Accéder aux pages Outlook 365"
+
+#: ./outlook365.php
+msgid "Give this permission to anonymous users."
+msgstr "Donner cette autorisation aux utilisateurs anonymes."
+
+#: ./outlook365.php
+msgid "Download Outlook 365 Manifest.xml"
+msgstr "Télécharger Outlook 365 Manifest.xml"
+
+#: ./templates/CRM/Outlook365/Page/Manifest.tpl
+msgid "Integrate outlook 365 with CiviCRM."
+msgstr "Intégrer outlook 365 avec CiviCRM."
+
+#: ./templates/CRM/Outlook365/Page/Manifest.tpl
+msgid "CiviCRM Contacts"
+msgstr "Contacts CiviCRM"
+
+#: ./templates/CRM/Outlook365/Page/Manifest.tpl
+msgid "Search CiviCRM contacts within Outlook."
+msgstr "Rechercher des contacts CiviCRM dans Outlook."
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl ./templates/CRM/Outlook365/Page/Taskpane.tpl
+msgid "Contacts"
+msgstr "Contacts"
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl ./templates/CRM/Outlook365/Page/Taskpane.tpl
+msgid "Settings"
+msgstr "Paramètres"
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "Select All"
+msgstr "Sélectionner tout"
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "Unselect All"
+msgstr "Désélectionner tout"
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "Loading..."
+msgstr "Chargement..."
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "Save Email"
+msgstr "Sauvegarder le courriel"
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "Click the following button to save this email in CiviCRM as an Activity"
+msgstr "Cliquez sur le bouton suivant pour enregistrer ce courriel dans CiviCRM en tant qu'activité"
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "Select one or more email folders to save all the emails to CiviCRM as an Activity."
+msgstr "Sélectionnez un ou plusieurs dossiers de courriel pour enregistrer tous les courriels dans CiviCRM en tant qu'activité."
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "Save Folder in CiviCRM"
+msgstr "Sauvegarder le dossier dans CiviCRM"
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "Emails are being saved to CiviCRM, please wait..."
+msgstr "Les courriels sont en train d'être enregistrés dans CiviCRM, veuillez patienter..."
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "All emails have been saved to CiviCRM and assigned the \"Saved in CiviCRM\" category"
+msgstr "Tous les courriels ont été enregistrés dans CiviCRM et classés dans la catégorie \"Enregistré dans CiviCRM\"."
+
+#: ./templates/CRM/Outlook365/Page/ReadTaskpane.tpl
+msgid "An error occurred communicating with CiviCRM. This action could not be completed"
+msgstr "Une erreur s'est produite lors de la communication avec CiviCRM. Cette action n'a pas pu être réalisée"
+
+#: ./templates/CRM/Outlook365/Page/Taskpane.tpl
+msgid "Groups"
+msgstr "Groupes"
+
+#: ./templates/CRM/Outlook365/Page/Taskpane.tpl
+msgid "Search"
+msgstr "Recherche"
+
