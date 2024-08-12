@@ -34,7 +34,7 @@
   </classloader>
   <mixins>
     <mixin>menu-xml@1.0.0</mixin>
-    <mixin>smarty-v2@1.0.1</mixin>
+    <mixin>smarty-v2@1.0.3</mixin>
   </mixins>
   <upgrader>CRM_Outlook365_Upgrader</upgrader>
 </extension>
