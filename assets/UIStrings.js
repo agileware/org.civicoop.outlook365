@@ -168,16 +168,16 @@ var UIStrings = (function () {
       "SavedText": "Tots els contactes seleccionats s'han desat a CiviCRM",
     }
   };
-  // JSON for Canada Francais
+  // JSON for French (Canada)
   UIStrings.fr_CA =
   {
     "Search": "Recherche",
     "Loading": "Récupérer des contacts...",
-    "To": "To",
+    "To": "À",
     "Cc": "Cc",
-    "Bcc": "Bcc",
+    "Bcc": "Cci",
     "Settings": "Paramètres",
-    "NotConfigured": "Cet ajout nécessite une configuration supplémentaire. Veuillez choisir l'option <strong>Paramètres</strong> button at the bottom of this win$
+    "NotConfigured": "Cet ajout nécessite une configuration supplémentaire. Veuillez cliquer le bouton <strong>Paramètres</strong> au bas de cette fenêtre.",
     "ContactScreen": {
       "Placeholder": "Recherche",
       "TitleURL": "Voir le contact dans CiviCRM",
