@@ -248,7 +248,7 @@
         console.log(data);
         for (var i in data.values) {
           var group = data.values[i];
-          var idname = group.name.replace(" ", "-").toLowerCase();
+          var idname = 'group_' + group.id.toString();
           var name = group.title;
           var id = group.id;
           var groupURL = CRMGroupURL + '&id=' + id;
@@ -285,11 +285,11 @@
 
     async function expandGroups(event) {
       if ($(this).parent().hasClass("expanded")) {
-        let name = $(this).parent('.CiviCRM-Group-Email').data('civicrm-name').replace(" ", "-").toLowerCase();
+        let id = $(this).parent('.CiviCRM-Group-Email').data('civicrm-id');
         $(this).parent().removeClass('expanded')
         $(this).parent().children(".allData").remove()
         $(this).parent().children(".CiviCRM-Group-Email").remove()
-        $(this).parent().children("#group_search_" + name).remove()
+        $(this).parent().children("#group_search_" + id).remove()
         $(this).parent().children("ul").remove()
         $(this).attr('class', 'ms-Icon ms-Icon--ChevronRight');
         return;
@@ -328,10 +328,10 @@
       $(event.target).parent().append(buttons);
       $(event.target).parent().append('<div class="allData"><button class="ms-Button ms-Button--small selectAll"><span class="ms-Button-label">' + UIText.GroupScreen.SelectAll + '</span></button>' +
         '<button class="ms-Button ms-Button--small"><span class="ms-Button-label unselectAll">' + UIText.GroupScreen.UnselectAll + '</span></button></div>')
-      $(event.target).parent().append(getSearchForm(name))
-      $("#group_search_" + name + " .ms-SearchBox-text").text(UIText.GroupScreen.SearchContact);
+      $(event.target).parent().append(getSearchForm(id))
+      $("#group_search_" + id + " .ms-SearchBox-text").text(UIText.GroupScreen.SearchContact);
 
-      $(event.target).parent().append('<ul class="ms-List ' + name + '-list-email">' + html + '</ul>')
+      $(event.target).parent().append('<ul class="ms-List ' + id + '-list-email">' + html + '</ul>')
       var SearchBoxElements = document.querySelectorAll(".ms-SearchBox");
       for (var i = 0; i < SearchBoxElements.length; i++) {
         new fabric['SearchBox'](SearchBoxElements[i]);
@@ -344,7 +344,7 @@
       $("#groups .ms-Button.to").click(function (event) {
         let toSend = []
         var recipients = item.to
-        $('.' + name + '-list-email').children().each(function (index) {
+        $('.' + id + '-list-email').children().each(function (index) {
           if ($(this).hasClass('is-selected')) {
             let contact = $(this)
             toSend.push([contact.data('civicrm-name'), contact.data('civicrm-email')])
@@ -359,7 +359,7 @@
       $("#groups .ms-Button.cc").click(function (event) {
         let toSend = []
         var recipients = item.cc
-        $('.' + name + '-list-email').children().each(function (index) {
+        $('.' + id + '-list-email').children().each(function (index) {
           if ($(this).hasClass('is-selected')) {
             let contact = $(this)
             toSend.push([contact.data('civicrm-name'), contact.data('civicrm-email')])
@@ -374,7 +374,7 @@
       $("#groups .ms-Button.bcc").click(function (event) {
         let toSend = []
         var recipients = item.bcc
-        $('.' + name + '-list-email').children().each(function (index) {
+        $('.' + id + '-list-email').children().each(function (index) {
           if ($(this).hasClass('is-selected')) {
             let contact = $(this)
             toSend.push([contact.data('civicrm-name'), contact.data('civicrm-email')])
@@ -386,7 +386,7 @@
         }
       });
 
-      $("#group_search_" + name + " #groupSearchField").on("keypress", async function (e) {
+      $("#group_search_" + id + " #groupSearchField").on("keypress", async function (e) {
         if (e.keyCode == 13) {
           let newUrl = config.url + '?';
           let groupSearchVal = $(this).val();
@@ -402,7 +402,7 @@
             }
           }
           let newHtml = await getGroupContacts(newUrl)
-          $("." + name + '-list-email').html(newHtml)
+          $("." + id + '-list-email').html(newHtml)
           console.log(newHtml)
           return false; // prevent the button click from happening
         }
