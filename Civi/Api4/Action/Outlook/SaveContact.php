@@ -2,6 +2,8 @@
 
 namespace Civi\Api4\Action\Outlook;
 
+use Civi\Api4\Contact;
+use Civi\Api4\Email;
 use Civi\Api4\Generic\AbstractAction;
 use Civi\Api4\Generic\Result;
 
@@ -32,30 +34,35 @@ class SaveContact extends AbstractAction {
 		$result[] = $this->findOrRecordContact();
 	}
 
-	protected function findOrRecordContact() {
-		$result = \Civi\Api4\Email::get()
-		                        ->setSelect([
-		                        	'contact_id',
-			                        'contact.display_name',
-			                        'email',
-		                        ])
-		                        ->addWhere('email', '=', $this->email)
-		                        ->setCheckPermissions(FALSE)
-		                        ->execute();
-		if ($result->count() == 0 ){
-			return $this->recordEmail();
-		}
-		return $result->first();
-	}
+    protected function findOrRecordContact()
+    {
+        $result = Email::get()
+            ->setSelect([
+                'contact_id',
+                'contact.display_name',
+                'email',
+            ])
+            ->addWhere('email', '=', trim($this->email))
+            ->addWhere('contact_id.is_deleted', '=', FALSE)
+            ->addWhere('contact_id.contact_type', '=', 'Individual')
+            ->setCheckPermissions(FALSE)
+            ->execute();
+        if ($result->count() == 0) {
+            return $this->recordEmail();
+        }
+        return $result->first();
+    }
 
-	protected function recordEmail() {
-		$result = \Civi\Api4\Contact::create()
-			->addValue( 'display_name', $this->full_name)
-			->addChain( 'email', \Civi\Api4\Email::create()
-				->addValue( 'contact_id', '$id')
-				->addValue( 'email', $this->email) )
-			->execute();
+    protected function recordEmail()
+    {
+        $result = Contact::create()
+            ->addValue('display_name', $this->full_name)
+            ->addValue('contact_type', 'Individual')
+            ->addChain('email', Email::create()
+                ->addValue('contact_id', '$id')
+                ->addValue('email', strtolower(trim($this->email))))
+            ->execute();
 
-		return $result->first();
-	}
+        return $result->first();
+    }
 }
