@@ -2,9 +2,19 @@
 
 This page explains how to set up CiviCRM and Outlook 365 integration.
 
-## Enable CiviCRM Extension, Outlook 365 Integration
+## CiviCRM Installation
 
-Go to the CiviCRM Extensions page and enable the CiviCRM extension, **Outlook 365 Integration**.
+First, download and enable the extension dependencies:
+
+* Data Processor, https://civicrm.org/extensions/data-processor
+* API Key, https://civicrm.org/extensions/api-key
+
+Then enable the **Outlook 365 Integration** extension
+
+After enabling the dependencies and this extension, install the two required Data Processors which are also shown here, https://lab.civicrm.org/extensions/outlook365/-/tree/master/data-processors?ref_type=heads
+
+* Outlook 365 Contacts
+* Outlook 365 Groups
 
 ## Obtain the CiviCRM REST URL, CiviCRM Site Key and CiviCRM API Key
 
