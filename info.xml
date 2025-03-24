@@ -22,7 +22,7 @@
   <comments>Funded by MAKOA. Developed and supported by CiviCoop and Agileware.</comments>
   <civix>
     <namespace>CRM/Outlook365</namespace>
-    <format>23.02.1</format>
+    <format>25.01.1</format>
   </civix>
   <requires>
     <ext>dataprocessor</ext>
@@ -36,5 +36,5 @@
     <mixin>menu-xml@1.0.0</mixin>
     <mixin>smarty-v2@1.0.3</mixin>
   </mixins>
-  <upgrader>CRM_Outlook365_Upgrader</upgrader>
+  <upgrader>CiviMix\Schema\Outlook365\AutomaticUpgrader</upgrader>
 </extension>
